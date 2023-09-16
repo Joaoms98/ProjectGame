@@ -1,4 +1,6 @@
 import pygame, sys
+import utils.language as lang
+import utils.config as config
 from utils.button import Button
 from scripts.options import Options
 
@@ -13,6 +15,7 @@ class Menu:
     def menu(self):
         # objects instances 
         options = Options(self.screen, self.screen_rect, self.fps, self.resolution)
+        dict_lang = lang.Language.set_lang(self, config.language)
 
         # load background images
         menu_background = pygame.transform.scale(
@@ -31,9 +34,9 @@ class Menu:
         button = pygame.Rect(100, 100, 50, 50)
         image = pygame.image.load("assets/Play Rect.png")
 
-        play_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery), "Play", font, menu_text_color, hover_text_color)
-        options_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 120), "Opções", font, menu_text_color, hover_text_color)
-        quit_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 240), "Sair", font, menu_text_color, hover_text_color)
+        play_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery), dict_lang['menu_text_play'], font, menu_text_color, hover_text_color)
+        options_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 120), dict_lang['menu_text_options'], font, menu_text_color, hover_text_color)
+        quit_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 240), dict_lang['menu_text_exit'], font, menu_text_color, hover_text_color)
         
         aply_changes_config = False
         

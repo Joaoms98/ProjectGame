@@ -1,6 +1,7 @@
 import pygame, sys
-from utils.button import Button
 import utils.config as config
+import utils.language as lang
+from utils.button import Button
 
 class Options:
     def __init__(self, screen, screen_rect, fps, resolution):
@@ -17,6 +18,9 @@ class Options:
             self.resolution
         )
 
+        # objects instances 
+        dict_lang = lang.Language.set_lang(self, config.language)
+
         # setando as fontes
         font = pygame.font.Font("assets/fonts/font.ttf", 50) 
 
@@ -26,23 +30,28 @@ class Options:
         button = pygame.Rect(100, 100, 50, 50)
 
         resolution_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 200), f"{config.resolution}", font, menu_text_color, hover_text_color)
-        raise_volume_button = Button(None, (self.screen_rect.centerx + 200, self.screen_rect.top + 470), f">", font, menu_text_color, hover_text_color)
-        lowered_volume_button = Button(None, (self.screen_rect.centerx - 200, self.screen_rect.top + 470), f"<", font, menu_text_color, hover_text_color)
-        apply_button = Button(None, (self.screen_rect.centerx, self.screen_rect.bottom - 100), "Aplicar", font, menu_text_color, hover_text_color)
+        raise_volume_button = Button(None, (self.screen_rect.centerx + 200, self.screen_rect.top + 370), f">", font, menu_text_color, hover_text_color)
+        lowered_volume_button = Button(None, (self.screen_rect.centerx - 200, self.screen_rect.top + 370), f"<", font, menu_text_color, hover_text_color)
+        language_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 550), f"{config.language}", font, menu_text_color, hover_text_color)
+        apply_button = Button(None, (self.screen_rect.centerx, self.screen_rect.bottom - 100), dict_lang['menu_text_apply'], font, menu_text_color, hover_text_color)
 
         # -> menu text variables <- #
 
         # variáveis do texto 'resolução'
-        menu_text_resolution = font.render("Resolução:", True, "#11ebeb")
+        menu_text_resolution = font.render(dict_lang['menu_text_resolution'], True, "#11ebeb")
         menu_text_resolution_rect = menu_text_resolution.get_rect(center=(self.screen_rect.centerx, self.screen_rect.top + 100))
 
         # variáveis do texto 'volume'
-        menu_text_volume = font.render("Volume:", True, "#11ebeb")
-        menu_text_volume_rect =  menu_text_volume.get_rect(center=(self.screen_rect.centerx, self.screen_rect.top + 400))
+        menu_text_volume = font.render(dict_lang['menu_text_volume'], True, "#11ebeb")
+        menu_text_volume_rect =  menu_text_volume.get_rect(center=(self.screen_rect.centerx, self.screen_rect.top + 300))
 
         # variáveis do 'volume' que é alterado a cada click
         volume = font.render(f'{config.volume}', True, "#1c90ad")
-        volume_rect =  menu_text_volume.get_rect(center=(self.screen_rect.centerx + 130, self.screen_rect.top + 470))
+        volume_rect =  menu_text_volume.get_rect(center=(self.screen_rect.centerx + 100, self.screen_rect.top + 370))
+
+        # variáveis de texto da linguagem
+        text_language = font.render(dict_lang['menu_text_language'], True, "#11ebeb")
+        text_language_rect =  text_language.get_rect(center=(self.screen_rect.centerx, self.screen_rect.top + 470))
 
         back_to_menu = False
 
@@ -56,7 +65,7 @@ class Options:
             self.screen.blit(menu_background, (0, 0))
 
             # printar os botões
-            for button in [resolution_button, raise_volume_button, lowered_volume_button, apply_button]:
+            for button in [resolution_button, raise_volume_button, lowered_volume_button, language_button, apply_button]:
                 button.changeColor(Menu_mouse_position)
                 button.update(self.screen)
 
@@ -64,6 +73,7 @@ class Options:
             self.screen.blit(menu_text_resolution, menu_text_resolution_rect)
             self.screen.blit(menu_text_volume, menu_text_volume_rect)
             self.screen.blit(volume, volume_rect)
+            self.screen.blit(text_language, text_language_rect)
 
             # verificar eventos
             for event in pygame.event.get():
@@ -97,11 +107,18 @@ class Options:
                         if config.volume < 1:
                             config.volume = 0
 
+                    if language_button.checkForInput(Menu_mouse_position):
+                        if config.language == 'eng':
+                            config.language = 'pt'
+                        elif config.language == 'pt':
+                            config.language = 'eng'
+
                     if apply_button.checkForInput(Menu_mouse_position):
                         back_to_menu = True
 
                 volume = font.render(f'{config.volume}', True, "#1c90ad")
                 resolution_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 200), f"{config.resolution}", font, menu_text_color, hover_text_color)
+                language_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 550), f"{config.language}", font, menu_text_color, hover_text_color)
 
             if back_to_menu == True:
                 break
