@@ -9,4 +9,5 @@ Abra o terminal cmd e vá a té a pasta do projeto e execute o arquivo .bat "cri
 
 
 # Executar o projeto
+Baixe a biblioteca pygame com o comando "pip install pygame"
 Dentro do terminal venv do python digitar "python -u main.py"
