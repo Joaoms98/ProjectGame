@@ -1,5 +1,5 @@
 import pygame, sys
-from utils.campaingbutton import CampaingButton
+from utils.fogbutton import FogButton
 import utils.language as lang
 import utils.config as config
 
@@ -34,14 +34,14 @@ class Campaing:
         image = pygame.image.load("assets/buttons/zone_buttons/Zone_Layout.png")
 
         #Zones CampaingButton
-        zone1_CampaingButton = CampaingButton(image, (150, 100), "Explorar", font, menu_text_color, hover_text_color)
-        zone2_CampaingButton = CampaingButton(image, (500, 100), "Explorar", font, menu_text_color, hover_text_color)
-        zone3_CampaingButton = CampaingButton(image, (850, 100), "Explorar", font, menu_text_color, hover_text_color)
-        zone4_CampaingButton = CampaingButton(image, (150, 350), "Explorar", font, menu_text_color, hover_text_color)
-        zone6_CampaingButton = CampaingButton(image, (850, 350), "Explorar", font, menu_text_color, hover_text_color)
-        zone7_CampaingButton = CampaingButton(image, (150, 600), "Explorar", font, menu_text_color, hover_text_color)
-        zone8_CampaingButton = CampaingButton(image, (500, 600), "Explorar", font, menu_text_color, hover_text_color)
-        zone9_CampaingButton = CampaingButton(image, (850, 600), "Explorar", font, menu_text_color, hover_text_color)
+        zone1_CampaingButton = FogButton(image, (150, 100), "Explorar", font, menu_text_color, hover_text_color)
+        zone2_CampaingButton = FogButton(image, (500, 100), "Explorar", font, menu_text_color, hover_text_color)
+        zone3_CampaingButton = FogButton(image, (850, 100), "Explorar", font, menu_text_color, hover_text_color)
+        zone4_CampaingButton = FogButton(image, (150, 350), "Explorar", font, menu_text_color, hover_text_color)
+        zone6_CampaingButton = FogButton(image, (850, 350), "Explorar", font, menu_text_color, hover_text_color)
+        zone7_CampaingButton = FogButton(image, (150, 600), "Explorar", font, menu_text_color, hover_text_color)
+        zone8_CampaingButton = FogButton(image, (500, 600), "Explorar", font, menu_text_color, hover_text_color)
+        zone9_CampaingButton = FogButton(image, (850, 600), "Explorar", font, menu_text_color, hover_text_color)
         
         while True:
             # set frames
