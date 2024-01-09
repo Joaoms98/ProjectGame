@@ -28,7 +28,7 @@ while True:
     # arena.arena()
 
     campaing = Campaing(screen, screen_rect, config.fps, config.resolution)
-    campaing.campaing()
+    campaing.run()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()
