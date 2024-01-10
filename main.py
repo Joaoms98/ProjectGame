@@ -1,6 +1,6 @@
 import pygame
 from scripts.Map1 import Map1
-from scripts.arena import Arena
+from scripts.Map2 import Map2
 from scripts.menu import Menu
 from objects.character import Character
 import utils.config as config
@@ -20,18 +20,11 @@ while True:
     allie2 = Character("João", player_picture, 100, 5)
     allie3 = Character("Jesus", player_picture, 100, 4)
 
-    # enemie1 = Character("Capiroto", player_picture, 100)
-    # enemie2 = Character("demonio", player_picture, 100)
-    # enemie3 = Character("ditocujo", player_picture, 100)
-
-    # arena = Arena(screen, screen_rect, config.fps, config.resolution, (allie1, allie2, allie3), (enemie1, enemie2, enemie3))
-    # arena.arena()
-
     map1 = Map1(screen, screen_rect, config.fps, config.resolution, [allie1, allie2, allie3])
     map1.run()
 
-    # campaing = Campaing(screen, screen_rect, config.fps, config.resolution)
-    # Campaing.run()
+    map2 = Map2(screen, screen_rect, config.fps, config.resolution, [allie1, allie2, allie3])
+    map1.run()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()

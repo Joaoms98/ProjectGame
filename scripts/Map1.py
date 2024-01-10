@@ -1,5 +1,5 @@
 import pygame, sys
-from scripts.PopUpEvent import PopUpEvent
+from scripts.EventHandler import EventHandler
 from services.EventService import EventService
 from utils.fogbutton import FogButton
 import utils.language as lang
@@ -17,7 +17,7 @@ class Map1:
     def run(self):
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
-        pop_up_event = PopUpEvent(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
+        event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 
         # load background images
         campaing_background = pygame.transform.scale(
@@ -32,7 +32,11 @@ class Map1:
             (100, 100)
         )
 
-        zone1_FogButton = FogButton(fogbutton_image, (300, 500), "Explorar", font, (0,255,0), (255,0,0))
+        zone1_FogButton = FogButton(fogbutton_image, (300, 500), "?", font, (0,255,0), (255,0,0))
+        zone1_completed = False
+
+        zone2_FogButton = FogButton(fogbutton_image, (100, 500), "?", font, (0,255,0), (255,0,0))
+        zone2_completed = False
 
         while True:
             # set frames
@@ -44,9 +48,13 @@ class Map1:
             self.screen.blit(campaing_background, (0, 0))
 
             # draw FogButton
-            for Fogbutton in [zone1_FogButton]:
-                Fogbutton.changeColor(campaing_mouse_position)
-                Fogbutton.update(self.screen)
+            if zone1_completed == False:
+                zone1_FogButton.changeColor(campaing_mouse_position)
+                zone1_FogButton.update(self.screen)
+
+            if zone2_completed == False:
+                zone2_FogButton.changeColor(campaing_mouse_position)
+                zone2_FogButton.update(self.screen)
 
              # events
             for event in pygame.event.get():
@@ -54,8 +62,14 @@ class Map1:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if zone1_FogButton.checkForInput(campaing_mouse_position):
-                        pop_up_event.run("A1_1")
+                    if zone1_completed == False:
+                        if zone1_FogButton.checkForInput(campaing_mouse_position):
+                            event_response = event_handler.run("A1_1")
+                            zone1_completed = event_response.completed
+                    if zone2_completed == False:
+                        if zone2_FogButton.checkForInput(campaing_mouse_position):
+                            event_response = event_handler.run("A2_1")
+                            zone2_completed = event_response.completed
 
             # update
             pygame.display.flip()
