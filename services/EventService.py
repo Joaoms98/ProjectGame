@@ -83,12 +83,12 @@ class EventService:
    
         if decision == 2:
             player_picture = 'assets/portraits/portrait_test_1.jpeg'
-            enemie1 = Character("Capiroto", player_picture, 100, 15)
-            enemie2 = Character("demonio", player_picture, 100, 15)
-            enemie3 = Character("ditocujo", player_picture, 100, 15)
+            # enemie1 = Character("Capiroto", player_picture, 100, 15)
+            # enemie2 = Character("demonio", player_picture, 100, 15)
+            # enemie3 = Character("ditocujo", player_picture, 100, 15)
 
-            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemie1, enemie2, enemie3))
-            arena.arena()
+            # arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemie1, enemie2, enemie3))
+            # arena.arena()
 
             return EventResponse(
                     back = False,

@@ -16,15 +16,15 @@ while True:
     pygame.display.set_caption('game')
     
     player_picture = 'assets/portraits/portrait_test_1.jpeg'
-    allie1 = Character("José", player_picture, 100, 5)
-    allie2 = Character("João", player_picture, 100, 5)
-    allie3 = Character("Jesus", player_picture, 100, 4)
+    warrior = Character("Fodase",'assets/portraits/portrait_test_1.jpeg',10,10,1,10,10,10,10,10)
+    archer = Character("Fodase",'assets/portraits/portrait_test_1.jpeg',10,10,0,10,10,10,10,10)
+    wizard = Character("Fodase",'assets/portraits/portrait_test_1.jpeg',10,10,0,10,10,10,10,10)
 
-    map1 = Map1(screen, screen_rect, config.fps, config.resolution, [allie1, allie2, allie3])
-    map1.run()
+    #map1 = Map1(screen, screen_rect, config.fps, config.resolution, [allie1, allie2, allie3])
+    #map1.run()
 
-    map2 = Map2(screen, screen_rect, config.fps, config.resolution, [allie1, allie2, allie3])
-    map1.run()
+    map2 = Map2(screen, screen_rect, config.fps, config.resolution, [warrior,archer,wizard])
+    map2.run()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()
