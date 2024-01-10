@@ -17,21 +17,21 @@ class EventHandler:
     def run(self, eventId):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
-        text_box = TextBox(self.screen, 10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(500,500))
+        text_box = TextBox(self.screen, 10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600))
         event_service = EventService(self.screen, self.screen_rect, self.fps, self.resolution)
         event_response = event_service.TakeEvent(eventId)
 
         # background variables
-        event_background = pygame.transform.scale(pygame.image.load('assets/buttons/decision_button.png').convert(),
-            (700, 500)
-        )
-
+        event_background = pygame.image.load('assets/popups/fogbuttonpopup.png')
+        event_background_format = pygame.transform.scale(event_background,(900,350))
         # buttons variables
         font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
         decision_button_image =  pygame.image.load('assets/buttons/decision_button.png')
+        decision_button_image_format = pygame.transform.scale(decision_button_image,(150,50))
+        
         base_color = (0,255,0)
         hover_color = (255,0,0)
-        quit_button = Button(None, (515,500), "Sair", font, base_color, hover_color)
+        quit_button = Button(decision_button_image_format, (500,310), "Sair", font, base_color, hover_color)
 
         while True:
             # set frames
@@ -41,14 +41,14 @@ class EventHandler:
             mouse_position = pygame.mouse.get_pos()
 
             #updated decision button
-            decision_button_1 = Button(None, (450,500), event_response.decision1, font, base_color, hover_color)
-            decision_button_2 = Button(None, (580,500), event_response.decision2 , font, base_color, hover_color)
+            decision_button_1 = Button(decision_button_image_format, (400,310), event_response.decision1, font, base_color, hover_color)
+            decision_button_2 = Button(decision_button_image_format, (600,310), event_response.decision2 , font, base_color, hover_color)
 
             # draw background
-            self.screen.blit(event_background, (170, 70))
+            self.screen.blit(event_background_format, (50, 20))
 
             #draw text box
-            text_box.draw(event_response.message, (255,255,255), (280,260))
+            text_box.draw(event_response.message, (255,255,255), (215,90))
 
             #draw quit button
             if event_response.completed == True:

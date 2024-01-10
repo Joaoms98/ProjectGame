@@ -1,6 +1,7 @@
 import pygame, sys
 from scripts.EventHandler import EventHandler
 from utils.fogbutton import FogButton
+from scripts.menu import Menu
 import utils.language as lang
 import utils.config as config
 
@@ -17,6 +18,9 @@ class Map2:
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
         event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
+        menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
+        #menu.menu()
+
 
         # load background images
         background = pygame.transform.scale(
