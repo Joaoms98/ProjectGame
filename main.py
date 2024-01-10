@@ -1,4 +1,5 @@
 import pygame
+from scripts.Map1 import Map1
 from scripts.campaing import Campaing
 from scripts.arena import Arena
 from scripts.menu import Menu
@@ -27,8 +28,11 @@ while True:
     # arena = Arena(screen, screen_rect, config.fps, config.resolution, (allie1, allie2, allie3), (enemie1, enemie2, enemie3))
     # arena.arena()
 
-    campaing = Campaing(screen, screen_rect, config.fps, config.resolution)
-    campaing.run()
+    map1 = Map1(screen, screen_rect, config.fps, config.resolution)
+    map1.run()
+
+    # campaing = Campaing(screen, screen_rect, config.fps, config.resolution)
+    # Campaing.run()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()
