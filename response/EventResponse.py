@@ -1,6 +1,8 @@
 class EventResponse():
-    def __init__(self, id, message, desicion1, decision2):
-        self.id = id
+    def __init__(self, allies = None, message = None, decision1= None, decision2 = None, back = None, completed = None):
+        self.allies = allies
         self.message = message
-        self.desicion1 = desicion1
+        self.decision1 = decision1
         self.decision2 = decision2
+        self.back = back
+        self.completed = completed

@@ -6,18 +6,18 @@ import utils.language as lang
 import utils.config as config
 
 class Map1:
-    def __init__(self, screen, screen_rect, fps, resolution):
+    def __init__(self, screen, screen_rect, fps, resolution, allies):
         self.screen = screen
         self.screen_rect = screen_rect
         self.fps = fps
         self.resolution = resolution
+        self.allies = allies
         self.clock = pygame.time.Clock()
 
     def run(self):
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
-        event_service = EventService(self.screen, self.screen_rect, self.fps, self.resolution)
-        pop_up_event = PopUpEvent(self.screen, self.screen_rect, self.fps, self.resolution)
+        pop_up_event = PopUpEvent(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 
         # load background images
         campaing_background = pygame.transform.scale(
@@ -55,7 +55,7 @@ class Map1:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if zone1_FogButton.checkForInput(campaing_mouse_position):
-                        pop_up_event.run()
+                        pop_up_event.run("A1_1")
 
             # update
             pygame.display.flip()
