@@ -2,6 +2,8 @@ import pygame, sys
 from scripts.EventHandler import EventHandler
 from utils.fogbutton import FogButton
 from scripts.menu import Menu
+from utils.button import Button
+from scripts.TeamView import TeamView
 import utils.language as lang
 import utils.config as config
 
@@ -19,8 +21,7 @@ class Map2:
         dict_lang = lang.Language.set_lang(self, config.language)
         event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
         menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
-        #menu.menu()
-
+        team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 
         # load background images
         background = pygame.transform.scale(
@@ -46,6 +47,12 @@ class Map2:
         zone3_completed = False
 
 
+        #quit button variables
+        team_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 30)
+        team_button_base_color = "#a9b0c7"
+        team_button_hover_color = "#ffffff"
+        team_button = Button(None, (900,560), "Team", team_button_font, team_button_base_color, team_button_hover_color)
+
         while True:
             # set frames
             self.clock.tick(self.fps)
@@ -63,13 +70,19 @@ class Map2:
             if zone2_completed == False:
                 zone2_FogButton.changeColor(mouse_position)
                 zone2_FogButton.update(self.screen)
+            
+            # draw Team buttom
+            team_button.changeColor(mouse_position)
+            team_button.update(self.screen)
 
-             # events
+            # events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    if team_button.checkForInput(mouse_position):
+                        team_view.run()
                     if zone1_completed == False:
                         if zone1_FogButton.checkForInput(mouse_position):
                             event_response = event_handler.run("A1_1")
