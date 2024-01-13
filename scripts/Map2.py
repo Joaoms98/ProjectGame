@@ -46,7 +46,6 @@ class Map2:
         zone3_FogButton = FogButton(zone3_image, (380, 150), "?", font, (0,255,0), (255,0,0))
         zone3_completed = False
 
-
         #quit button variables
         team_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 30)
         team_button_base_color = "#a9b0c7"

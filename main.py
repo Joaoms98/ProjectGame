@@ -1,4 +1,5 @@
 import pygame
+import utils.Config as config
 from data.Seed import Seed
 from objects.character import Character
 from scripts.Arena import Arena
@@ -7,7 +8,6 @@ from scripts.Map2 import Map2
 from scripts.MainMenu import Menu
 from scripts.TeamView import TeamView
 from objects.character import Character
-import utils.config as config
 
 while True:
     pygame.init()
