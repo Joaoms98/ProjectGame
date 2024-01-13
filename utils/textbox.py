@@ -81,7 +81,7 @@ class TextBox:
             y += word_height + line_spacing
 
     def updateText(self, screen, text):
-        """Prints text in rect.
+        """Prints text in rect, with new text.
 
         If the argument 'text', 'color' and 'pos' isn't passed in, 
         raised a ValueError exception
@@ -90,6 +90,8 @@ class TextBox:
         ----------
         screen : any
             pygame display
+        text : str
+            text for draw
 
         Raises
         ------

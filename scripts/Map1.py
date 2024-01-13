@@ -1,9 +1,9 @@
 import pygame, sys
-import utils.language as lang
-import utils.config as config
+import utils.Language as lang
+import utils.Config as config
 from scripts.EventHandler import EventHandler
 from utils.FogButton import FogButton
-from utils.button import Button
+from utils.Button import Button
 from scripts.TeamView import TeamView
 
 class Map1:

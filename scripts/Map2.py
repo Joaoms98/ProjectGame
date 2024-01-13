@@ -2,10 +2,10 @@ import pygame, sys
 from scripts.EventHandler import EventHandler
 from utils.FogButton import FogButton
 from scripts.menu import Menu
-from utils.button import Button
+from utils.Button import Button
 from scripts.TeamView import TeamView
-import utils.language as lang
-import utils.config as config
+import utils.Language as lang
+import utils.Config as config
 
 class Map2:
     def __init__(self, screen, screen_rect, fps, resolution, allies):

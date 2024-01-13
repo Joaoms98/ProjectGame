@@ -1,6 +1,6 @@
 class Language: 
     def set_lang(self, lang):
-        dictionaryeng = {
+        dictionary_eng = {
                         #main_menu
                         'menu_text_play': 'Play',
                         'menu_text_options': 'Options',
@@ -14,7 +14,7 @@ class Language:
                         'campaing_text_level': 'Level'
                         }
 
-        dictionarypt = {
+        dictionary_pt = {
                         #main_menu
                         'menu_text_play': 'Iniciar',
                         'menu_text_options': 'Opções',
@@ -29,7 +29,7 @@ class Language:
                         }
 
         if lang == 'eng':
-            return dictionaryeng
+            return dictionary_eng
         
         if lang == 'pt':
-            return dictionarypt
+            return dictionary_pt

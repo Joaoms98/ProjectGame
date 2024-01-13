@@ -4,7 +4,7 @@ from scripts.Map1 import Map1
 from scripts.Map2 import Map2
 from scripts.menu import Menu
 from scripts.CharacterSelect import CharacterSelect
-import utils.config as config
+import utils.Config as config
 
 while True:
     pygame.init()
