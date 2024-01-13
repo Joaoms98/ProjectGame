@@ -1,6 +1,6 @@
 import pygame, sys
 from scripts.EventHandler import EventHandler
-from utils.fogbutton import FogButton
+from utils.FogButton import FogButton
 from scripts.menu import Menu
 from utils.button import Button
 from scripts.TeamView import TeamView
@@ -71,7 +71,7 @@ class Map2:
                 zone2_FogButton.changeColor(mouse_position)
                 zone2_FogButton.update(self.screen)
             
-            # draw Team buttom
+            # draw Team button
             team_button.changeColor(mouse_position)
             team_button.update(self.screen)
 

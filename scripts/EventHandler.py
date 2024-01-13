@@ -17,12 +17,11 @@ class EventHandler:
     def run(self, eventId):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
-        text_box = TextBox(self.screen, 10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600))
         event_service = EventService(self.screen, self.screen_rect, self.fps, self.resolution)
 
         # background variables
         event_background_image = pygame.image.load('assets/popups/fogbuttonpopup.png')
-        event_background_format = pygame.transform.scale(event_background_image,(900,350))
+        event_background_format = pygame.transform.scale(event_background_image, (900,350))
 
         # decision buttons variables
         decision_button_image =  pygame.image.load('assets/buttons/decision_button.png')
@@ -36,8 +35,11 @@ class EventHandler:
         # quit button variables
         quit_button = Button(decision_button_image_format, (500,310), "Sair", font, base_color, hover_color)
 
-
+        #takeEvent
         event_response = event_service.TakeEvent(eventId)
+
+        #text box variable
+        text_box = TextBox(10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600), event_response.message, (255,255,255), (215,90))
 
         while True:
             # set frames
@@ -50,7 +52,7 @@ class EventHandler:
             self.screen.blit(event_background_format, (50, 20))
 
             #draw text box
-            text_box.draw(event_response.message, (255,255,255), (215,90))
+            text_box.updateText(self.screen, event_response.message)
 
             #draw quit button
             if event_response.completed == True:

@@ -3,8 +3,7 @@ from data.Seed import Seed
 from scripts.Map1 import Map1
 from scripts.Map2 import Map2
 from scripts.menu import Menu
-from scripts.TeamView import TeamView
-from objects.character import Character
+from scripts.CharacterSelect import CharacterSelect
 import utils.config as config
 
 while True:
@@ -19,13 +18,16 @@ while True:
     
     #seeds
     seed = Seed()
-    seed.alliesSeed()
-
-    map1 = Map1(screen, screen_rect, config.fps, config.resolution, [seed.allies[0], seed.allies[1], seed.allies[2]])
-    map1.run()
-
-    # map2 = Map2(screen, screen_rect, config.fps, config.resolution, [warrior,archer,wizard])
-    # map2.run()
+    allies = seed.alliesSeed()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()
+
+    character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, allies)
+    team_selected = character_select.run()
+
+    # map1 = Map1(screen, screen_rect, config.fps, config.resolution, team_selected)
+    # map1.run()
+
+    map2 = Map2(screen, screen_rect, config.fps, config.resolution, team_selected)
+    map2.run()

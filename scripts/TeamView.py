@@ -18,19 +18,10 @@ class TeamView:
         dict_lang = lang.Language.set_lang(self, config.language)
 
         # background variables
-        campaing_background = pygame.transform.scale(
+        background = pygame.transform.scale(
             pygame.image.load('assets/background/black_image.jpg').convert(),
             self.resolution
         )
-
-        #atributes variables
-        Atributtes_text_color = "#c5cddf"
-        atributte_image = pygame.transform.scale(
-                pygame.image.load('assets/portraits/portrait_test_1.jpeg').convert(),
-                (30, 30)
-            )
-
-        Atributtes_text = TextBox(self.screen, 15, pygame.font.SysFont("arial", 15), (1000,700))
 
         #quit button variables
         quit_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
@@ -49,38 +40,14 @@ class TeamView:
             mouse_position = pygame.mouse.get_pos()
 
             # draw background
-            self.screen.blit(campaing_background, (0, 0))
+            self.screen.blit(background, (0, 0))
 
             #draw quit button
             quit_button.changeColor(mouse_position)
             quit_button.update(self.screen)
 
-            # draw equipe
-            allies_count = 0
-            for character in self.allies:
-                x = 125 + (300 * allies_count)
-
-                self.screen.blit(pygame.image.load(character.picture), (x, 50))
-
-                self.screen.blit(atributte_image, (x, 220))
-                self.screen.blit(atributte_image, (x, 260))
-                self.screen.blit(atributte_image, (x, 300))
-                self.screen.blit(atributte_image, (x, 340))
-                self.screen.blit(atributte_image, (x, 380))
-                self.screen.blit(atributte_image, (x, 420))
-                self.screen.blit(atributte_image, (x, 460))
-                self.screen.blit(atributte_image, (x, 500))
-
-                Atributtes_text.draw(f"Hp: {character.hp} ", Atributtes_text_color, (x + 40, 225))
-                Atributtes_text.draw(f"Mp: {character.mp} ", Atributtes_text_color, (x + 40, 265))
-                Atributtes_text.draw(f"Defense: {character.defense} ", Atributtes_text_color, (x + 40, 305))
-                Atributtes_text.draw(f"Dexterity: {character.dexterity} ", Atributtes_text_color, (x + 40, 345))
-                Atributtes_text.draw(f"Strength: {character.strength} ", Atributtes_text_color, (x + 40, 385))
-                Atributtes_text.draw(f"intelligence: {character.intelligence} ", Atributtes_text_color, (x + 40, 425))
-                Atributtes_text.draw(f"Faith: {character.faith} ", Atributtes_text_color, (x + 40, 465))
-                Atributtes_text.draw(f"Charisma: {character.charisma} ", Atributtes_text_color, (x + 40, 505))
-                
-                allies_count = allies_count + 1
+            # draw team
+            self.createAttributeTextBox()
 
              # events
             for event in pygame.event.get():
@@ -98,3 +65,43 @@ class TeamView:
             # update
             pygame.display.flip()
 
+    def createAttributeTextBox(self):
+        attribute_font_size = 15
+        attributes_font = pygame.font.SysFont("arial", 15)
+        attributes_text_color = "#c5cddf"
+        attributes_size_rect = (1000,700)
+        attribute_image = pygame.transform.scale(
+                pygame.image.load('assets/portraits/portrait_test_1.jpeg').convert(),
+                (30, 30)
+            )
+        
+        allies_count = 0
+        for character in self.allies:
+            x = 125 + (300 * allies_count)
+
+            self.screen.blit(pygame.image.load(character.picture), (x, 50))
+
+            self.screen.blit(attribute_image, (x, 220))
+            self.screen.blit(attribute_image, (x, 260))
+            self.screen.blit(attribute_image, (x, 300))
+            self.screen.blit(attribute_image, (x, 340))
+            self.screen.blit(attribute_image, (x, 380))
+            self.screen.blit(attribute_image, (x, 420))
+            self.screen.blit(attribute_image, (x, 460))
+            self.screen.blit(attribute_image, (x, 500))
+            
+            hp_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Hp: {character.hp} ", attributes_text_color, (x + 40, 225))
+            mp_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Mp: {character.mp} ", attributes_text_color, (x + 40, 265))
+            defense_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Defense: {character.defense} ", attributes_text_color, (x + 40, 305))
+            dexterity_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Dexterity: {character.dexterity} ", attributes_text_color, (x + 40, 345))
+            strength_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Strength: {character.strength} ", attributes_text_color, (x + 40, 385))
+            intelligence_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"intelligence: {character.intelligence} ", attributes_text_color, (x + 40, 425))
+            faith_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Faith: {character.faith} ", attributes_text_color, (x + 40, 465))
+            charisma_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Charisma: {character.charisma} ", attributes_text_color, (x + 40, 505))
+
+            allies_count = allies_count + 1
+        
+            attributes_text_box = [hp_text_box, mp_text_box, defense_text_box, dexterity_text_box, strength_text_box, intelligence_text_box, faith_text_box, charisma_text_box]
+
+            for text_box in attributes_text_box:
+                text_box.update(self.screen)
