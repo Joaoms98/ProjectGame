@@ -4,9 +4,10 @@ from objects.character import Character
 from scripts.Arena import Arena
 from scripts.Map1 import Map1
 from scripts.Map2 import Map2
-from scripts.menu import Menu
-from scripts.CharacterSelect import CharacterSelect
-import utils.Config as config
+from scripts.MainMenu import Menu
+from scripts.TeamView import TeamView
+from objects.character import Character
+import utils.config as config
 
 while True:
     pygame.init()

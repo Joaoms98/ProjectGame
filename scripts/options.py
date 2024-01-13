@@ -29,7 +29,6 @@ class Options:
         hover_text_color = "White"
         button = pygame.Rect(100, 100, 50, 50)
 
-        resolution_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 200), f"{config.resolution}", font, menu_text_color, hover_text_color)
         raise_volume_button = Button(None, (self.screen_rect.centerx + 200, self.screen_rect.top + 370), f">", font, menu_text_color, hover_text_color)
         lowered_volume_button = Button(None, (self.screen_rect.centerx - 200, self.screen_rect.top + 370), f"<", font, menu_text_color, hover_text_color)
         language_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 550), f"{config.language}", font, menu_text_color, hover_text_color)
@@ -65,7 +64,7 @@ class Options:
             self.screen.blit(menu_background, (0, 0))
 
             # printar os botões
-            for button in [resolution_button, raise_volume_button, lowered_volume_button, language_button, apply_button]:
+            for button in [raise_volume_button, lowered_volume_button, language_button, apply_button]:
                 button.changeColor(Menu_mouse_position)
                 button.update(self.screen)
 
@@ -83,20 +82,6 @@ class Options:
 
                 # Check which button was pressed and reset the values of global variables
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if resolution_button.checkForInput(Menu_mouse_position):
-                        if config.resolution == (800, 600):
-                            config.resolution = (1024, 768)
-                        elif config.resolution == (1024, 768):
-                            config.resolution = (1280, 760)
-                        elif config.resolution == (1280, 760):
-                            config.resolution = (1360, 768)
-                        elif config.resolution == (1360, 768):
-                            config.resolution = (1600, 900)
-                        elif config.resolution == (1600, 900):
-                            config.resolution = (1920, 1080)
-                        elif config.resolution == (1920, 1080):
-                            config.resolution = (800, 600)
-
                     if raise_volume_button.checkForInput(Menu_mouse_position):
                         config.volume += 1
                         if config.volume > 100:
@@ -117,7 +102,6 @@ class Options:
                         back_to_menu = True
 
                 volume = font.render(f'{config.volume}', True, "#1c90ad")
-                resolution_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 200), f"{config.resolution}", font, menu_text_color, hover_text_color)
                 language_button = Button(None, (self.screen_rect.centerx, self.screen_rect.top + 550), f"{config.language}", font, menu_text_color, hover_text_color)
 
             if back_to_menu == True:
