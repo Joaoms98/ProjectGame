@@ -2,7 +2,7 @@ import pygame, sys
 import utils.language as lang
 import utils.config as config
 from utils.button import Button
-from scripts.options import Options
+from scripts.Options import Options
 
 class Menu:
     def __init__(self, screen, screen_rect, fps, resolution):
@@ -12,7 +12,7 @@ class Menu:
         self.resolution = resolution
         self.clock = pygame.time.Clock()
 
-    def menu(self):
+    def run(self):
         # objects instances 
         options = Options(self.screen, self.screen_rect, self.fps, self.resolution)
         dict_lang = lang.Language.set_lang(self, config.language)
@@ -34,9 +34,7 @@ class Menu:
         button = pygame.Rect(100, 100, 50, 50)
         image = pygame.image.load("assets/Play Rect.png")
 
-        play_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery), dict_lang['menu_text_play'], font, menu_text_color, hover_text_color)
-        options_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 120), dict_lang['menu_text_options'], font, menu_text_color, hover_text_color)
-        quit_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery + 240), dict_lang['menu_text_exit'], font, menu_text_color, hover_text_color)
+        turn_back_button = Button(None, (self.screen_rect.centerx, self.screen_rect.centery), dict_lang['menu_text_play'], font, menu_text_color, hover_text_color)
         
         aply_changes_config = False
         
@@ -53,7 +51,7 @@ class Menu:
             self.screen.blit(menu_text, menu_text_rect)
 
             # draw button
-            for button in [play_button, options_button, quit_button]:
+            for button in [turn_back_button]:
                 button.changeColor(Menu_mouse_position)
                 button.update(self.screen)
 
@@ -63,14 +61,8 @@ class Menu:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if play_button.checkForInput(Menu_mouse_position):
+                    if turn_back_button.checkForInput(Menu_mouse_position):
                         print('play')
-                    if options_button.checkForInput(Menu_mouse_position):
-                        options.options()
-                        aply_changes_config = True
-                    if quit_button.checkForInput(Menu_mouse_position):
-                        pygame.quit()
-                        sys.exit()
 
             if aply_changes_config == True:
                 break

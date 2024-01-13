@@ -1,14 +1,24 @@
 class Language: 
     def set_lang(self, lang):
         dictionaryeng = {
-                        #main_menu
-                        'menu_text_play': 'Play',
-                        'menu_text_options': 'Options',
-                        'menu_text_exit': 'Exit',
-                        'menu_text_resolution': 'Resolution',
-                        'menu_text_volume': 'Volume',
+                        #main_menu 
+                        #Main Menu
+                        'play': 'Play',
+                        'options': 'Options',
+                        'how_to_play' : "How to play",
+                        'exit': 'Exit',
+                        #Play Screen
+                        'save_game' : 'Save game',
+                        'continue' : 'Continue',
+                        'load_game' : 'Load game',
+                        'new_game' : 'New game' ,
+                        #Options Screen
+                        'volume': 'Volume',
                         'menu_text_language': 'Language',
-                        'menu_text_apply': 'Apply',
+                        'apply': 'Apply',
+                        #How To Play Screen
+                        'Next' : 'Next',
+                        'Previous' : 'Previous',
                         #campaing
                         'campaing_text_explore': 'Explore',
                         'campaing_text_level': 'Level'
@@ -16,20 +26,29 @@ class Language:
 
         dictionarypt = {
                         #main_menu
-                        'menu_text_play': 'Iniciar',
-                        'menu_text_options': 'Opções',
-                        'menu_text_exit': 'Sair',
-                        'menu_text_resolution': 'Resolução',
-                        'menu_text_volume': 'Volume',
+                        'play': 'Iniciar',
+                        'options': 'Opções',
+                        'how_to_play' : "Como jogar",
+                        'exit': 'Sair',
+                        #play screen
+                        'save_game' : 'Salvar jogo',
+                        'continue' : 'Continuar',
+                        'load_game' : 'Carregar jogo',
+                        'new_game' : 'Novo jogo' ,
+                        #Options Screen
+                        'volume': 'Volume',
                         'menu_text_language': 'Linguagem',
-                        'menu_text_apply': 'Aplicar',
+                        'apply': 'Aplicar',
+                        #How To Play Screen
+                        'Next' : 'Próximo',
+                        'Previous' : 'Anterior',
                         #campaing
                         'campaing_text_explore': 'Explorar',
                         'campaing_text_level': 'Andar'
                         }
 
-        if lang == 'eng':
+        if lang == 'English':
             return dictionaryeng
         
-        if lang == 'pt':
+        if lang == 'Português-Brasil':
             return dictionarypt

@@ -1,7 +1,7 @@
 import pygame, sys
 from scripts.EventHandler import EventHandler
 from utils.fogbutton import FogButton
-from scripts.menu import Menu
+from scripts.MainMenu import Menu
 from utils.button import Button
 from scripts.TeamView import TeamView
 import utils.language as lang
@@ -20,7 +20,7 @@ class Map2:
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
         event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
-        menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
+        #menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 
         # load background images
