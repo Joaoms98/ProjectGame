@@ -1,7 +1,7 @@
 import pygame, sys
-import utils.config as config
-import utils.language as lang
-from utils.button import Button
+import utils.Config as config
+import utils.Language as lang
+from utils.Button import Button
 
 class Options:
     def __init__(self, screen, screen_rect, fps, resolution):

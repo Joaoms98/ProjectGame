@@ -1,8 +1,8 @@
 import pygame,sys
-import utils.language as lang
-import utils.config as config
-from utils.button import Button
-from utils.textbox import TextBox
+import utils.Language as lang
+import utils.Config as config
+from utils.Button import Button
+from utils.TextBox import TextBox
 from services.EventService import EventService
 
 class EventHandler:
@@ -17,21 +17,29 @@ class EventHandler:
     def run(self, eventId):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
-        text_box = TextBox(self.screen, 10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600))
         event_service = EventService(self.screen, self.screen_rect, self.fps, self.resolution)
-        event_response = event_service.TakeEvent(eventId)
 
         # background variables
-        event_background = pygame.image.load('assets/popups/fogbuttonpopup.png')
-        event_background_format = pygame.transform.scale(event_background,(900,350))
-        # buttons variables
-        font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
+        event_background_image = pygame.image.load('assets/popups/fogbuttonpopup.png')
+        event_background_format = pygame.transform.scale(event_background_image, (900,350))
+
+        # decision buttons variables
         decision_button_image =  pygame.image.load('assets/buttons/decision_button.png')
         decision_button_image_format = pygame.transform.scale(decision_button_image,(150,50))
-        
+
+        # common buttons variables
+        font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
         base_color = (0,255,0)
         hover_color = (255,0,0)
+
+        # quit button variables
         quit_button = Button(decision_button_image_format, (500,310), "Sair", font, base_color, hover_color)
+
+        #takeEvent
+        event_response = event_service.TakeEvent(eventId)
+
+        #text box variable
+        text_box = TextBox(10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600), event_response.message, (255,255,255), (215,90))
 
         while True:
             # set frames
@@ -40,26 +48,26 @@ class EventHandler:
             # take mouse position
             mouse_position = pygame.mouse.get_pos()
 
-            #updated decision button
-            decision_button_1 = Button(decision_button_image_format, (400,310), event_response.decision1, font, base_color, hover_color)
-            decision_button_2 = Button(decision_button_image_format, (600,310), event_response.decision2 , font, base_color, hover_color)
-
             # draw background
             self.screen.blit(event_background_format, (50, 20))
 
             #draw text box
-            text_box.draw(event_response.message, (255,255,255), (215,90))
+            text_box.updateText(self.screen, event_response.message)
 
             #draw quit button
             if event_response.completed == True:
                 quit_button.changeColor(mouse_position)
                 quit_button.update(self.screen)
 
+            #updated decision button
+            decision_button_1 = Button(decision_button_image_format, (400,310), event_response.decision1, font, base_color, hover_color)
+            decision_button_2 = Button(decision_button_image_format, (600,310), event_response.decision2 , font, base_color, hover_color)
+
             #draw decision button
             if event_response.completed == False:
-                for decisionbutton in [decision_button_1, decision_button_2]:
-                    decisionbutton.changeColor(mouse_position)
-                    decisionbutton.update(self.screen)
+                for decision_button in [decision_button_1, decision_button_2]:
+                    decision_button.changeColor(mouse_position)
+                    decision_button.update(self.screen)
  
             #verify events
             for event in pygame.event.get():

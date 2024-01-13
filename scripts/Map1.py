@@ -1,10 +1,10 @@
 import pygame, sys
+import utils.Language as lang
+import utils.Config as config
 from scripts.EventHandler import EventHandler
-from utils.fogbutton import FogButton
-from utils.button import Button
+from utils.FogButton import FogButton
+from utils.Button import Button
 from scripts.TeamView import TeamView
-import utils.language as lang
-import utils.config as config
 
 class Map1:
     def __init__(self, screen, screen_rect, fps, resolution, allies):
@@ -19,7 +19,6 @@ class Map1:
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
         event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
-        #menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 
         # load background images
@@ -44,8 +43,7 @@ class Map1:
         zone2_completed = False
         zone3_FogButton = FogButton(zone3_image, (380, 150), "?", font, (0,255,0), (255,0,0))
         zone3_completed = False
-
-
+    
         #quit button variables
         team_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 30)
         team_button_base_color = "#a9b0c7"
@@ -70,7 +68,7 @@ class Map1:
                 zone2_FogButton.changeColor(mouse_position)
                 zone2_FogButton.update(self.screen)
 
-            # draw Team buttom
+            # draw Team button
             team_button.changeColor(mouse_position)
             team_button.update(self.screen)
 
