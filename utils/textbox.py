@@ -25,6 +25,11 @@ class TextBox:
     draw(text, color, pos)
         Print the text in screen
     """
+
+    animation_counter = 0
+    text_animation_speed = 1
+    animation_done = False
+
     def __init__(self, font_size, font, size_rect, text, color, pos):
         """
         Parameters
@@ -112,3 +117,17 @@ class TextBox:
             word_height = word_surface.get_height()
             screen.blit(word_surface, (text_rect.x, y))
             y += word_height + line_spacing
+
+
+    def updateTextAnimation(self, screen, text):
+        if self.animation_done == False:
+            if self.animation_counter< self.text_animation_speed * len(text):
+                self.animation_counter += 1
+            elif self.animation_counter >= self.text_animation_speed * len(text):
+                self.animation_done = True
+                self.animation_counter = 0
+
+            snip = text[0:self.animation_counter//self.text_animation_speed]
+            self.updateText(screen, snip)
+        else:
+             self.updateText(screen, text)
