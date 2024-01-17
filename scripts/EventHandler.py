@@ -2,7 +2,7 @@ import pygame,sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.Textbox import TextBox
+from utils.TextBox import TextBox
 from services.EventService import EventService
 
 class EventHandler:
@@ -52,7 +52,7 @@ class EventHandler:
             self.screen.blit(event_background_format, (50, 20))
 
             #draw text box
-            text_box.updateText(self.screen, event_response.message)
+            text_box.updateTextAnimation(self.screen, event_response.message)
 
             #draw quit button
             if event_response.completed == True:
@@ -77,9 +77,11 @@ class EventHandler:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event_response.completed == False:
                         if decision_button_1.checkForInput(mouse_position):
+                            text_box.animation_done = False
                             decision = 1
                             event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies)
                         if decision_button_2.checkForInput(mouse_position):
+                            text_box.animation_done = False
                             decision = 2
                             event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies)
                     if quit_button.checkForInput(mouse_position):
