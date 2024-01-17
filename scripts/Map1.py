@@ -23,7 +23,7 @@ class Map1:
 
         # load background images
         background = pygame.transform.scale(
-            pygame.image.load('assets/background/Map2.png').convert(),
+            pygame.image.load('assets/background/MapA/MapA(Cave Entrace).jpg').convert(),
             self.resolution
         )
 

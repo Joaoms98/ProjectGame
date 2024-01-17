@@ -2,7 +2,7 @@ import pygame,sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 from services.EventService import EventService
 
 class EventHandler:
@@ -28,7 +28,7 @@ class EventHandler:
         decision_button_image_format = pygame.transform.scale(decision_button_image,(150,50))
 
         # common buttons variables
-        font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
+        font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 15)
         base_color = (0,255,0)
         hover_color = (255,0,0)
 
@@ -39,7 +39,7 @@ class EventHandler:
         event_response = event_service.TakeEvent(eventId)
 
         #text box variable
-        text_box = TextBox(10, pygame.font.Font("assets/fonts/alagard.ttf", 20),(600,600), event_response.message, (255,255,255), (215,90))
+        text_box = TextBox(10, pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 20),(600,600), event_response.message, (255,255,255), (215,90))
 
         while True:
             # set frames

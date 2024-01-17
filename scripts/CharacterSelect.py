@@ -2,7 +2,7 @@ import pygame, sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 
 class CharacterSelect:
 
@@ -30,7 +30,7 @@ class CharacterSelect:
         )
 
         # confirm button variables
-        confirm_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 15)
+        confirm_button_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 15)
         confirm_button_image =  pygame.image.load('assets/buttons/decision_button.png')
         confirm_button_image_format = pygame.transform.scale(confirm_button_image,(150,50))
         confirm_button_base_color = "#a9b0c7"
@@ -110,7 +110,7 @@ class CharacterSelect:
 
     def createAttributes(self, character_attributes_index: int = None):
         attributes_text_color = "#c5cddf"
-        attributes_text_font = pygame.font.SysFont("arial", 20)
+        attributes_text_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 20)
         attributes_size_rect = (1000,700)
         attributes_font_size = 15
 
