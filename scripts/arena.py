@@ -2,7 +2,7 @@ import pygame, sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 
 class Arena:
     def __init__(self, screen, screen_rect, fps, resolution, allies, enemies):
@@ -20,7 +20,7 @@ class Arena:
 
         # background variables
         background = pygame.transform.scale(
-            pygame.image.load('assets/background/background_nuvens.jpg').convert(),
+            pygame.image.load('assets/background/Untitled Map.jpg').convert(),
             self.resolution
         )
 
