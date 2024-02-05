@@ -1,13 +1,15 @@
 import pygame
 import utils.Config as config
 from data.Seed import Seed
-from objects.character import Character
+from objects.Character import Character
 from scripts.Arena import Arena
-from scripts.Map1 import Map1
-from scripts.Map2 import Map2
+from scripts.MapA import MapA
+from scripts.MapB import MapB
 from scripts.MainMenu import Menu
 from scripts.TeamView import TeamView
 from scripts.CharacterSelect import CharacterSelect
+from objects.Skill import Skill
+from utils.enums.SkillType import SkillType
 
 while True:
     pygame.init()
@@ -18,7 +20,7 @@ while True:
 
     # set screen name
     pygame.display.set_caption('game')
-    
+
     #seeds
     seed = Seed()
     allies = seed.alliesSeed()
@@ -29,16 +31,17 @@ while True:
     character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, allies)
     team_selected = character_select.run()
 
-    # enemy1 = Character("capiroto", 'assets/portraits/Haguddrun(Wizard).png', 'assets/portraits/Haguddrun(Wizard)_dead.png', 10,10,1,10,10,10,10,1)
-    # enemy2 = Character("demonio", 'assets/portraits/Haguddrun(Wizard).png', 'assets/portraits/Haguddrun(Wizard)_dead.png', 10,10,1,10,10,10,10,1)
-    # enemy3 = Character("ditocujo", 'assets/portraits/Haguddrun(Wizard).png', 'assets/portraits/Haguddrun(Wizard)_dead.png', 10,10,1,10,10,10,10,1)
+    skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1), Skill("attackarea", SkillType.AREA, 1, 1), Skill("attackheal", SkillType.HEAL, 1, 1)]
 
-    # arena = Arena(screen, screen_rect, config.fps, config.resolution, [allies[0], allies[1], allies[2]], [enemy1, enemy2, enemy3])
-    # arena.run()
+    enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    enemy3 = Character("ditocujo",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
 
-    map1 = Map1(screen, screen_rect, config.fps, config.resolution, team_selected)
-    map1.run()
+    #arena = Arena(screen, screen_rect, config.fps, config.resolution, [allies[0], allies[1], allies[2]], [enemy1, enemy2, enemy3])
+    #arena.run()
 
-    # map2 = Map2(screen, screen_rect, config.fps, config.resolution, team_selected)
-    # map2.run()
+    #mapA = MapA(screen, screen_rect, config.fps, config.resolution, team_selected)
+    #mapA.run()
 
+    mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected)
+    mapB.run()

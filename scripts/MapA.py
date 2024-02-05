@@ -6,7 +6,7 @@ from utils.FogButton import FogButton
 from utils.Button import Button
 from scripts.TeamView import TeamView
 
-class Map1:
+class MapA:
     def __init__(self, screen, screen_rect, fps, resolution, allies):
         self.screen = screen
         self.screen_rect = screen_rect
@@ -28,7 +28,7 @@ class Map1:
         )
 
         # FogButton text variables
-        font = pygame.font.Font("assets/fonts/alagard.ttf", 30) 
+        font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 30) 
         fogButton_image = 'assets/buttons/zone_buttons/Zone_Layout.png' 
         zone1_image = pygame.transform.scale(
             pygame.image.load(fogButton_image).convert(),(82, 70))
@@ -37,9 +37,9 @@ class Map1:
         zone3_image = pygame.transform.scale(
             pygame.image.load(fogButton_image).convert(),(120, 139))
 
-        zone1_FogButton = FogButton(zone1_image, (360, 450), "?", font, (0,255,0), (255,0,0))
+        zone1_FogButton = FogButton(None, (360, 450), "?", font, (0,255,0), (255,0,0))
         zone1_completed = False
-        zone2_FogButton = FogButton(zone2_image, (380, 350), "?", font, (0,255,0), (255,0,0))
+        zone2_FogButton = FogButton(None, (380, 350), "?", font, (0,255,0), (255,0,0))
         zone2_completed = False
         zone3_FogButton = FogButton(zone3_image, (380, 150), "?", font, (0,255,0), (255,0,0))
         zone3_completed = False

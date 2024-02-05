@@ -2,7 +2,7 @@ import pygame,sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 from services.EventService import EventService
 
 class EventHandler:
@@ -21,7 +21,7 @@ class EventHandler:
 
         # background variables
         event_background_image = pygame.image.load('assets/popups/fogbuttonpopup.png')
-        event_background_format = pygame.transform.scale(event_background_image, (900,350))
+        event_background_format = pygame.transform.scale(event_background_image, (700,250))
 
         # decision buttons variables
         decision_button_image =  pygame.image.load('assets/buttons/decision_button.png')

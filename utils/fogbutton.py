@@ -12,6 +12,7 @@ class FogButton():
 		self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
 		self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 		self.disable_button = False
+		self.zone_activy = False
 
 	def update(self, screen):
 		if self.image is not None:
@@ -19,10 +20,11 @@ class FogButton():
 		screen.blit(self.text, self.text_rect)
 
 	def checkForInput(self, position):
-		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
-			self.disable_button = True
-			return True
-		return False
+		if self.zone_activy == True:
+			if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+				self.disable_button = True
+				return True
+			return False
 
 	def changeColor(self, position):
 		if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):

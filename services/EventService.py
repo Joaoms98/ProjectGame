@@ -3,11 +3,7 @@ from scripts.events.MapAEvents import MapAEvents
 
 class EventService:
     def __init__(self, screen, screen_rect, fps, resolution):
-        self.screen = screen
-        self.screen_rect = screen_rect
-        self.fps = fps
-        self.resolution = resolution
-        self.mapAEvents = MapAEvents()
+        self.mapAEvents = MapAEvents(screen, screen_rect, fps, resolution)
 
     def TakeEvent(self, eventId: str, decision: int = None, allies: list = None) -> EventResponse: 
         if eventId == "A1_1":

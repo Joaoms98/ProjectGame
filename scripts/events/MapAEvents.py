@@ -1,6 +1,19 @@
 from response.EventResponse import EventResponse
+from scripts.CharacterSelect import CharacterSelect
+from objects.Skill import Skill
+from utils.enums.SkillType import SkillType
+from objects.Character import Character
+from scripts.Arena import Arena
+
+
 
 class MapAEvents:
+    def __init__(self, screen, screen_rect, fps, resolution):
+        self.screen = screen
+        self.screen_rect = screen_rect
+        self.fps = fps
+        self.resolution = resolution
+
     def EventA1_1(self) -> EventResponse:
             return EventResponse(
                 message="Ao chegar no local, voce se depera com uma estranha formacao aparentando"\
@@ -64,14 +77,18 @@ class MapAEvents:
    
         if decision == 2:
             player_picture = 'assets/portraits/portrait_test_1.jpeg'
-            # enemie1 = Character("Capiroto", player_picture, 100, 15)
-            # enemie2 = Character("demonio", player_picture, 100, 15)
-            # enemie3 = Character("ditocujo", player_picture, 100, 15)
 
-            # arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemie1, enemie2, enemie3))
-            # arena.arena()
+            skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1), Skill("attackarea", SkillType.AREA, 1, 1), Skill("attackheal", SkillType.HEAL, 1, 1)]
+
+            enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+            enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+            enemy3 = Character("ditocujo",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+
+            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemy1, enemy2, enemy3))
+            arena.run()
 
             return EventResponse(
                     back = False,
-                    completed = True   
+                    completed = True,
+                    message = "Parabens vocês ganharam"
                 )

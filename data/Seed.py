@@ -1,4 +1,4 @@
-from objects.character  import Character
+from objects.Character  import Character
 from objects.Skill import Skill
 from utils.enums.SkillType import SkillType
 
