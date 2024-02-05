@@ -55,7 +55,7 @@ class Map2:
         while True:
             # set frames
             self.clock.tick(self.fps)
-            
+
             mouse_position = pygame.mouse.get_pos()
 
             # draw background
@@ -69,7 +69,7 @@ class Map2:
             if zone2_completed == False:
                 zone2_FogButton.changeColor(mouse_position)
                 zone2_FogButton.update(self.screen)
-            
+
             # draw Team button
             team_button.changeColor(mouse_position)
             team_button.update(self.screen)
@@ -90,7 +90,6 @@ class Map2:
                         if zone2_FogButton.checkForInput(mouse_position):
                             event_response = event_handler.run("A2_1")
                             zone2_completed = event_response.completed
-
 
             # update
             pygame.display.flip()
