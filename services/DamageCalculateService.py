@@ -1,53 +1,44 @@
 from utils.enums.SkillType import SkillType
 
 class DamageCalculateService():
-    def __init__(self, allies, enemies):
-        self.allies = allies
-        self.enemies = enemies
-
-    def PlayerAttackDamage(self, attack_index, enemy_choice, allie_choice):
+    def AttackDamage(self, attack_index, chosen_striker, chosen_defender, team_striker, team_defender):
         damage = 5
-        allie_choice.st = allie_choice.st -1
+        skill = chosen_striker.skills[attack_index]        
 
-        if allie_choice.st <= 0:
-            allie_choice.hp = allie_choice.hp - 1
-            allie_choice.st = 10
+        # verify stamina
+        chosen_striker.st = chosen_striker.st -1
 
-        if allie_choice.skills[attack_index].skillType == SkillType.DIRECT:
-            enemy_choice.hp = enemy_choice.hp - damage
-            prompt_text = f"{allie_choice.name} atacou com o ataque{allie_choice.skills[attack_index].name} causando {damage} de dano"
+        if chosen_striker.st <= 0:
+            chosen_striker.hp = chosen_striker.hp - 1
+            chosen_striker.st = 10
 
-        if allie_choice.skills[attack_index].skillType == SkillType.AREA:
-            for enemy in self.enemies:
-                enemy.hp = enemy.hp - damage
+        # calculate damage for direct skill type
+        if skill.skillType == SkillType.DIRECT:
+            chosen_defender.hp = chosen_defender.hp - damage
+            prompt_text = f"{chosen_striker.name} atacou com o ataque {skill.name}, causando {damage} de dano no {chosen_defender.name}"
 
-            prompt_text = f"{allie_choice.name} lançou {allie_choice.skills[attack_index].name} causando {damage} de dano"
+        # calculate damage for area skill type
+        if skill.skillType == SkillType.AREA:
+            for defender in team_defender:
+                defender.hp = defender.hp - damage
 
-        if allie_choice.skills[attack_index].skillType == SkillType.HEAL:
-            for allie in self.allies:
-                allie.hp = allie.hp + 1
+            prompt_text = f"{chosen_striker.name} lançou {skill.name} causando {damage} de dano em area"
 
-            prompt_text = f"{allie_choice.name} lançou {allie_choice.skills[attack_index].name} curando {damage} do hp da equipe "
+        # calculate damage for heal skill type
+        if skill.skillType == SkillType.HEAL:
+            for striker in team_striker:
+                if striker.dead == False:
+                    striker.hp = striker.hp + 1
 
-        return prompt_text
+            prompt_text = f"{chosen_striker.name} lançou {skill.name} curando o hp de sua equipe "
 
-    def EnemyAttackDamage(self, attack_index, enemy_choice, allie_choice):
-        damage = 5
+        # set all hp to 0
+        for defender in team_defender:
+            if defender.hp < 0:
+                defender.hp = 0
 
-        if allie_choice.skills[attack_index].skillType == SkillType.DIRECT:
-            enemy_choice.hp = enemy_choice.hp - damage
-            prompt_text = f"{allie_choice.name} atacou com {enemy_choice.name} com o ataque{allie_choice.skills[attack_index].name} causando {damage} de dano"
-        
-        if allie_choice.skills[attack_index].skillType == SkillType.AREA:
-            for enemy in self.allies:
-                enemy.hp = enemy.hp - damage
-
-            prompt_text = f"{allie_choice.name} lançou {allie_choice.skills[attack_index].name} causando {damage} de dano"
-
-        if allie_choice.skills[attack_index].skillType == SkillType.HEAL:
-            for allie in self.enemies:
-                allie.hp = allie.hp + 1
-
-            prompt_text = f"{allie_choice.name} lançou {allie_choice.skills[attack_index].name} curando {damage} do hp da equipe "
+        for striker in team_striker:
+            if striker.hp < 0:
+                striker.hp = 0
 
         return prompt_text
