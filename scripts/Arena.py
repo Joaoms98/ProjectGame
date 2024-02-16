@@ -8,13 +8,14 @@ from services.DamageCalculateService import DamageCalculateService
 from response.BattleResponse import BattleResponse
 
 class Arena:
-    def __init__(self, screen, screen_rect, fps, resolution, allies, enemies):
+    def __init__(self, screen, screen_rect, fps, resolution, allies, enemies, equipment):
         self.screen = screen
         self.screen_rect = screen_rect
         self.fps = fps
         self.resolution = resolution
         self.allies = allies
         self.enemies = enemies
+        self.equipment = equipment
         self.clock = pygame.time.Clock()
 
     def run(self):
@@ -24,11 +25,6 @@ class Arena:
         response = BattleResponse(
                     back_to_event = False
                 )
-
-        # # format picture of allies and enemies
-        # for character in self.allies:
-        #     character.picture = pygame.image.load(f'{character.picture}').convert()
-        #     character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
 
         for character in self.enemies:
             character.picture = pygame.image.load(f'{character.picture}').convert()
@@ -149,7 +145,7 @@ class Arena:
                             if enemy_button.checkForInput(mouse_position):
                                 text_response = damage_calculate_service.AttackDamage(
                                     attack, allie_choice, self.enemies[i],
-                                    self.allies, self.enemies
+                                    self.allies, self.enemies, self.equipment
                                 )
                                 text_box = self.createTextPrompt()
                                 player_turn = False
@@ -181,7 +177,7 @@ class Arena:
         image_character_list = [self.allies[0].picture, self.allies[1].picture, self.allies[2].picture]
 
         if allie_choice is not None and self.allies[allie_choice].dead is not True:
-            image_character_list[allie_choice] = pygame.image.load(f'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png').convert()
+            image_character_list[allie_choice] = pygame.image.load(f'assets/portraits/Util/SelectCharacter.png').convert()
 
         team_character_button_0 = Button(image_character_list[0], (85, 100), None , None, None, None)
         team_character_button_1 = Button(image_character_list[1], (85, 260), None , None, None, None)
@@ -257,13 +253,13 @@ class Arena:
         if all(allie.hp <= 0 for allie in self.allies):
             return BattleResponse(
                     back_to_event = True,
-                    message="Game Over mané"
+                    message= "Game Over mané"
                 )
         
         if all(enemy.hp <= 0 for enemy in self.enemies):
             return BattleResponse(
                     back_to_event = True,
-                    message="Parabéns você conseguiu"
+                    message= "Parabéns você conseguiu"
                 )
 
         return BattleResponse(

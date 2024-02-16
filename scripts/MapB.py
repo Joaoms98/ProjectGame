@@ -8,18 +8,19 @@ import utils.Language as lang
 import utils.Config as config
 
 class MapB:
-    def __init__(self, screen, screen_rect, fps, resolution, allies):
+    def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
         self.screen = screen
         self.screen_rect = screen_rect
         self.fps = fps
         self.resolution = resolution
         self.allies = allies
+        self.equipment = equipment
         self.clock = pygame.time.Clock()
 
     def run(self):
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
-        event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
+        event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, self.equipment)
         #menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
 

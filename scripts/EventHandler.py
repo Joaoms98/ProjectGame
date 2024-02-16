@@ -6,12 +6,13 @@ from utils.TextBox import TextBox
 from services.EventService import EventService
 
 class EventHandler:
-    def __init__(self, screen, screen_rect, fps, resolution, allies):
+    def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
         self.screen = screen
         self.screen_rect = screen_rect
         self.fps = fps
         self.resolution = resolution
         self.allies = allies
+        self.equipment = equipment
         self.clock = pygame.time.Clock()
 
     def run(self, eventId):
@@ -79,11 +80,11 @@ class EventHandler:
                         if decision_button_1.checkForInput(mouse_position):
                             text_box.animation_done = False
                             decision = 1
-                            event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies)
+                            event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies, self.equipment)
                         if decision_button_2.checkForInput(mouse_position):
                             text_box.animation_done = False
                             decision = 2
-                            event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies)
+                            event_response = event_service.TakeEvent(eventId + "_2", decision, self.allies, self.equipment)
                     if quit_button.checkForInput(mouse_position):
                         event_response.back = True
 

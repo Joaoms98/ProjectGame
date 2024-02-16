@@ -24,7 +24,7 @@ class MapAEvents:
                 completed = False
             )
 
-    def EventA1_1_2(self, decision: int, allies: list) -> EventResponse: 
+    def EventA1_1_2(self, decision: int, allies: list, equipment) -> EventResponse: 
         if decision == 1:
             dexterity_count = allies[0].dexterity + allies[1].dexterity + allies[0].dexterity
             if dexterity_count > 20:
@@ -66,7 +66,7 @@ class MapAEvents:
             completed = False
         )
     
-    def EventA2_1_2(self, decision: int, allies: list) -> EventResponse: 
+    def EventA2_1_2(self, decision: int, allies: list, equipment) -> EventResponse: 
         if decision == 1:
             return EventResponse(
                 message="O ser agradece e te manda tomar no cu",
@@ -77,13 +77,13 @@ class MapAEvents:
         if decision == 2:
             player_picture = 'assets/portraits/portrait_test_1.jpeg'
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1), Skill("attackarea", SkillType.AREA, 1, 1), Skill("attackheal", SkillType.HEAL, 1, 1)]
+            skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
 
             enemy1 = Character("capiroto1",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
             enemy2 = Character("demonio2", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
             enemy3 = Character("ditocujo3",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
 
-            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemy1, enemy2, enemy3))
+            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemy1, enemy2, enemy3), equipment)
             battleResponse = arena.run()
 
             return EventResponse(
