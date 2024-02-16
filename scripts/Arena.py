@@ -3,7 +3,7 @@ import random
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.Textbox import TextBox
+from utils.TextBox import TextBox
 from services.DamageCalculateService import DamageCalculateService
 
 class Arena:
@@ -19,7 +19,16 @@ class Arena:
     def run(self):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
-        damage_calculate_service = DamageCalculateService(self.allies, self.enemies)
+        damage_calculate_service = DamageCalculateService()
+
+        # format picture of allies and enemies
+        for character in self.allies:
+            character.picture = pygame.image.load(f'{character.picture}').convert()
+            character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
+
+        for character in self.enemies:
+            character.picture = pygame.image.load(f'{character.picture}').convert()
+            character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
 
         # background variables
         background = pygame.transform.scale(
@@ -27,25 +36,17 @@ class Arena:
             self.resolution
         )
 
-        # format picture of allies and enemies
-        for character in self.allies:
-            character.picture = pygame.image.load(f'{character.picture}').convert()
-
-        for character in self.enemies:
-            character.picture = pygame.image.load(f'{character.picture}').convert()
-
         # create attributes text
         attributes_text = self.createAttributesText()
 
+        # create picture buttons
+        team_picture_buttons = self.createTeamPictureButtons()
+        enemy_picture_buttons = self.createEnemyPictureButtons()
+
         # prompt variables
-        black_image = 'assets/background/background_nuvens.jpg'
-        prompt_text_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 20)
-        prompt_text_color = (255,255,255)
+        text_box = self.createTextPrompt()
         text_response = ""
-        prompt_text_pos = (300, 500)
-        prompt_text_size_rect = (600,600)
-        prompt_text_font_size = 10
-        text_box = TextBox(prompt_text_font_size, prompt_text_font, prompt_text_size_rect, "", prompt_text_color, prompt_text_pos)
+        black_image = 'assets/background/background_nuvens.jpg'
         prompt_surface = pygame.transform.scale(
             pygame.image.load(black_image).convert(),
             (650, 220)
@@ -53,22 +54,6 @@ class Arena:
 
         # attack buttons
         attack_buttons = self.createAttackButtons(self.allies[0])
-
-        # enemy button variables
-        image_0 = self.enemies[0].picture
-        image_1 = self.enemies[1].picture
-        image_2 = self.enemies[2].picture
-        enemy_character_button_0 = Button(image_0, (915, 100), None , None, None, None)
-        enemy_character_button_1 = Button(image_1, (915, 260), None , None, None, None)
-        enemy_character_button_2 = Button(image_2, (915, 420), None , None, None, None)
-
-        # team button variables
-        image_0 = self.allies[0].picture
-        image_1 = self.allies[1].picture
-        image_2 = self.allies[2].picture
-        team_character_button_0 = Button(image_0, (85, 100), None , None, None, None)
-        team_character_button_1 = Button(image_1, (85, 260), None , None, None, None)
-        team_character_button_2 = Button(image_2, (85, 420), None , None, None, None)
 
         # confirm button variables
         confirm_button_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
@@ -79,16 +64,15 @@ class Arena:
         allie_choice = None
 
         while True:
-            if all(allie.hp <= 0 for allie in self.allies):
-                back_to_event = True
-
-            if all(enemy.hp <= 0 for enemy in self.enemies):
-                back_to_event = True
-
             # set frames
             self.clock.tick(self.fps)
 
             mouse_position = pygame.mouse.get_pos()
+            self.verifyCharacterHp()
+
+            # update team_picture_buttons
+            team_picture_buttons = self.createTeamPictureButtons()
+            enemy_picture_buttons = self.createEnemyPictureButtons()
 
             # draw background
             self.screen.blit(background, (0, 0))
@@ -102,11 +86,11 @@ class Arena:
                 attributes.update(self.screen)
 
             # draw allies
-            for enemy_picture_button in [team_character_button_0, team_character_button_1, team_character_button_2]:
-                enemy_picture_button.update(self.screen)
+            for team_character_button in team_picture_buttons:
+                team_character_button.update(self.screen)
 
             # draw enemies
-            for enemy_picture_button in [enemy_character_button_0, enemy_character_button_1, enemy_character_button_2]:
+            for enemy_picture_button in enemy_picture_buttons:
                 enemy_picture_button.update(self.screen)
 
             # draw attack button
@@ -132,18 +116,23 @@ class Arena:
                     if player_turn == False:
                         # check for input confirm button
                         if confirm_button.checkForInput(mouse_position):
-                            player_turn = True
-                            text_response = damage_calculate_service.EnemyAttackDamage(
-                                random.randint(0,2), self.allies[random.randint(0,2)],  self.enemies[random.randint(0,2)]
+                            back_to_event = self.verifyBattleEnd()
+                            text_box = self.createTextPrompt()
+                            team_picture_buttons = self.createTeamPictureButtons()
+                            enemy_picture_buttons = self.createEnemyPictureButtons()
+                            text_response = damage_calculate_service.AttackDamage(
+                                random.randint(0,2), self.enemies[random.randint(0,2)], 
+                                self.allies[random.randint(0,2)], self.enemies, self.allies
                             )
-                            text_box = TextBox(prompt_text_font_size, prompt_text_font, prompt_text_size_rect, "", 
-                                               prompt_text_color, prompt_text_pos
-                                            )
+                            player_turn = True
 
                     if player_turn == True: 
                         # check for input allies button
-                        for i, team_character_button in enumerate([team_character_button_0, team_character_button_1, team_character_button_2]):
+                        for i, team_character_button in enumerate([team_picture_buttons[0], team_picture_buttons[1], team_picture_buttons[2]]):
                             if team_character_button.checkForInput(mouse_position):
+                                back_to_event = self.verifyBattleEnd()
+                                team_picture_buttons = self.createTeamPictureButtons(i)
+                                enemy_picture_buttons = self.createEnemyPictureButtons()
                                 allie_choice = self.allies[i]
                                 attack_buttons = self.createAttackButtons(allie_choice)
 
@@ -153,10 +142,13 @@ class Arena:
                                 attack = i
 
                         # check for input enemy button
-                        for i, enemy_button in enumerate([enemy_character_button_0, enemy_character_button_1, enemy_character_button_2]):
+                        for i, enemy_button in enumerate([enemy_picture_buttons[0], enemy_picture_buttons[1], enemy_picture_buttons[2]]):
                             if enemy_button.checkForInput(mouse_position):
-                                text_response = damage_calculate_service.PlayerAttackDamage(attack, self.enemies[i], allie_choice)
-                                text_box = TextBox(prompt_text_font_size, prompt_text_font, prompt_text_size_rect, "", prompt_text_color, prompt_text_pos)
+                                text_response = damage_calculate_service.AttackDamage(
+                                    attack, allie_choice, self.enemies[i],
+                                    self.allies, self.enemies
+                                )
+                                text_box = self.createTextPrompt()
                                 player_turn = False
                                 allie_choice = None
 
@@ -175,6 +167,44 @@ class Arena:
 
         return [hit_button1, hit_button2, hit_button3]
 
+    def createTeamPictureButtons(self, allie_choice = None):
+        for allie in self.allies: 
+            if allie.dead == True:
+                allie.picture = allie.pictureDead
+
+        # if allie_choice is not None:
+        #     self.allies[allie_choice].picture = pygame.image.load(f'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png').convert()
+
+        team_character_button_0 = Button(self.allies[0].picture, (85, 100), None , None, None, None)
+        team_character_button_1 = Button(self.allies[1].picture, (85, 260), None , None, None, None)
+        team_character_button_2 = Button(self.allies[2].picture, (85, 420), None , None, None, None)
+
+        return [team_character_button_0, team_character_button_1, team_character_button_2]
+
+    def createEnemyPictureButtons(self):
+        for enemy in self.enemies: 
+            if enemy.dead == True:
+                enemy.picture = enemy.pictureDead
+
+        # enemy button variables
+        image_0 = self.enemies[0].picture
+        image_1 = self.enemies[1].picture
+        image_2 = self.enemies[2].picture
+        enemy_character_button_0 = Button(image_0, (915, 100), None , None, None, None)
+        enemy_character_button_1 = Button(image_1, (915, 260), None , None, None, None)
+        enemy_character_button_2 = Button(image_2, (915, 420), None , None, None, None)
+
+        return [enemy_character_button_0, enemy_character_button_1, enemy_character_button_2]
+
+    def createTextPrompt(self):
+        prompt_text_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 20)
+        prompt_text_color = (255,255,255)
+        prompt_text_pos = (300, 500)
+        prompt_text_size_rect = (600,600)
+        prompt_text_font_size = 10
+
+        return TextBox(prompt_text_font_size, prompt_text_font, prompt_text_size_rect, "", prompt_text_color, prompt_text_pos)
+    
     def createAttributesText(self):
         font_size = 15
         font = pygame.font.SysFont("arial", 15)
@@ -205,3 +235,18 @@ class Arena:
         return [hp_allies_1, mp_allies_1, hp_allies_2, mp_allies_2, 
                 hp_allies_3, mp_allies_3, hp_enemy_1, mp_enemy_1,
                 hp_enemy_2, mp_enemy_2, hp_enemy_3, mp_enemy_3]
+
+    def verifyCharacterHp(self):
+        for allie in self.allies:
+            if allie.hp <=0:
+                allie.dead = True
+
+        for enemy in self.enemies:
+            if enemy.hp <=0:
+                enemy.dead = True
+    
+    def verifyBattleEnd(self):
+        if all(allie.hp <= 0 for allie in self.allies) or all(enemy.hp <= 0 for enemy in self.enemies):
+            return True
+
+        return False
