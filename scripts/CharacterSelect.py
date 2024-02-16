@@ -29,6 +29,11 @@ class CharacterSelect:
             self.resolution
         )
 
+        # format picture of allies and enemies
+        for character in self.allies:
+            character.picture = pygame.image.load(f'{character.picture}').convert()
+            character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
+
         # confirm button variables
         confirm_button_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 15)
         confirm_button_image =  pygame.image.load('assets/buttons/decision_button.png')
@@ -97,7 +102,7 @@ class CharacterSelect:
                             pictures_buttons = self.createCharacterPictureButton()
 
                             for index in self.team_selected_index:
-                                pictures_buttons[index].image = pygame.image.load(self.allies[index].pictureDead)
+                                pictures_buttons[index].image = self.allies[index].pictureDead
 
                             if len(self.team_selected_index) >= 3:
                                 back = True
@@ -128,11 +133,11 @@ class CharacterSelect:
             return [name_text_box, hp_text_box, mp_text_box, defense_text_box, dexterity_text_box, strength_text_box, intelligence_text_box, faith_text_box, charisma_text_box]
     
     def createCharacterPictureButton(self):
-        picture_character_0 = Button(pygame.image.load(self.allies[0].picture), (100,100), None , None, None, None)
-        picture_character_1 = Button(pygame.image.load(self.allies[1].picture), (270,100), None , None, None, None)
-        picture_character_2 = Button(pygame.image.load(self.allies[2].picture), (100,270), None , None, None, None)
-        picture_character_3 = Button(pygame.image.load(self.allies[3].picture), (270,270), None , None, None, None)
-        picture_character_4 = Button(pygame.image.load(self.allies[4].picture), (100,440), None , None, None, None)
-        picture_character_5 = Button(pygame.image.load(self.allies[5].picture), (270,440), None , None, None, None)
+        picture_character_0 = Button(self.allies[0].picture, (100,100), None , None, None, None)
+        picture_character_1 = Button(self.allies[1].picture, (270,100), None , None, None, None)
+        picture_character_2 = Button(self.allies[2].picture, (100,270), None , None, None, None)
+        picture_character_3 = Button(self.allies[3].picture, (270,270), None , None, None, None)
+        picture_character_4 = Button(self.allies[4].picture, (100,440), None , None, None, None)
+        picture_character_5 = Button(self.allies[5].picture, (270,440), None , None, None, None)
 
         return [picture_character_0, picture_character_1, picture_character_2, picture_character_3, picture_character_4, picture_character_5]

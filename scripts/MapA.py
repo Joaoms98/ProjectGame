@@ -84,10 +84,12 @@ class MapA:
                         if zone1_FogButton.checkForInput(mouse_position):
                             event_response = event_handler.run("A1_1")
                             zone1_completed = event_response.completed
+                            self.allies = event_response.allies
                     if zone2_completed == False:
                         if zone2_FogButton.checkForInput(mouse_position):
                             event_response = event_handler.run("A2_1")
                             zone2_completed = event_response.completed
+                            self.allies = event_response.allies
 
             # update
             pygame.display.flip()

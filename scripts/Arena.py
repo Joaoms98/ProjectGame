@@ -5,6 +5,7 @@ import utils.Config as config
 from utils.Button import Button
 from utils.TextBox import TextBox
 from services.DamageCalculateService import DamageCalculateService
+from response.BattleResponse import BattleResponse
 
 class Arena:
     def __init__(self, screen, screen_rect, fps, resolution, allies, enemies):
@@ -20,11 +21,14 @@ class Arena:
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
         damage_calculate_service = DamageCalculateService()
+        response = BattleResponse(
+                    back_to_event = False
+                )
 
-        # format picture of allies and enemies
-        for character in self.allies:
-            character.picture = pygame.image.load(f'{character.picture}').convert()
-            character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
+        # # format picture of allies and enemies
+        # for character in self.allies:
+        #     character.picture = pygame.image.load(f'{character.picture}').convert()
+        #     character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
 
         for character in self.enemies:
             character.picture = pygame.image.load(f'{character.picture}').convert()
@@ -60,7 +64,6 @@ class Arena:
         confirm_button = Button(None, (90, 500), "Confirm", confirm_button_text_font, (255,0,0), (255,255,0))
 
         player_turn = True
-        back_to_event = False
         allie_choice = None
 
         while True:
@@ -71,7 +74,7 @@ class Arena:
             self.verifyCharacterHp()
 
             # update team_picture_buttons
-            team_picture_buttons = self.createTeamPictureButtons()
+            # team_picture_buttons = self.createTeamPictureButtons()
             enemy_picture_buttons = self.createEnemyPictureButtons()
 
             # draw background
@@ -116,7 +119,7 @@ class Arena:
                     if player_turn == False:
                         # check for input confirm button
                         if confirm_button.checkForInput(mouse_position):
-                            back_to_event = self.verifyBattleEnd()
+                            response = self.verifyBattleEnd()
                             text_box = self.createTextPrompt()
                             team_picture_buttons = self.createTeamPictureButtons()
                             enemy_picture_buttons = self.createEnemyPictureButtons()
@@ -130,7 +133,7 @@ class Arena:
                         # check for input allies button
                         for i, team_character_button in enumerate([team_picture_buttons[0], team_picture_buttons[1], team_picture_buttons[2]]):
                             if team_character_button.checkForInput(mouse_position):
-                                back_to_event = self.verifyBattleEnd()
+                                response.back_to_event = self.verifyBattleEnd()
                                 team_picture_buttons = self.createTeamPictureButtons(i)
                                 enemy_picture_buttons = self.createEnemyPictureButtons()
                                 allie_choice = self.allies[i]
@@ -152,11 +155,14 @@ class Arena:
                                 player_turn = False
                                 allie_choice = None
 
-            if back_to_event == True:
+            if response.back_to_event == True:
                 break
 
             # update
             pygame.display.flip()
+        
+        response.allies = self.allies
+        return response
 
     def createAttackButtons(self, allie_choice):
         hit_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
@@ -172,12 +178,14 @@ class Arena:
             if allie.dead == True:
                 allie.picture = allie.pictureDead
 
-        # if allie_choice is not None:
-        #     self.allies[allie_choice].picture = pygame.image.load(f'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png').convert()
+        image_character_list = [self.allies[0].picture, self.allies[1].picture, self.allies[2].picture]
 
-        team_character_button_0 = Button(self.allies[0].picture, (85, 100), None , None, None, None)
-        team_character_button_1 = Button(self.allies[1].picture, (85, 260), None , None, None, None)
-        team_character_button_2 = Button(self.allies[2].picture, (85, 420), None , None, None, None)
+        if allie_choice is not None and self.allies[allie_choice].dead is not True:
+            image_character_list[allie_choice] = pygame.image.load(f'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png').convert()
+
+        team_character_button_0 = Button(image_character_list[0], (85, 100), None , None, None, None)
+        team_character_button_1 = Button(image_character_list[1], (85, 260), None , None, None, None)
+        team_character_button_2 = Button(image_character_list[2], (85, 420), None , None, None, None)
 
         return [team_character_button_0, team_character_button_1, team_character_button_2]
 
@@ -244,9 +252,20 @@ class Arena:
         for enemy in self.enemies:
             if enemy.hp <=0:
                 enemy.dead = True
-    
-    def verifyBattleEnd(self):
-        if all(allie.hp <= 0 for allie in self.allies) or all(enemy.hp <= 0 for enemy in self.enemies):
-            return True
 
-        return False
+    def verifyBattleEnd(self):
+        if all(allie.hp <= 0 for allie in self.allies):
+            return BattleResponse(
+                    back_to_event = True,
+                    message="Game Over mané"
+                )
+        
+        if all(enemy.hp <= 0 for enemy in self.enemies):
+            return BattleResponse(
+                    back_to_event = True,
+                    message="Parabéns você conseguiu"
+                )
+
+        return BattleResponse(
+                    back_to_event = False,
+                )

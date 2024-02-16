@@ -1,11 +1,10 @@
 from response.EventResponse import EventResponse
+from response.BattleResponse import BattleResponse
 from scripts.CharacterSelect import CharacterSelect
 from objects.Skill import Skill
 from utils.enums.SkillType import SkillType
 from objects.Character import Character
 from scripts.Arena import Arena
-
-
 
 class MapAEvents:
     def __init__(self, screen, screen_rect, fps, resolution):
@@ -85,10 +84,11 @@ class MapAEvents:
             enemy3 = Character("ditocujo3",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, allies, (enemy1, enemy2, enemy3))
-            arena.run()
+            battleResponse = arena.run()
 
             return EventResponse(
                     back = False,
                     completed = True,
-                    message = "Parabens vocês ganharam"
+                    allies= battleResponse.allies,
+                    message = battleResponse.message
                 )

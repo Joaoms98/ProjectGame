@@ -5,6 +5,10 @@ class DamageCalculateService():
         damage = 5
         skill = chosen_striker.skills[attack_index]        
 
+        # verify dead attacker
+        if chosen_striker.dead == True:
+            return "O personagem escolhido está morto"
+
         # verify stamina
         chosen_striker.st = chosen_striker.st -1
 

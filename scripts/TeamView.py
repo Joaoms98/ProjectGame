@@ -86,7 +86,7 @@ class TeamView:
         for character in self.allies:
             x = 125 + (300 * allies_count)
 
-            self.screen.blit(pygame.image.load(character.picture), (x, 50))
+            self.screen.blit(character.picture, (x, 50))
 
             self.screen.blit(attribute_hp, (x, 220))
             self.screen.blit(attribute_mp, (x, 260))
