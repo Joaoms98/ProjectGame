@@ -1,9 +1,9 @@
 import pygame, sys
-from scripts.EventHandler import EventHandler
 from utils.FogButton import FogButton
 from scripts.MainMenu import Menu
 from utils.Button import Button
 from scripts.TeamView import TeamView
+from scripts.events.MapBEvents import MapBEvents
 import utils.Language as lang
 import utils.Config as config
 
@@ -20,9 +20,8 @@ class MapB:
     def run(self):
         # Objects instances
         dict_lang = lang.Language.set_lang(self, config.language)
-        event_handler = EventHandler(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, self.equipment)
-        #menu = Menu(self.screen, self.screen_rect, config.fps, config.resolution)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
+        events = MapBEvents(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, self.equipment)
 
         # load background images
         background = pygame.transform.scale(
@@ -30,23 +29,10 @@ class MapB:
             self.resolution
         )
 
-        # FogButton text variables
-        font = pygame.font.Font("assets/fonts/alagard.ttf", 30) 
-        fogButton_image = 'assets/buttons/zone_buttons/Zone_Layout.png' 
-        zone1_image = pygame.transform.scale(
-            pygame.image.load(fogButton_image),(82, 70))
-        zone2_image = pygame.transform.scale(
-            pygame.image.load(fogButton_image),(120, 70))
-        zone3_image = pygame.transform.scale(
-            pygame.image.load(fogButton_image).convert(),(120, 139))
-
-        zone1_FogButton = FogButton(zone1_image, (360, 450), "Evento 1", font, (0,255,0), (255,0,0))
-        zone1_completed = False
-        zone1_FogButton.zone_activy = True
-        zone2_FogButton = FogButton(zone2_image, (380, 350), "?", font, (0,255,0), (255,0,0))
-        zone2_completed = False
-        zone3_FogButton = FogButton(zone3_image, (380, 150), "?", font, (0,255,0), (255,0,0))
-        zone3_completed = False
+        #zone button variables
+        zone_buttons = self.createFogButtons()
+        activity_zone_buttons = [0]
+        disable_zone_buttons = []
 
         #quit button variables
         team_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 30)
@@ -57,22 +43,23 @@ class MapB:
         while True:
             # set frames
             self.clock.tick(self.fps)
-            
+
             mouse_position = pygame.mouse.get_pos()
 
             # draw background
             self.screen.blit(background, (0, 0))
 
             # draw FogButton
-            if zone1_completed == False:
-                zone1_FogButton.changeColor(mouse_position)
-                zone1_FogButton.update(self.screen)
+            for i, button in enumerate(zone_buttons):
+                if i in activity_zone_buttons:
+                    button.changeColor(mouse_position)
 
-            self.unlockEvent(zone2_FogButton,zone2_completed,mouse_position)
+                if i not in disable_zone_buttons:
+                    button.update(self.screen)
 
             # draw Team button
-            team_button.changeColor(mouse_position)
             team_button.update(self.screen)
+            team_button.changeColor(mouse_position)
 
             # events
             for event in pygame.event.get():
@@ -82,55 +69,41 @@ class MapB:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if team_button.checkForInput(mouse_position):
                         team_view.run()
-                    if zone1_completed == False:
-                        if zone1_FogButton.checkForInput(mouse_position):
-                            event_response = event_handler.run("A1_1")
-                            zone1_completed = event_response.completed
-                            self.allies = event_response.allies
-                            if zone1_completed == True:
-                                zone2_FogButton.zone_activy = True
-                    if zone2_completed == False:
-                        if zone2_FogButton.checkForInput(mouse_position):
-                            event_response = event_handler.run("A2_1")
-                            zone2_completed = event_response.completed
-                            self.allies = event_response.allies
+                    
+                    if zone_buttons[0].checkForInput(mouse_position) and 0 not in disable_zone_buttons and 0 in activity_zone_buttons:
+                        event_response = events.zone1()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
 
             # update
             pygame.display.flip()
-    def unlockEvent(self, zone, zone_completed, mouse_position):       
-            if zone.zone_activy == False:
-                zone.update(self.screen)
-            elif zone_completed == False:
-                    zone.changeColor(mouse_position)
-                    zone.update(self.screen)
 
-    def fogButtonsAppearance(self):
+    def createFogButtons(self):
         # menu text variables
         font = pygame.font.Font("assets/fonts/font.ttf", 15)
         text_color = "#ffffff"
         text_hover = "#ff0000"
-        fogButton_image = 'assets/buttons/zone_buttons/Zone_Layout.png' 
-        fogButton_image_format = pygame.transform.scale(fogButton_image,(150,50))
+        fogButton_image = pygame.image.load('assets/buttons/zone_buttons/Zone_Layout.png')
+        fogButton_image_format = pygame.transform.scale(fogButton_image, (100,80))
 
-        return [fogButton_image_format,font, text_color, text_hover]
-    
-    
-    def createFogButtons(self,lang):
+        zone1 = FogButton(fogButton_image_format, (900,310), "1", font, text_color, text_hover, True)
+        zone2 = FogButton(fogButton_image_format, (800,150), "2", font, text_color, text_hover, True)
+        zone3 = FogButton(fogButton_image_format, (680,280), "3", font, text_color, text_hover, True)
+        zone4 = FogButton(fogButton_image_format, (800,400), "4", font, text_color, text_hover)
+        zone5 = FogButton(fogButton_image_format, (600,400), "5", font, text_color, text_hover)
+        zone6 = FogButton(fogButton_image_format, (600,150), "6", font, text_color, text_hover)
+        zone7 = FogButton(fogButton_image_format, (400,400), "7", font, text_color, text_hover)
+        zone8 = FogButton(fogButton_image_format, (140,150), "8", font, text_color, text_hover)
+        zone9 = FogButton(fogButton_image_format, (140,150), "9", font, text_color,text_hover)
+        zone10 = FogButton(fogButton_image_format, (140,150), "10", font, text_color, text_hover)
+        zone11 = FogButton(fogButton_image_format, (140,150), "11", font, text_color, text_hover)
+        zone12 = FogButton(fogButton_image_format, (140,150), "12", font, text_color, text_hover)
+        zone13 = FogButton(fogButton_image_format, (140,150), "13", font, text_color, text_hover)
+        zone14 = FogButton(fogButton_image_format, (140,150), "14", font, text_color, text_hover)
+        zone15 = FogButton(fogButton_image_format, (140,150), "15", font, text_color, text_hover)
+        zone16 = FogButton(fogButton_image_format, (140,150), "16", font, text_color, text_hover)
 
-        appearance = self.fogButtonsAppearance()
-
-        zone1 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone2 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone3 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone4 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone5 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone6 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone7 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone8 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone9 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone10 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone11 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-        zone12 = FogButton(appearance[0], (140,150), "?", appearance[1], appearance[2], appearance[3])
-
+        return [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9,
+                zone10, zone11, zone12, zone13, zone14, zone15,zone16 ]
 
     

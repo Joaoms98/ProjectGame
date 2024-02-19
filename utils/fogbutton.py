@@ -1,5 +1,5 @@
 class FogButton():
-	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+	def __init__(self, image, pos, text_input, font, base_color, hovering_color, zone_activity = False):
 		self.image = image
 		self.x_pos = pos[0]
 		self.y_pos = pos[1]
@@ -11,8 +11,7 @@ class FogButton():
 			self.image = self.text
 		self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
 		self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
-		self.disable_button = False
-		self.zone_activy = False
+		self.zone_activity = zone_activity
 
 	def update(self, screen):
 		if self.image is not None:
@@ -20,9 +19,8 @@ class FogButton():
 		screen.blit(self.text, self.text_rect)
 
 	def checkForInput(self, position):
-		if self.zone_activy == True:
+		if self.zone_activity == True:
 			if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
-				self.disable_button = True
 				return True
 			return False
 

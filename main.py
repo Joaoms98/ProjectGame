@@ -31,11 +31,11 @@ while True:
     character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, data_seed['allies'])
     team_selected = character_select.run()
 
-    skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'na'), Skill("attackarea", SkillType.AREA, 1, 1, 'na'), Skill("attackheal", SkillType.HEAL, 1, 1, 'na')]
+    # skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'na'), Skill("attackarea", SkillType.AREA, 1, 1, 'na'), Skill("attackheal", SkillType.HEAL, 1, 1, 'na')]
 
-    enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
-    enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
-    enemy3 = Character("ditocujo",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    # enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    # enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    # enemy3 = Character("ditocujo",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
 
     #arena = Arena(screen, screen_rect, config.fps, config.resolution, [allies[0], allies[1], allies[2]], [enemy1, enemy2, enemy3])
     #arena.run()
@@ -45,3 +45,6 @@ while True:
 
     mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected, data_seed['equipments'])
     mapB.run()
+
+    # mapB = MapB(screen, screen_rect, config.fps, config.resolution, [data_seed['allies'][0], data_seed['allies'][0], data_seed['allies'][0] ], data_seed['equipments'])
+    # mapB.run()
