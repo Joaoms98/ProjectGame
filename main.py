@@ -23,15 +23,15 @@ while True:
 
     #seeds
     seed = Seed()
-    allies = seed.alliesSeed()
+    data_seed = seed.alliesSeed()
 
     # menu = Menu(screen, screen_rect, config.fps, config.resolution)
     # menu.menu()
 
-    character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, allies)
+    character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, data_seed['allies'])
     team_selected = character_select.run()
 
-    skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1), Skill("attackarea", SkillType.AREA, 1, 1), Skill("attackheal", SkillType.HEAL, 1, 1)]
+    skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'na'), Skill("attackarea", SkillType.AREA, 1, 1, 'na'), Skill("attackheal", SkillType.HEAL, 1, 1, 'na')]
 
     enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
     enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
@@ -43,5 +43,5 @@ while True:
     #mapA = MapA(screen, screen_rect, config.fps, config.resolution, team_selected)
     #mapA.run()
 
-    mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected)
+    mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected, data_seed['equipments'])
     mapB.run()
