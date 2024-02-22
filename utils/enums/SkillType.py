@@ -6,6 +6,10 @@ class SkillType(Enum):
 
     HEAL = 2
 
-    DIRECT = 3
+    DIRECTD6 = 3
 
-SkillType = Enum('SkillType', ['AREA', 'HEAL', 'DIRECT'])
+    DIRECTD12 = 4
+
+    DIRECTD20 = 5
+
+SkillType = Enum('SkillType', ['AREA', 'HEAL', 'DIRECTD6', 'DIRECTD12', 'DIRECTD20'])

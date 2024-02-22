@@ -17,8 +17,26 @@ class DamageCalculateService():
             chosen_striker.st = 10
 
         # calculate damage for direct skill type
-        if skill.skillType == SkillType.DIRECT:
+        if skill.skillType == SkillType.DIRECTD6:
             damage = (skill.damage + DiceRow.dice6()) - chosen_defender.defense
+
+            if damage < 0:
+                damage = 0
+
+            chosen_defender.hp = chosen_defender.hp - damage
+            prompt_text = f"{chosen_striker.name} atacou com o ataque {skill.name}, causando {damage} de dano no {chosen_defender.name}"
+
+        if skill.skillType == SkillType.DIRECTD12:
+            damage = (skill.damage + DiceRow.dice12()) - chosen_defender.defense
+
+            if damage < 0:
+                damage = 0
+
+            chosen_defender.hp = chosen_defender.hp - damage
+            prompt_text = f"{chosen_striker.name} atacou com o ataque {skill.name}, causando {damage} de dano no {chosen_defender.name}"
+
+        if skill.skillType == SkillType.DIRECTD20:
+            damage = (skill.damage + DiceRow.dice20()) - chosen_defender.defense
 
             if damage < 0:
                 damage = 0

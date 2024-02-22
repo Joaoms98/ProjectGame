@@ -31,7 +31,7 @@ class MapB:
 
         #zone button variables
         zone_buttons = self.createFogButtons()
-        activity_zone_buttons = [0]
+        activity_zone_buttons = [0, 1]
         disable_zone_buttons = []
 
         #quit button variables
@@ -69,9 +69,19 @@ class MapB:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if team_button.checkForInput(mouse_position):
                         team_view.run()
-                    
+
                     if zone_buttons[0].checkForInput(mouse_position) and 0 not in disable_zone_buttons and 0 in activity_zone_buttons:
                         event_response = events.zone1()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[1].checkForInput(mouse_position) and 1 not in disable_zone_buttons and 1 in activity_zone_buttons:
+                        event_response = events.zone2()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[2].checkForInput(mouse_position) and 2 not in disable_zone_buttons and 2 in activity_zone_buttons:
+                        event_response = events.zone3()
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
 

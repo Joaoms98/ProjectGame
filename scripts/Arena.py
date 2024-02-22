@@ -32,7 +32,7 @@ class Arena:
 
         # background variables
         background = pygame.transform.scale(
-            pygame.image.load('assets/background/black_image.jpg').convert(),
+            pygame.image.load('assets/background/MapB/Dungeon_Alchemist_background.jpg').convert(),
             self.resolution
         )
 
@@ -46,7 +46,7 @@ class Arena:
         # prompt variables
         text_box = self.createTextPrompt()
         text_response = ""
-        black_image = 'assets/background/background_nuvens.jpg'
+        black_image = 'assets/background/black_image.jpg'
         prompt_surface = pygame.transform.scale(
             pygame.image.load(black_image).convert(),
             (650, 220)
@@ -57,7 +57,7 @@ class Arena:
 
         # confirm button variables
         confirm_button_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
-        confirm_button = Button(None, (90, 500), "Confirm", confirm_button_text_font, (255,0,0), (255,255,0))
+        confirm_button = Button(None, (500, 600), "Confirm", confirm_button_text_font, (255,0,0), (255,255,0))
 
         player_turn = True
         allie_choice = None
@@ -119,10 +119,16 @@ class Arena:
                             text_box = self.createTextPrompt()
                             team_picture_buttons = self.createTeamPictureButtons()
                             enemy_picture_buttons = self.createEnemyPictureButtons()
-                            text_response = damage_calculate_service.AttackDamage(
-                                random.randint(0,2), self.enemies[random.randint(0,2)], 
-                                self.allies[random.randint(0,2)], self.enemies, self.allies
-                            )
+
+                            enemy_alive = [enemy for enemy in self.enemies if enemy.dead == False]
+                            allie_alive = [allie for allie in self.allies if allie.dead == False]
+
+                            if len(enemy_alive) > 0:
+                                text_response = damage_calculate_service.AttackDamage(
+                                    random.randint(0,2), random.choice(enemy_alive), 
+                                    random.choice(allie_alive), self.enemies, self.allies
+                                )
+
                             player_turn = True
 
                     if player_turn == True: 
@@ -163,9 +169,9 @@ class Arena:
     def createAttackButtons(self, allie_choice):
         hit_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
 
-        hit_button1 = Button(None, (90, 500), allie_choice.skills[0].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button2 = Button(None, (90, 550), allie_choice.skills[1].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button3 = Button(None, (90, 600), allie_choice.skills[2].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button1 = Button(None, (90, 500 + 30), allie_choice.skills[0].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button2 = Button(None, (90, 550 + 30), allie_choice.skills[1].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button3 = Button(None, (90, 600 + 30), allie_choice.skills[2].name, hit_text_font, (255,0,0), (255,255,0))
 
         return [hit_button1, hit_button2, hit_button3]
 
