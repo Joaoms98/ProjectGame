@@ -85,6 +85,16 @@ class MapB:
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
 
+                    if zone_buttons[3].checkForInput(mouse_position) and 3 not in disable_zone_buttons and 3 in activity_zone_buttons:
+                        event_response = events.zone4()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[4].checkForInput(mouse_position) and 4 not in disable_zone_buttons and 4 in activity_zone_buttons:
+                        event_response = events.zone5()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
             # update
             pygame.display.flip()
 
@@ -99,19 +109,19 @@ class MapB:
         zone1 = FogButton(fogButton_image_format, (900,310), "1", font, text_color, text_hover, True)
         zone2 = FogButton(fogButton_image_format, (800,150), "2", font, text_color, text_hover, True)
         zone3 = FogButton(fogButton_image_format, (680,280), "3", font, text_color, text_hover, True)
-        zone4 = FogButton(fogButton_image_format, (800,400), "4", font, text_color, text_hover)
-        zone5 = FogButton(fogButton_image_format, (600,400), "5", font, text_color, text_hover)
-        zone6 = FogButton(fogButton_image_format, (600,150), "6", font, text_color, text_hover)
-        zone7 = FogButton(fogButton_image_format, (400,400), "7", font, text_color, text_hover)
-        zone8 = FogButton(fogButton_image_format, (140,150), "8", font, text_color, text_hover)
-        zone9 = FogButton(fogButton_image_format, (140,150), "9", font, text_color,text_hover)
-        zone10 = FogButton(fogButton_image_format, (140,150), "10", font, text_color, text_hover)
-        zone11 = FogButton(fogButton_image_format, (140,150), "11", font, text_color, text_hover)
-        zone12 = FogButton(fogButton_image_format, (140,150), "12", font, text_color, text_hover)
-        zone13 = FogButton(fogButton_image_format, (140,150), "13", font, text_color, text_hover)
-        zone14 = FogButton(fogButton_image_format, (140,150), "14", font, text_color, text_hover)
-        zone15 = FogButton(fogButton_image_format, (140,150), "15", font, text_color, text_hover)
-        zone16 = FogButton(fogButton_image_format, (140,150), "16", font, text_color, text_hover)
+        zone4 = FogButton(fogButton_image_format, (800,400), "4", font, text_color, text_hover, True)
+        zone5 = FogButton(fogButton_image_format, (600,400), "5", font, text_color, text_hover, True)
+        zone6 = FogButton(fogButton_image_format, (600,150), "6", font, text_color, text_hover, True)
+        zone7 = FogButton(fogButton_image_format, (400,400), "7", font, text_color, text_hover, True)
+        zone8 = FogButton(fogButton_image_format, (140,150), "8", font, text_color, text_hover, True)
+        zone9 = FogButton(fogButton_image_format, (140,150), "9", font, text_color,text_hover, True)
+        zone10 = FogButton(fogButton_image_format, (140,150), "10", font, text_color, text_hover, True)
+        zone11 = FogButton(fogButton_image_format, (140,150), "11", font, text_color, text_hover, True)
+        zone12 = FogButton(fogButton_image_format, (140,150), "12", font, text_color, text_hover, True)
+        zone13 = FogButton(fogButton_image_format, (140,150), "13", font, text_color, text_hover, True)
+        zone14 = FogButton(fogButton_image_format, (140,150), "14", font, text_color, text_hover, True)
+        zone15 = FogButton(fogButton_image_format, (140,150), "15", font, text_color, text_hover, True)
+        zone16 = FogButton(fogButton_image_format, (140,150), "16", font, text_color, text_hover, True)
 
         return [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9,
                 zone10, zone11, zone12, zone13, zone14, zone15,zone16 ]

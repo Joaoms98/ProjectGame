@@ -132,56 +132,139 @@ class MapBEvents:
                 activity_zone_buttons = [],
                 disable_zone_buttons = []
             )
+
+        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + self.equipment.intelligence
+
+        if intelligence_total > 1:
+            message="Ao vasculhar, você encontra alguns cogumelos da realeza, conhecidos por "\
+                "fortalecer e recarregar a energia daqueles que o ingerem. "\
+                "(Todos os aliados reabastece + 4 vida, 8 de mana e 10 de vigor)"
+            decision1="nhãm nhãm"
+            decision2="Sair"
+
+            for allie in self.allies:
+                allie.hp  = allie.hp + 4
+                allie.mp = allie.mp + 8
+                allie.st = allie.st + 10
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            return EventResponse(
+                activity_zone_buttons = [3, 4, 5],
+                disable_zone_buttons = [2]
+            )
+
+        elif intelligence_total ==  1:
+            message="Mesmo após vasculhar diversas vezes, você não reconhece nenhum deles e decide  "\
+                    "que é melhor deixá-los de lado."
+            decision1="Sair"
+            decision2="Sair"
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            return EventResponse(
+                activity_zone_buttons = [3, 4, 5],
+                disable_zone_buttons = [2]
+            )
+        else:
+            message="Ao vasculhar, você se atrai por um cogumelo brilhante e decide ingeri-lo, mas "\
+                    "percebe que não foi a coisa certa."
+            decision1="Sair"
+            decision2="Sair"
+
+            for allie in self.allies:
+                allie.hp  = allie.hp - 1
+                allie.mp = allie.mp - 1
+                allie.st = allie.st - 1
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            return EventResponse(
+                activity_zone_buttons = [3, 4, 5],
+                disable_zone_buttons = [2]
+            )
+
+    def zone4(self) -> EventResponse:
+        message="Uma longa passagem estreita está coberta de ovos abertos de aranhas mutantes, é "\
+                "possível avistar alguns exploradores que não tiverem sorte e acabaram enrolados "\
+                "por teias. Você acaba notando que os cadáveres morreram recentemente e seus "\
+                "equipamentos estão em um bom estado, mas sabe que não será fácil removê-los "\
+                "das teias."
+        decision1="Remover "
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
         
-        if decision == 1:
-            
-            intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + self.equipment.intelligence
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
 
-            if intelligence_total > 1:
-                message="Ao vasculhar, você encontra alguns cogumelos da realeza, conhecidos por "\
-                    "fortalecer e recarregar a energia daqueles que o ingerem. "\
-                    "(Todos os aliados reabastece + 4 vida, 8 de mana e 10 de vigor)"
-                decision1="nhãm nhãm"
-                decision2="Sair"
+        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + self.equipment.strength
 
-                for allie in self.allies:
-                    allie.hp  = allie.hp + 4
-                    allie.mp = allie.mp + 8
-                    allie.st = allie.st + 10
+        if strength_total > 1:
+            message="Você consegue usar sua força para cortar os fios grossos de teias sem dificuldade, "\
+                    "deixando os cadáveres acessíveis. Ao coletar os equipamentos, você nota que na "\
+                    "armadura de um explorador está o símbolo do reino de Karadur e se pergunta por "\
+                    "que um soldado do rei estaria nesse local. "
+            decision1="Confirmar "
+            decision2="Sair"
 
-                decision = self.event_handler.run(self.allies, message, decision1, decision2)
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-                return EventResponse(
-                    activity_zone_buttons = [3, 4, 5],
-                    disable_zone_buttons = [2]
-                )
+            for allie in self.allies:
+                allie.defense  = allie.defense + 1
 
-            elif intelligence_total ==  1:
-                message="Mesmo após vasculhar diversas vezes, você não reconhece nenhum deles e decide  "\
-                        "que é melhor deixá-los de lado."
-                decision1="Sair"
-                decision2="Sair"
+        else: 
+            message="Mesmo usando sua força e técnica você não consegue romper os fios de teias, após "\
+                    "desistir e olhar por alguns segundos para o cadáver você nota que em sua "\
+                    "armadura está o símbolo do reino de Karadur e se pergunta por que um soldado do    "\
+                    "rei estaria nesse local. "
+            decision1="Prosseguir "
+            decision2="Sair"
 
-                decision = self.event_handler.run(self.allies, message, decision1, decision2)
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-                return EventResponse(
-                    activity_zone_buttons = [3, 4, 5],
-                    disable_zone_buttons = [2]
-                )
-            else:
-                message="Ao vasculhar, você se atrai por um cogumelo brilhante e decide ingeri-lo, mas "\
-                        "percebe que não foi a coisa certa."
-                decision1="Sair"    
-                decision2="Sair"
+        return EventResponse(
+            activity_zone_buttons = [2, 4],
+            disable_zone_buttons = [3]
+        )
 
-                for allie in self.allies:
-                    allie.hp  = allie.hp - 1
-                    allie.mp = allie.mp - 1
-                    allie.st = allie.st - 1
+    def zone5(self) -> EventResponse:
+        message="Ao chegar próximo do local você nota que há muitos exploradores mortos, presos "\
+                "em teias e outros sem parte de seu corpo. Você se pergunta se é uma boa ideia "\
+                "chegar perto do antigo acampamento. "
+        decision1="Interagir "
+        decision2="Sair"
 
-                decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-                return EventResponse(
-                    activity_zone_buttons = [3, 4, 5],
-                    disable_zone_buttons = [2]
-                )
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+        
+        message="Você decide passar pelo antigo acampamento mesmo sabendo do perigo "\
+        "iminente das aranhas. O acampamento está todo destruído e nada pode ser "\
+        "reaproveitado. Após alguns olhares em volta você percebe que não está sozinho e "\
+        "terá que se defender."
+        decision1="Lutar "
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+
+        enemy1 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+        enemy2 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderINT(Alive).png', 'assets/portraits/Enemies/Spider/SpiderINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+        enemy3 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+
+        arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+        battleResponse = arena.run()
+
+        return EventResponse(
+            activity_zone_buttons = [7],
+            disable_zone_buttons = [4]
+        )
