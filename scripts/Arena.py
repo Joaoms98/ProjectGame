@@ -6,6 +6,7 @@ from utils.Button import Button
 from utils.TextBox import TextBox
 from services.DamageCalculateService import DamageCalculateService
 from response.BattleResponse import BattleResponse
+from utils.enums.SkillType import SkillType
 
 class Arena:
     def __init__(self, screen, screen_rect, fps, resolution, allies, enemies, equipment):
@@ -61,6 +62,7 @@ class Arena:
 
         player_turn = True
         allie_choice = None
+        attack = None
 
         while True:
             # set frames
@@ -129,6 +131,7 @@ class Arena:
                                     random.choice(allie_alive), self.enemies, self.allies
                                 )
 
+                            attack = None
                             player_turn = True
 
                     if player_turn == True: 

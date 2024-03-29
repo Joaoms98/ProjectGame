@@ -3,6 +3,13 @@ from utils.DiceRow import DiceRow
 
 class DamageCalculateService():
     def AttackDamage(self, attack_index, chosen_striker, chosen_defender, team_striker, team_defender, equipment = None):
+        
+        if chosen_striker is None:
+            return "Você precisa selecionar o aliado, você perdeu a vez"
+
+        if attack_index is None:
+            return "Você precisa selecionar o ataque, você perdeu a vez"
+        
         skill = chosen_striker.skills[attack_index]
 
         # verify dead attacker
