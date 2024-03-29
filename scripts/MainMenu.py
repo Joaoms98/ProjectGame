@@ -29,14 +29,14 @@ class MainMenu:
         )
         play_screen_background = pygame.transform.scale(
             pygame.image.load('assets/background/black_image.jpg').convert(),
-            (400,400)
+            (600,500)
         )
         options_screen_background = pygame.transform.scale(
-            pygame.image.load('assets/background/Map1.jpg').convert(),
-            (450,450)
+            pygame.image.load('assets/background/black_image.jpg').convert(),
+            (600,500)
         )
         how_to_play_screen_background = pygame.transform.scale(
-            pygame.image.load('assets/background/Map2.png').convert(),
+            pygame.image.load('assets/background/black_image.jpg').convert(),
             (600,500)
         )
         
