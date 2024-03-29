@@ -3,7 +3,7 @@ import random
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 from services.DamageCalculateService import DamageCalculateService
 from response.BattleResponse import BattleResponse
 from utils.enums.SkillType import SkillType

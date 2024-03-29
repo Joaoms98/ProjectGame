@@ -2,7 +2,7 @@ import pygame, sys
 import utils.Language as lang
 import utils.Config as config
 from scripts.EventHandler import EventHandler
-from utils.FogButton import FogButton
+from utils.fogbutton import FogButton
 from utils.Button import Button
 from scripts.TeamView import TeamView
 

@@ -2,7 +2,7 @@ import pygame, sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.TextBox import TextBox
+from utils.Textbox import TextBox
 
 class CharacterSelect:
 
