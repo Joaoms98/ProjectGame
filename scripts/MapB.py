@@ -1,6 +1,6 @@
 import pygame, sys
-from utils.fogbutton import FogButton
-from scripts.MainMenu import Menu
+from utils.FogButton import FogButton
+from scripts.MainMenu import MainMenu
 from utils.Button import Button
 from scripts.TeamView import TeamView
 from scripts.events.MapBEvents import MapBEvents

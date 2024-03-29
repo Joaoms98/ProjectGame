@@ -17,8 +17,9 @@ class MainMenu:
         
         # music
         theme_music_sfx = pygame.mixer.Sound('assets/music/MainMenuMusic.mp3')
-        sfc_volume = config.volume / 100
-        theme_music_sfx.set_volume(sfc_volume)
+        theme_music_sfx_volume = config.volume / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+
         theme_music_sfx.play()
 
         #load background
@@ -160,8 +161,8 @@ class MainMenu:
                            
                         if options_screen_buttons[3].checkForInput(mouse_position):
                             dict_lang = lang.Language.set_lang(self, config.language)
-                            sfc_volume = config.volume/100
-                            theme_music_sfx.set_volume(sfc_volume)
+                            theme_music_sfx_volume = config.volume/100
+                            theme_music_sfx.set_volume(theme_music_sfx_volume)
                             main_menu_buttons = self.createMainMenuButtons(dict_lang)
                             play_screen_buttons = self.createPlayScreenButtons(dict_lang)
                             options_screen_buttons = self.createOptionsScreenButtons(dict_lang)
