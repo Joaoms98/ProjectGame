@@ -16,8 +16,10 @@ class MainMenu:
         dict_lang = lang.Language.set_lang(self, config.language)
         
         # music
-        theme_music = pygame.mixer.Sound('assets/music/MainMenuMusic.mp3')
-        pygame.mixer.Sound.play(theme_music)
+        theme_music_sfx = pygame.mixer.Sound('assets/music/MainMenuMusic.mp3')
+        sfc_volume = config.volume / 100
+        theme_music_sfx.set_volume(sfc_volume)
+        theme_music_sfx.play()
 
         #load background
         main_menu_background = pygame.transform.scale(
@@ -133,13 +135,13 @@ class MainMenu:
                     #### OPTIONS SCREEN ####
                     if options_screen == True:
                         if options_screen_buttons[0].checkForInput(mouse_position):
-                            config.volume += 1
+                            config.volume += 10
                             print(f'{config.volume}')
                             if config.volume > 100:
                                 config.volume = 100
                                 print(f'{config.volume}')
                         if options_screen_buttons[1].checkForInput(mouse_position):
-                            config.volume -= 1
+                            config.volume -= 10
                             print(f'{config.volume}')
                             if config.volume < 1:
                                 config.volume = 0
@@ -158,6 +160,8 @@ class MainMenu:
                            
                         if options_screen_buttons[3].checkForInput(mouse_position):
                             dict_lang = lang.Language.set_lang(self, config.language)
+                            sfc_volume = config.volume/100
+                            theme_music_sfx.set_volume(sfc_volume)
                             main_menu_buttons = self.createMainMenuButtons(dict_lang)
                             play_screen_buttons = self.createPlayScreenButtons(dict_lang)
                             options_screen_buttons = self.createOptionsScreenButtons(dict_lang)
@@ -200,11 +204,11 @@ class MainMenu:
         buttonsAppearance = self.buttonsAppearance()
 
         raise_volume_button = Button(buttonsAppearance[0], (600,200), f">", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        lowerer_volume_button = Button(buttonsAppearance[0], (400,200), f"<", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        lower_volume_button = Button(buttonsAppearance[0], (400,200), f"<", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         language_button = Button(buttonsAppearance[0], (500,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         apply_button = Button(buttonsAppearance[0], (500,400), lang['apply'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         
-        return [raise_volume_button, lowerer_volume_button, language_button, apply_button]
+        return [raise_volume_button, lower_volume_button, language_button, apply_button]
     
     def createHowToPlayScreenButtons(self, lang):
         
