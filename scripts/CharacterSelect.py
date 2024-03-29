@@ -2,7 +2,7 @@ import pygame, sys
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.Textbox import TextBox
+from utils.TextBox import TextBox
 
 class CharacterSelect:
 
@@ -40,7 +40,7 @@ class CharacterSelect:
         confirm_button_image_format = pygame.transform.scale(confirm_button_image,(150,50))
         confirm_button_base_color = "#a9b0c7"
         confirm_button_hover_color = "#ffffff"
-        confirm_button = Button(confirm_button_image_format, (500,650), "Confirmar", confirm_button_font, confirm_button_base_color, confirm_button_hover_color)
+        confirm_button = Button(confirm_button_image_format, (500,650), dict_lang['confirm'], confirm_button_font, confirm_button_base_color, confirm_button_hover_color)
 
         # create pictures button
         pictures_buttons = self.createCharacterPictureButton()
@@ -108,6 +108,7 @@ class CharacterSelect:
                                 back = True
  
             if back == True:
+                pygame.mixer.pause()
                 return [self.allies[self.team_selected_index[0]], self.allies[self.team_selected_index[1]], self.allies[self.team_selected_index[2]]]
 
             # update
@@ -119,16 +120,19 @@ class CharacterSelect:
         attributes_size_rect = (1000,700)
         attributes_font_size = 15
 
+        # Objects instances
+        dict_lang = lang.Language.set_lang(self, config.language)
+
         if character_attributes_index is not None:
             name_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{self.allies[character_attributes_index].name}", attributes_text_color, (670, 25))
             hp_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Hp: {self.allies[character_attributes_index].hp}", attributes_text_color, (500, 100))
             mp_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Mp: {self.allies[character_attributes_index].mp}", attributes_text_color, (840, 100))
-            defense_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Defense: {self.allies[character_attributes_index].defense}", attributes_text_color, (500, 175))
-            dexterity_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Dexterity: {self.allies[character_attributes_index].dexterity}", attributes_text_color, (840, 175))
-            strength_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Strength: {self.allies[character_attributes_index].strength}", attributes_text_color, (500, 250))
-            intelligence_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Intelligence: {self.allies[character_attributes_index].intelligence}", attributes_text_color, (840, 250))
-            faith_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Faith: {self.allies[character_attributes_index].faith}", attributes_text_color, (500, 325))
-            charisma_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"Charisma: {self.allies[character_attributes_index].charisma}", attributes_text_color, (840, 325))
+            defense_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['defense']}: {self.allies[character_attributes_index].defense}", attributes_text_color, (500, 175))
+            dexterity_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['dexterity']}: {self.allies[character_attributes_index].dexterity}", attributes_text_color, (840, 175))
+            strength_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['strength']}: {self.allies[character_attributes_index].strength}", attributes_text_color, (500, 250))
+            intelligence_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['intelligence']}: {self.allies[character_attributes_index].intelligence}", attributes_text_color, (840, 250))
+            faith_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['faith']}: {self.allies[character_attributes_index].faith}", attributes_text_color, (500, 325))
+            charisma_text_box = TextBox(attributes_font_size, attributes_text_font, attributes_size_rect, f"{dict_lang['charisma']}: {self.allies[character_attributes_index].charisma}", attributes_text_color, (840, 325))
 
             return [name_text_box, hp_text_box, mp_text_box, defense_text_box, dexterity_text_box, strength_text_box, intelligence_text_box, faith_text_box, charisma_text_box]
     

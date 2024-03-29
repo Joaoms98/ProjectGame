@@ -21,11 +21,20 @@ class Language:
                         'Previous' : 'Previous',
                         #campaing
                         'campaing_text_explore': 'Explore',
-                        'campaing_text_level': 'Level'
+                        'campaing_text_level': 'Level',
+
+                        ## Character_Select ##
+                        'confirm': 'Confirm',
+                        'defense': 'Defense',
+                        'strength': 'Strength',
+                        'faith': 'Faith',
+                        'dexterity': 'Dexterity',
+                        'intelligence': 'Intelligence',
+                        'charisma': 'Charisma'
                         }
 
         dictionary_pt = {
-                        #main_menu
+                        ## main_menu ##
                         'play': 'Iniciar',
                         'options': 'Opções',
                         'how_to_play' : "Como jogar",
@@ -44,7 +53,16 @@ class Language:
                         'Previous' : 'Anterior',
                         #campaing
                         'campaing_text_explore': 'Explorar',
-                        'campaing_text_level': 'Andar'
+                        'campaing_text_level': 'Andar',
+
+                        ## Character_Select ##
+                        'confirm': 'Confirmar',
+                        'defense': 'Defesa',
+                        'strength': 'Força',
+                        'faith': 'Fé',
+                        'dexterity': 'Destreza',
+                        'intelligence': 'Inteligência',
+                        'charisma': 'Carisma'
                         }
 
         if lang == 'English':

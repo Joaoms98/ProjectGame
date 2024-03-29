@@ -3,7 +3,7 @@ import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
 
-class Menu:
+class MainMenu:
     def __init__(self, screen, screen_rect, fps, resolution):
         self.screen = screen
         self.screen_rect = screen_rect
@@ -14,6 +14,10 @@ class Menu:
     def run(self):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
+        
+        # music
+        theme_music = pygame.mixer.Sound('assets/music/MainMenuMusic.mp3')
+        pygame.mixer.Sound.play(theme_music)
 
         #load background
         main_menu_background = pygame.transform.scale(
@@ -39,9 +43,9 @@ class Menu:
         options_screen_buttons = self.createOptionsScreenButtons(dict_lang)
         how_to_play_screen_buttons = self.createHowToPlayScreenButtons(dict_lang)
 
-        #aply config
-        aply_changes_config = False
-        
+        #apply config
+        apply_changes_config = False
+
         #validators for screens
         play_screen = False 
         options_screen = False
@@ -54,13 +58,12 @@ class Menu:
             # set frames
             self.clock.tick(self.fps)
             
-
             mouse_position = pygame.mouse.get_pos()
 
-
-            #Validator    
+            # Validator    
             if options_screen == False and play_screen == False and how_to_play_screen == False:
                 self.screen.blit(main_menu_background, (0, 0))
+
             #### DRAW BUTTONS ####            
            #### PLAY SCREEN BUTTONS ####
             if play_screen == True:
@@ -76,24 +79,13 @@ class Menu:
                 for button in options_screen_buttons:
                     button.changeColor(mouse_position)
                     button.update(self.screen)
+
             #### HOW TO PLAY SCREEN ####
             if how_to_play_screen == True and how_to_play_screen_next_tips == 0:
                 self.screen.blit(how_to_play_screen_background, (300, 100))
                 for button in how_to_play_screen_buttons:
                     button.changeColor(mouse_position)
                     button.update(self.screen)
-
-                    
-            # if how_to_play_screen == True and how_to_play_screen_next_tips == 1:
-            #     self.screen.blit(self.ALTERAR_background, (300, 100))
-            #     for button in how_to_play_screen_buttons:
-            #         button.changeColor(mouse_position)
-            #         button.update(self.screen)
-            # if how_to_play_screen == True and how_to_play_screen_next_tips == 2:
-            #     self.screen.blit(self.ALTERAR_background, (300, 100))
-            #     for button in how_to_play_screen_buttons:
-            #         button.changeColor(mouse_position)
-            #         button.update(self.screen)
             
             #### MAIN MENU BUTTONS ####
             for button in main_menu_buttons:
@@ -136,13 +128,7 @@ class Menu:
                     #### PLAY SCREEN ####
                     if play_screen == True:
                         if play_screen_buttons[0].checkForInput(mouse_position):
-                            print('save game')
-                        if play_screen_buttons[1].checkForInput(mouse_position):
-                            print('continue')
-                        if play_screen_buttons[2].checkForInput(mouse_position):
-                            print('Load game')
-                        if play_screen_buttons[3].checkForInput(mouse_position):
-                            print('new game')
+                            return
 
                     #### OPTIONS SCREEN ####
                     if options_screen == True:
@@ -159,7 +145,7 @@ class Menu:
                                 config.volume = 0
                                 print(f'{config.volume}')
                         volume = volumeAppearance[1].render(f'{config.volume}', True, volumeAppearance[2])
-                        
+
                         if options_screen_buttons[2].checkForInput(mouse_position):
                             if config.language == 'English':
                                 config.language = 'Português-Brasil'
@@ -188,9 +174,7 @@ class Menu:
                             how_to_play_screen_next_tips = how_to_play_screen_next_tips - 1
                             if how_to_play_screen_next_tips <= -1:
                                 how_to_play_screen_next_tips = 2
-                    
-            if aply_changes_config == True:
-                break
+
             # update
             pygame.display.flip()
     
@@ -208,13 +192,9 @@ class Menu:
     def createPlayScreenButtons(self, lang):
 
         buttonsAppearance = self.buttonsAppearance()
-
-        save_button = Button(buttonsAppearance[0], (500,200), lang['save_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        continue_button = Button(buttonsAppearance[0], (500,300), lang['continue'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        load_button = Button(buttonsAppearance[0], (500,400), lang['load_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        new_game_button = Button(buttonsAppearance[0], (500,500), lang['new_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        new_game_button = Button(buttonsAppearance[0], (500,200), lang['new_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         
-        return [save_button, continue_button, load_button ,new_game_button]
+        return [new_game_button]
 
     def createOptionsScreenButtons(self, lang):
         buttonsAppearance = self.buttonsAppearance()
