@@ -95,6 +95,31 @@ class MapB:
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
 
+                    if zone_buttons[5].checkForInput(mouse_position) and 5 not in disable_zone_buttons and 5 in activity_zone_buttons:
+                        event_response = events.zone6()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[6].checkForInput(mouse_position) and 6 not in disable_zone_buttons and 6 in activity_zone_buttons:
+                        event_response = events.zone7()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[7].checkForInput(mouse_position) and 7 not in disable_zone_buttons and 7 in activity_zone_buttons:
+                        event_response = events.zone8()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[8].checkForInput(mouse_position) and 8 not in disable_zone_buttons and 8 in activity_zone_buttons:
+                        event_response = events.zone9()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
+                    if zone_buttons[9].checkForInput(mouse_position) and 9 not in disable_zone_buttons and 9 in activity_zone_buttons:
+                        event_response = events.zone10()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+
             # update
             pygame.display.flip()
 
@@ -109,7 +134,7 @@ class MapB:
         zone1 = FogButton(fogButton_image_format, (900,310), "1", font, text_color, text_hover, True)
         zone2 = FogButton(fogButton_image_format, (800,150), "2", font, text_color, text_hover, True)
         zone3 = FogButton(fogButton_image_format, (680,280), "3", font, text_color, text_hover, True)
-        zone4 = FogButton(fogButton_image_format, (800,400), "4", font, text_color, text_hover, True)
+        zone4 = FogButton(fogButton_image_format, (845,640), "4", font, text_color, text_hover, True)
         zone5 = FogButton(fogButton_image_format, (600,400), "5", font, text_color, text_hover, True)
         zone6 = FogButton(fogButton_image_format, (600,150), "6", font, text_color, text_hover, True)
         zone7 = FogButton(fogButton_image_format, (400,400), "7", font, text_color, text_hover, True)

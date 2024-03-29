@@ -268,3 +268,188 @@ class MapBEvents:
             activity_zone_buttons = [7],
             disable_zone_buttons = [4]
         )
+
+    def zone6(self) -> EventResponse:
+        message="A sua frente está um caminho apertado e escuro onde nem mesmo uma tacho será "\
+                "de grande ajuda, após encarar a escuridão por um tempo você consegue ouvir "\
+                "passos pesados ecoando pela passagem. Você decide que não é bom seguir esse "\
+                "caminho."
+        decision1="Prosseguir"
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+        return EventResponse(
+            activity_zone_buttons = [6, 8],
+            disable_zone_buttons = [5]
+        )
+
+    def zone7(self) -> EventResponse:
+        message="Ao olhar de longe, você percebe que há um amontoado de gosmas verdes entre seu "\
+                "caminho e nunca viu algo desse tipo antes, se perguntando de onde essas coisas "\
+                "surgiram."
+        decision1="Interagir"
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+        message="Ao se aproximar das gosmas é possível sentir um cheiro de podridão e morte, "\
+                "elas se separam em grupos e segue  em sua direção consumindo todos os restos "\
+                "mortais que estão no local. "
+        decision1="Lutar"
+        decision2="Tentar fugir"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+
+        enemy1 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+        enemy2 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+        enemy3 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+
+        arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+        battleResponse = arena.run()
+
+        return EventResponse(
+            activity_zone_buttons = [11],
+            disable_zone_buttons = [6]
+        )
+    
+    def zone8(self) -> EventResponse:
+        message="Uma grande barreira de madeira improvisada foi montada aqui impedindo que algo "\
+                "ou alguém passe, após analisar a estrutura você percebe que com uma boa "\
+                "pancada é possível abrir uma passagem."
+        decision1="Interagir"
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + self.equipment.strength
+
+        if strength_total > 1:
+
+            message="Com uma boa pancada na estrutura você consegue derrubar a pilha de móveis "\
+                    "improvisados para impedir o caminho, percebendo que qualquer monstro desse "\
+                    "local poderia fazer o mesmo."
+            decision1="Prosseguir"
+            decision2="Avançar"
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            return EventResponse(
+                activity_zone_buttons = [14],
+                disable_zone_buttons = [7]
+            )
+
+        message="Mesmo com sua força os móveis e tábuas improvisadas ainda permanecem em pé, "\
+                "você acaba se cansando e decide que é melhor encontrar outro caminho."
+        decision1="Prosseguir"
+        decision2="Avançar"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+    def zone9(self) -> EventResponse:
+        message="Você encontra os restos mortais de dois exploradores, um deles segura uma faca "\
+                "com a ponta desgastada por mau uso. Na parede próxima aos exploradores você "\
+                "percebe que possui diversas inscrições, analisando você tenta entender o que elas "\
+                "transmitem."
+        decision1="Investigar"
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + self.equipment.intelligence
+
+        if intelligence_total > 1:
+            message="As inscrições citam um conto antigo que pertence às terras do Céu Vermelho, "\
+                    "citando o amor de um casal que se entregaram ao deus do fogo para "\
+                    "permanecerem unidos e combater o mal no pós vida. Você se sente inspirado, mas "\
+                    "logo percebe que os exploradores são um casal e infelizmente perderam a vida "\
+                    "nesse local."
+            decision1="Prosseguir"
+            decision2="Sair"
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        else:
+            message="Você não consegue identificar o que as inscrições passam, mas sabe que antes de "\
+                    "morrerem aqueles exploradores tentaram transmitir algo para o mundo."
+            decision1="Prosseguir"
+            decision2="Sair"
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        return EventResponse(
+            activity_zone_buttons = [9],
+            disable_zone_buttons = [8]
+        )
+    
+    def zone10(self) -> EventResponse:
+        message="Você avista uma cela e se pergunta por que algo como isso está dentro dessa "\
+                "caverna, no fundo dela há um homem surrado e em pânico ao te ver, ele diz “Por "\
+                "favor eu já sofri muito, acabe comigo de uma vez”. Você se aproxima da cela e diz "\
+                "“você tem minha palavra que vou te tirar com segurança daqui”, o homem se "\
+                "aproxima de você."
+        decision1="Aguardar"
+        decision2="Sair"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        if decision == 2:
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )
+
+        charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + self.equipment.charisma
+
+        if charisma_total > 1:
+            message="“Você não está com Voslok?” com uma expressão de esperança ele se aproxima da "\
+                    "grade, “Você deve acabar com ele, sua paranoia com aquele cadáver levou todos "\
+                    "nós à morte e ele sequer se preocupou com isso. você deve fugir”, homem com "\
+                    "tamanha destreza alcança a faca em sua cintura e rapidamente corta a garganta. "\
+                    "Você nada pode fazer, apenas assistir aquele pobre homem morrer."
+            decision1="Assistir"
+            decision2="Sair"
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        else: 
+            message="“Você… Você não devia estar aqui, todos irão morrer, aquele… aquele maldito "\
+                    "cadaver”, o homem com tamanha destreza alcança a faca em sua cintura e "\
+                    "rapidamente corta a garganta. Você nada pode fazer, apenas assistir aquele pobre "\
+                    "homem morrer."
+            decision1="Assistir"
+            decision2="Sair"
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        return EventResponse(
+            activity_zone_buttons = [10],
+            disable_zone_buttons = [9]
+        )
