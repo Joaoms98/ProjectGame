@@ -77,8 +77,7 @@ class MapAEvents:
         if decision == 2:
             player_picture = 'assets/portraits/portrait_test_1.jpeg'
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
-
+            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.AREAD20, 1, 1, 'str')]
             enemy1 = Character("capiroto1",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
             enemy2 = Character("demonio2", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
             enemy3 = Character("ditocujo3",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)

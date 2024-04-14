@@ -2,14 +2,34 @@ from enum import Enum
 
 class SkillType(Enum):
 
-    AREA = 1
+    AREAD6 = 1
 
-    HEAL = 2
+    AREAD12 = 2
+    
+    AREAD20 = 3
 
-    DIRECTD6 = 3
+    HEALD6 = 4
 
-    DIRECTD12 = 4
+    HEALD12 = 5
+    
+    HEALD20 = 6
 
-    DIRECTD20 = 5
+    DIRECTD6 = 7
 
-SkillType = Enum('SkillType', ['AREA', 'HEAL', 'DIRECTD6', 'DIRECTD12', 'DIRECTD20'])
+    DIRECTD12 = 8
+
+    DIRECTD20 = 9
+
+    MANASTEALD6 = 10
+
+    MANASTEALD12 = 11
+
+    MANASTEALD20 = 12
+
+    MANAREGEND6 = 13
+
+    MANAREGEND12 = 14
+
+    MANAREGEND20 = 15
+
+SkillType = Enum('SkillType', ['AREAD6', 'AREAD12', 'AREAD20', 'HEALD6', 'HEALD12', 'HEALD20', 'DIRECTD6', 'DIRECTD12', 'DIRECTD20', 'MANASTEALD6', 'MANASTEALD12', 'MANASTEALD20', 'MANAREGEND6', 'MANAREGEND12', 'MANAREGEND20'])
