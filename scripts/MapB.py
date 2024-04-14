@@ -31,7 +31,7 @@ class MapB:
 
         #zone button variables
         zone_buttons = self.createFogButtons()
-        activity_zone_buttons = [0, 1]
+        activity_zone_buttons = [0, 1, 15]
         disable_zone_buttons = []
 
         #quit button variables
@@ -119,34 +119,65 @@ class MapB:
                         event_response = events.zone10()
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[10].checkForInput(mouse_position) and 10 not in disable_zone_buttons and 10 in activity_zone_buttons:
+                        event_response = events.zone11()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[11].checkForInput(mouse_position) and 11 not in disable_zone_buttons and 11 in activity_zone_buttons:
+                        event_response = events.zone12()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[12].checkForInput(mouse_position) and 12 not in disable_zone_buttons and 12 in activity_zone_buttons:
+                        event_response = events.zone13()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[13].checkForInput(mouse_position) and 13 not in disable_zone_buttons and 13 in activity_zone_buttons:
+                        event_response = events.zone14()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[14].checkForInput(mouse_position) and 14 not in disable_zone_buttons and 14 in activity_zone_buttons:
+                        event_response = events.zone15()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
+                    if zone_buttons[15].checkForInput(mouse_position) and 15 not in disable_zone_buttons and 15 in activity_zone_buttons:
+                        event_response = events.zone16()
+                        activity_zone_buttons.extend(event_response.activity_zone_buttons)
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                    
 
             # update
             pygame.display.flip()
 
     def createFogButtons(self):
         # menu text variables
-        font = pygame.font.Font("assets/fonts/font.ttf", 15)
+        font = pygame.font.Font("assets/fonts/font.ttf", 9)
         text_color = "#ffffff"
         text_hover = "#ff0000"
         fogButton_image = pygame.image.load('assets/buttons/zone_buttons/Zone_Layout.png')
         fogButton_image_format = pygame.transform.scale(fogButton_image, (100,80))
 
-        zone1 = FogButton(fogButton_image_format, (900,310), "1", font, text_color, text_hover, True)
-        zone2 = FogButton(fogButton_image_format, (800,150), "2", font, text_color, text_hover, True)
-        zone3 = FogButton(fogButton_image_format, (680,280), "3", font, text_color, text_hover, True)
-        zone4 = FogButton(fogButton_image_format, (845,640), "4", font, text_color, text_hover, True)
-        zone5 = FogButton(fogButton_image_format, (600,400), "5", font, text_color, text_hover, True)
-        zone6 = FogButton(fogButton_image_format, (600,150), "6", font, text_color, text_hover, True)
-        zone7 = FogButton(fogButton_image_format, (400,400), "7", font, text_color, text_hover, True)
-        zone8 = FogButton(fogButton_image_format, (140,150), "8", font, text_color, text_hover, True)
-        zone9 = FogButton(fogButton_image_format, (140,150), "9", font, text_color,text_hover, True)
-        zone10 = FogButton(fogButton_image_format, (140,150), "10", font, text_color, text_hover, True)
-        zone11 = FogButton(fogButton_image_format, (140,150), "11", font, text_color, text_hover, True)
-        zone12 = FogButton(fogButton_image_format, (140,150), "12", font, text_color, text_hover, True)
-        zone13 = FogButton(fogButton_image_format, (140,150), "13", font, text_color, text_hover, True)
-        zone14 = FogButton(fogButton_image_format, (140,150), "14", font, text_color, text_hover, True)
-        zone15 = FogButton(fogButton_image_format, (140,150), "15", font, text_color, text_hover, True)
-        zone16 = FogButton(fogButton_image_format, (140,150), "16", font, text_color, text_hover, True)
+        zone1 = FogButton(fogButton_image_format, (910,315), "Caixões", font, text_color, text_hover, True)
+        zone2 = FogButton(fogButton_image_format, (670,70), "Altar", font, text_color, text_hover, True)
+        zone3 = FogButton(fogButton_image_format, (680,300), "Cogumelos", font, text_color, text_hover, True)
+        zone4 = FogButton(fogButton_image_format, (870,640), "Passasgem", font, text_color, text_hover, True)
+        zone5 = FogButton(fogButton_image_format, (530,530), "Antigo acampamento", font, text_color, text_hover, True)
+        zone6 = FogButton(fogButton_image_format, (550,110), "Caminhos escuros", font, text_color, text_hover, True)
+        zone7 = FogButton(fogButton_image_format, (330,70), "?", font, text_color, text_hover, True)
+        zone8 = FogButton(fogButton_image_format, (400,600), "Barricada", font, text_color, text_hover, True)
+        zone9 = FogButton(fogButton_image_format, (255,260), "Marcas na Parede", font, text_color,text_hover, True)
+        zone10 = FogButton(fogButton_image_format, (190,390), "Prisão", font, text_color, text_hover, True)
+        zone11 = FogButton(fogButton_image_format, (190,500), "Estoque", font, text_color, text_hover, True)
+        zone12 = FogButton(fogButton_image_format, (65,80), "?", font, text_color, text_hover, True)
+        zone13 = FogButton(fogButton_image_format, (80,310), "Maquina Estranha", font, text_color, text_hover, True)
+        zone14 = FogButton(fogButton_image_format, (50,455), "Livros", font, text_color, text_hover, True)
+        zone15 = FogButton(fogButton_image_format, (270,600), "Bote", font, text_color, text_hover, True)
+        zone16 = FogButton(fogButton_image_format, (100,600), "?", font, text_color, text_hover, True)
 
         return [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9,
                 zone10, zone11, zone12, zone13, zone14, zone15,zone16 ]
