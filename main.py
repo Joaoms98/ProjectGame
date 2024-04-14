@@ -5,7 +5,7 @@ from objects.Character import Character
 from scripts.Arena import Arena
 from scripts.MapA import MapA
 from scripts.MapB import MapB
-from scripts.MainMenu import Menu
+from scripts.MainMenu import MainMenu
 from scripts.TeamView import TeamView
 from scripts.CharacterSelect import CharacterSelect
 from objects.Skill import Skill
@@ -25,8 +25,8 @@ while True:
     seed = Seed()
     data_seed = seed.alliesSeed()
 
-    # menu = Menu(screen, screen_rect, config.fps, config.resolution)
-    # menu.menu()
+    menu = MainMenu(screen, screen_rect, config.fps, config.resolution)
+    menu.run()
 
     character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, data_seed['allies'])
     team_selected = character_select.run()

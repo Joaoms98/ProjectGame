@@ -68,7 +68,7 @@ class MapBEvents:
                 decision2=None
                 decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-                skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+                skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
 
                 enemy1 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
                 enemy2 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
@@ -111,7 +111,7 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
 
             enemy1 = Character("Afogado",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
             enemy2 = Character("Afogado",'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
@@ -265,7 +265,7 @@ class MapBEvents:
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.AREAD20, 1, 1, 'str')]
 
         enemy1 = Character("Aranha",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
         enemy2 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderINT(Alive).png', 'assets/portraits/Enemies/Spider/SpiderINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
@@ -325,8 +325,8 @@ class MapBEvents:
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
-
+        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.AREAD20, 1, 1, 'str')]
+        
         enemy1 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
         enemy2 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
         enemy3 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
