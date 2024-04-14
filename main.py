@@ -1,10 +1,15 @@
 import pygame
+import utils.Config as config
 from data.Seed import Seed
-from scripts.Map1 import Map1
-from scripts.Map2 import Map2
-from scripts.menu import Menu
+from objects.Character import Character
+from scripts.Arena import Arena
+from scripts.MapA import MapA
+from scripts.MapB import MapB
+from scripts.MainMenu import MainMenu
+from scripts.TeamView import TeamView
 from scripts.CharacterSelect import CharacterSelect
-import utils.config as config
+from objects.Skill import Skill
+from utils.enums.SkillType import SkillType
 
 while True:
     pygame.init()
@@ -15,19 +20,31 @@ while True:
 
     # set screen name
     pygame.display.set_caption('game')
-    
+
     #seeds
     seed = Seed()
-    allies = seed.alliesSeed()
+    data_seed = seed.alliesSeed()
 
-    # menu = Menu(screen, screen_rect, config.fps, config.resolution)
-    # menu.menu()
+    menu = MainMenu(screen, screen_rect, config.fps, config.resolution)
+    menu.run()
 
-    character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, allies)
+    character_select = CharacterSelect(screen, screen_rect, config.fps, config.resolution, data_seed['allies'])
     team_selected = character_select.run()
 
-    # map1 = Map1(screen, screen_rect, config.fps, config.resolution, team_selected)
-    # map1.run()
+    # skills_test = [Skill("attackdirect", SkillType.DIRECT, 1, 1, 'na'), Skill("attackarea", SkillType.AREA, 1, 1, 'na'), Skill("attackheal", SkillType.HEAL, 1, 1, 'na')]
 
-    map2 = Map2(screen, screen_rect, config.fps, config.resolution, team_selected)
-    map2.run()
+    # enemy1 = Character("capiroto",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    # enemy2 = Character("demonio", 'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+    # enemy3 = Character("ditocujo",'assets/portraits/Mercenary-Harald(Alive).png', 'assets/portraits/Mercenary-Harald(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+
+    #arena = Arena(screen, screen_rect, config.fps, config.resolution, [allies[0], allies[1], allies[2]], [enemy1, enemy2, enemy3])
+    #arena.run()
+
+    #mapA = MapA(screen, screen_rect, config.fps, config.resolution, team_selected)
+    #mapA.run()
+
+    mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected, data_seed['equipments'])
+    mapB.run()
+
+    # mapB = MapB(screen, screen_rect, config.fps, config.resolution, [data_seed['allies'][0], data_seed['allies'][0], data_seed['allies'][0] ], data_seed['equipments'])
+    # mapB.run()

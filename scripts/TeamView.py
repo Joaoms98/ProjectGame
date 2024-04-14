@@ -1,8 +1,8 @@
 import pygame, sys
-import utils.language as lang
-import utils.config as config
-from utils.button import Button
-from utils.textbox import TextBox
+import utils.Language as lang
+import utils.Config as config
+from utils.Button import Button
+from utils.TextBox import TextBox
 
 class TeamView:
     def __init__(self, screen, screen_rect, fps, resolution, allies):
@@ -70,25 +70,32 @@ class TeamView:
         attributes_font = pygame.font.SysFont("arial", 15)
         attributes_text_color = "#c5cddf"
         attributes_size_rect = (1000,700)
-        attribute_image = pygame.transform.scale(
-                pygame.image.load('assets/portraits/portrait_test_1.jpeg').convert(),
-                (30, 30)
-            )
+
+        #attribute icons
+        attribute_hp = pygame.image.load('assets\status_icon\StatusIcon-HP.png')
+        attribute_mp = pygame.image.load('assets\status_icon\StatusIcon-MP.png')
+        attribute_def =  pygame.image.load('assets\status_icon\StatusIcon-DF.png')
+        attribute_dex = pygame.image.load('assets\status_icon\StatusIcon-DE.png')
+        attribute_str = pygame.image.load('assets\status_icon\StatusIcon-ST.png')
+        attribute_int = pygame.image.load('assets\status_icon\StatusIcon-IN.png')
+        attribute_fai = pygame.image.load('assets\status_icon\StatusIcon-FA.png')
+        attribute_cha = pygame.image.load('assets\status_icon\StatusIcon-CH.png')
+
         
         allies_count = 0
         for character in self.allies:
             x = 125 + (300 * allies_count)
 
-            self.screen.blit(pygame.image.load(character.picture), (x, 50))
+            self.screen.blit(character.picture, (x, 50))
 
-            self.screen.blit(attribute_image, (x, 220))
-            self.screen.blit(attribute_image, (x, 260))
-            self.screen.blit(attribute_image, (x, 300))
-            self.screen.blit(attribute_image, (x, 340))
-            self.screen.blit(attribute_image, (x, 380))
-            self.screen.blit(attribute_image, (x, 420))
-            self.screen.blit(attribute_image, (x, 460))
-            self.screen.blit(attribute_image, (x, 500))
+            self.screen.blit(attribute_hp, (x, 220))
+            self.screen.blit(attribute_mp, (x, 260))
+            self.screen.blit(attribute_def, (x, 300))
+            self.screen.blit(attribute_dex, (x, 340))
+            self.screen.blit(attribute_str, (x, 380))
+            self.screen.blit(attribute_int, (x, 420))
+            self.screen.blit(attribute_fai, (x, 460))
+            self.screen.blit(attribute_cha, (x, 500))
             
             hp_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Hp: {character.hp} ", attributes_text_color, (x + 40, 225))
             mp_text_box = TextBox(attribute_font_size, attributes_font, attributes_size_rect, f"Mp: {character.mp} ", attributes_text_color, (x + 40, 265))
