@@ -123,12 +123,14 @@ class DamageCalculateService():
                 prompt_text = f"{chosen_striker.name} lançou {skill.name} restaurando {mana_points} de mana de sua equipe "
 
         # set all hp to 0
-        for defender in team_defender:
+        for defender, striker in zip(team_defender, team_striker):
             if defender.hp < 0:
                 defender.hp = 0
-
-        for striker in team_striker:
+            if defender.mp < 0:
+                defender.mp = 0
             if striker.hp < 0:
                 striker.hp = 0
+            if striker.mp < 0:
+                striker.mp = 0
 
         return prompt_text
