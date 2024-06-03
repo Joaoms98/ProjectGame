@@ -18,11 +18,11 @@ class Arena:
         self.enemies = enemies
         self.equipment = equipment
         self.clock = pygame.time.Clock()
+        self.damage_calculate_service = DamageCalculateService()
 
     def run(self):
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
-        damage_calculate_service = DamageCalculateService()
         response = BattleResponse(
                     back_to_event = False
                 )
@@ -43,6 +43,7 @@ class Arena:
         # create picture buttons
         team_picture_buttons = self.createTeamPictureButtons()
         enemy_picture_buttons = self.createEnemyPictureButtons()
+        potion_picture_button = self.createPotionButton()
 
         # prompt variables
         text_box = self.createTextPrompt()
@@ -94,11 +95,12 @@ class Arena:
             for enemy_picture_button in enemy_picture_buttons:
                 enemy_picture_button.update(self.screen)
 
-            # draw attack button
+            # draw attack button and draw potion
             if allie_choice != None:
                 for button in attack_buttons:
                     button.changeColor(mouse_position)
                     button.update(self.screen)
+                    potion_picture_button.update(self.screen)
 
             # enemy hit
             if player_turn == False:
@@ -126,7 +128,7 @@ class Arena:
                             allie_alive = [allie for allie in self.allies if allie.dead == False]
 
                             if len(enemy_alive) > 0:
-                                text_response = damage_calculate_service.AttackDamage(
+                                text_response = self.damage_calculate_service.AttackDamage(
                                     random.randint(0,2), random.choice(enemy_alive), 
                                     random.choice(allie_alive), self.enemies, self.allies
                                 )
@@ -143,6 +145,7 @@ class Arena:
                                 enemy_picture_buttons = self.createEnemyPictureButtons()
                                 allie_choice = self.allies[i]
                                 attack_buttons = self.createAttackButtons(allie_choice)
+                                potion_picture_button = self.createPotionButton()
 
                         # check for input attack button
                         for i, attack_button in enumerate([attack_buttons[0], attack_buttons[1], attack_buttons[2]]):
@@ -152,13 +155,19 @@ class Arena:
                         # check for input enemy button
                         for i, enemy_button in enumerate([enemy_picture_buttons[0], enemy_picture_buttons[1], enemy_picture_buttons[2]]):
                             if enemy_button.checkForInput(mouse_position):
-                                text_response = damage_calculate_service.AttackDamage(
+                                text_response = self.damage_calculate_service.AttackDamage(
                                     attack, allie_choice, self.enemies[i],
                                     self.allies, self.enemies, self.equipment
                                 )
                                 text_box = self.createTextPrompt()
                                 player_turn = False
                                 allie_choice = None
+                        # check for input potion button
+                        if potion_picture_button.checkForInput(mouse_position):
+                            text_response = self.damage_calculate_service.PotionHeal(allie_choice)
+                            player_turn = False
+                            allie_choice = None
+                            attack = None
 
             if response.back_to_event == True:
                 break
@@ -248,6 +257,12 @@ class Arena:
         return [hp_allies_1, mp_allies_1, hp_allies_2, mp_allies_2, 
                 hp_allies_3, mp_allies_3, hp_enemy_1, mp_enemy_1,
                 hp_enemy_2, mp_enemy_2, hp_enemy_3, mp_enemy_3]
+
+    def createPotionButton(self):
+        potion_image = pygame.image.load('assets\status_icon\StatusIcon-HP.png')
+        potion_button = Button(potion_image, (50, 660), None , None, None, None)
+
+        return potion_button
 
     def verifyCharacterHp(self):
         for allie in self.allies:
