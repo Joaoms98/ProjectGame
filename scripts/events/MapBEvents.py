@@ -3,7 +3,7 @@ from response.BattleResponse import BattleResponse
 from scripts.CharacterSelect import CharacterSelect
 from objects.Skill import Skill
 from utils.enums.SkillType import SkillType
-from objects.Character import Character
+from objects.character import Character
 from scripts.Arena import Arena
 from scripts.EventHandler import EventHandler
 from utils.DiceRow import DiceRow
@@ -25,6 +25,7 @@ class MapBEvents:
                     "Em um canto do local estão alguns equipamentos de pesquisas, indicando que alguém estava"\
                     "a procura de algo no local. Ao verificar um caixão, um esqueleto segura um amuleto e você"\
                     "se pergunta se alguma vez já viu aquele símbolo."
+            
             decision1="Interagir"
             decision2="Sair"
 
@@ -64,6 +65,7 @@ class MapBEvents:
                         "sua mão e você salta para trás conseguindo se afastar e manter o amuleto em "\
                         "suas mãos, porém você nota que mais corpos se levantam mostrando que mesmo mortos "\
                         "eles estão dispostos a lutar."
+                
                 decision1="Enfrenta-los"
                 decision2=None
                 decision = self.event_handler.run(self.allies, message, decision1, decision2)
@@ -698,11 +700,30 @@ class MapBEvents:
                 disable_zone_buttons = [13]
             )
 
+    #15 - Bote encostado
+    def zone15(self) -> EventResponse:
+        message = "Um bote está encostado próximo a água e seguindo por esse caminho levaria uma longa e perigosa "\
+            "viagem contornando as rochas e rochedos, mas uma boa camuflagem para ninguém lhe avistar ou seguir."
+        
+        decision1 = "Seguir caminho" 
+        decision2 = None
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        return EventResponse(
+                activity_zone_buttons = [15],
+                disable_zone_buttons = [14]
+            )
+
+
     #16 - Voslok
     def zone16(self) -> EventResponse:
 
-        take_Fhajar = False
+        try_take_Fhajar = False
         why_Voslok_still_here = False
+        offer_to_help_Lokmar = False
+        get_Fhajar = False
+        face_Voslok = False
+        agree_to_help = False
 
         message="Você avista um homem próximo de um corpo mumificado, ele aparenta estar análisando com cuidado. "\
             "Seus olhos se fixam em você, revelando um rosto marcado por uma cicatriz profunda."\
@@ -735,26 +756,26 @@ class MapBEvents:
                 decision = self.event_handler.run(self.allies, message, decision1, decision2)
                 
                 if decision == 1:
-                    take_Fhajar = True         
+                    try_take_Fhajar = True         
                 if decision == 2:
                     why_Voslok_still_here = True
             
             if decision == 2:
-                take_Fhajar = True         
+                try_take_Fhajar = True         
 
-
+        #2
         if decision == 2:
             message= "“Me chamo Voslok, mão direita de Lokmar e suspeito que você seja um mercenário”, ele declara, "\
                 "encarando você com um sorriso sutil. “Acredito que acertei. Se estiver em busca de algo, chegou tarde."\
                 " Este lugar foi destruído e não há mais nada aqui para encontrar.”"
             
             decision1="“Estou aqui para coletar Fhajar”"
-            decision2="“O que está fazendo aqui”"
+            decision2="“O que está fazendo aqui?”"
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
             if decision == 1:
-                take_Fhajar = True         
+                try_take_Fhajar = True         
             if decision == 2:
                 why_Voslok_still_here = True
         
@@ -767,14 +788,85 @@ class MapBEvents:
             decision2="“Estou disposto a ajudar Lokmar”"
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
-        
-        if take_Fhajar == True:    
+
+            if decision == 1:
+                get_Fhajar = True         
+            if decision == 2:
+                offer_to_help_Lokmar = True 
+
+        if try_take_Fhajar == True:    
             message= "“E você sabe o que é Fhajar?” Ele percebe sua falta de resposta e ri suavemente. "\
                 "“Esse corpo diante de mim é o Fhajar, um antigo deus abandonado por seu próprio povo em favor dos novos deuses. "\
                 "Fhajar jurou vingança para destruí-los”."
                 
             decision1="“Vou retira-lo daqui”"
-            decision2="“Estou disposto a ajudar Lokmar”"
+            decision2=None
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            if decision == 1:
+                get_Fhajar = True         
+            
+        if offer_to_help_Lokmar == True:
+            message= "Ele fica pensativo por um instante. “Se você está aqui, eu sei quem te contratou e estou disposto a negociar”, ele afirma,"\
+                "retirando uma pedra circular do bolso e jogando-a em sua direção. “Essa pedra circular abrirá um portal. Use-a quando estiver conversando"\
+                "com Karadur e dará vantagem para Lokmar atacar. Você poderia usar o corpo de Fhajar como vantagem para acessar seu castelo, mas se desejar quebrar o acordo, sofrerá as consequências”."
+                
+            decision1="“Enfrentar Voslok”"
+            decision2="“Concordar em ajudar”"
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            if decision1 == 1:
+                face_Voslok = True
+            if decision2 == 2:
+                agree_to_help = True
+
+        if get_Fhajar == True:
+            message= "Ele ri brevemente. “Se você está aqui, eu sei quem te contratou e estou disposto a negociar.”"\
+                "Ele retira uma pedra circular do bolso e a lança em sua direção. “Esta pedra circular abrirá um portal. "\
+                "Use-a quando estiver conversando com Karadur e dará uma vantagem para Lokmar atacar. Mesmo que deseje me matar, você pode decidir o que fazer no futuro, mas lembre-se, não será fácil me derrotar.”"
+            
+            decision1="“Enfrentar Voslok”"
+            decision2="“Concordar em ajudar”"
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            if decision1 == 1:
+                face_Voslok = True
+            if decision2 == 2:
+                agree_to_help = True
         
+        if agree_to_help == True:
+            message = "“Estarei te entregando Fhajar, mas lembre-se, se me trair, você terá consequências graves”,"\
+                 " ele adverte, afastando-se do corpo e deixando você pegá-lo."    
+           
+            decision1="Sair do local"
+            decision2=None
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            #if decision1 == 1:
+                #IR PARA MAPA C
+                   
+        if face_Voslok == True:
+            message = "“Você fez uma péssima decisão”, Voslok diz enquanto se prepara para te atacar."
+            
+            decision1="Lutar"
+            decision2=None
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            if decision1 == 1:
+                skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+
+                enemy1 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+                enemy2 = Character("Voslok",'assets/portraits/Enemies/Bosses/Voslok(Alive).png', 'assets/portraits/Enemies/Bosses/Voslok(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+                enemy3 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+
+                arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+                battleResponse = arena.run()
+
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = []
+            )

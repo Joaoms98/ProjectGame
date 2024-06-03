@@ -1,7 +1,7 @@
 import pygame
-import utils.Config as config
+import utils.config as config
 from data.Seed import Seed
-from objects.Character import Character
+from objects.character import Character
 from scripts.Arena import Arena
 from scripts.MapA import MapA
 from scripts.MapB import MapB

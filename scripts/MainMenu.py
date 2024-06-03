@@ -1,7 +1,7 @@
 import pygame, sys
-import utils.Language as lang
-import utils.Config as config
-from utils.Button import Button
+import utils.language as lang
+import utils.config as config
+from utils.button import Button
 
 class MainMenu:
     def __init__(self, screen, screen_rect, fps, resolution):

@@ -1,11 +1,11 @@
 import pygame, sys
-from utils.FogButton import FogButton
+from utils.fogbutton import FogButton
 from scripts.MainMenu import MainMenu
-from utils.Button import Button
+from utils.button import Button
 from scripts.TeamView import TeamView
 from scripts.events.MapBEvents import MapBEvents
-import utils.Language as lang
-import utils.Config as config
+import utils.language as lang
+import utils.config as config
 
 class MapB:
     def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
