@@ -17,7 +17,7 @@ class DamageCalculateService():
             return "O personagem escolhido está morto, você perdeu a vez"
 
         # verify mp
-        if chosen_striker.mp < skill.mp:
+        if chosen_striker.mp < skill.mp and attack_index != 0:
             return "O personagem escolhido está sem mana suficiente para o ataque, você perdeu a vez"
         
         skill = chosen_striker.skills[attack_index]
