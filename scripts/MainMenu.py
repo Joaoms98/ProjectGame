@@ -29,15 +29,15 @@ class MainMenu:
         )
         play_screen_background = pygame.transform.scale(
             pygame.image.load('assets/background/black_image.jpg').convert(),
-            (600,500)
+            (500,400)
         )
         options_screen_background = pygame.transform.scale(
             pygame.image.load('assets/background/black_image.jpg').convert(),
-            (600,500)
+            (500,400)
         )
         how_to_play_screen_background = pygame.transform.scale(
             pygame.image.load('assets/background/black_image.jpg').convert(),
-            (600,500)
+            (500,400)
         )
         
         #load buttons
@@ -70,14 +70,14 @@ class MainMenu:
             #### DRAW BUTTONS ####            
            #### PLAY SCREEN BUTTONS ####
             if play_screen == True:
-                self.screen.blit(play_screen_background, (300, 100))
+                self.screen.blit(play_screen_background, (350, 100))
                 for button in play_screen_buttons:
                     button.changeColor(mouse_position)
                     button.update(self.screen)
             #### OPTIONS SCREEN BUTTONS ####
             if options_screen == True:
-                self.screen.blit(options_screen_background, (300, 100))
-                self.screen.blit(volume, (500,200))
+                self.screen.blit(options_screen_background, (350, 100))
+                self.screen.blit(volume, (590,200))
 
                 for button in options_screen_buttons:
                     button.changeColor(mouse_position)
@@ -85,7 +85,7 @@ class MainMenu:
 
             #### HOW TO PLAY SCREEN ####
             if how_to_play_screen == True and how_to_play_screen_next_tips == 0:
-                self.screen.blit(how_to_play_screen_background, (300, 100))
+                self.screen.blit(how_to_play_screen_background, (350, 100))
                 for button in how_to_play_screen_buttons:
                     button.changeColor(mouse_position)
                     button.update(self.screen)
@@ -137,16 +137,12 @@ class MainMenu:
                     if options_screen == True:
                         if options_screen_buttons[0].checkForInput(mouse_position):
                             config.volume += 10
-                            print(f'{config.volume}')
                             if config.volume > 100:
                                 config.volume = 100
-                                print(f'{config.volume}')
                         if options_screen_buttons[1].checkForInput(mouse_position):
                             config.volume -= 10
-                            print(f'{config.volume}')
                             if config.volume < 1:
                                 config.volume = 0
-                                print(f'{config.volume}')
                         volume = volumeAppearance[1].render(f'{config.volume}', True, volumeAppearance[2])
 
                         if options_screen_buttons[2].checkForInput(mouse_position):
@@ -197,17 +193,17 @@ class MainMenu:
     def createPlayScreenButtons(self, lang):
 
         buttonsAppearance = self.buttonsAppearance()
-        new_game_button = Button(buttonsAppearance[0], (500,200), lang['new_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        new_game_button = Button(buttonsAppearance[0], (600,250), lang['new_game'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         
         return [new_game_button]
 
     def createOptionsScreenButtons(self, lang):
         buttonsAppearance = self.buttonsAppearance()
 
-        raise_volume_button = Button(buttonsAppearance[0], (600,200), f">", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        lower_volume_button = Button(buttonsAppearance[0], (400,200), f"<", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        language_button = Button(buttonsAppearance[0], (500,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        apply_button = Button(buttonsAppearance[0], (500,400), lang['apply'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        raise_volume_button = Button(buttonsAppearance[0], (750,200), f">", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        lower_volume_button = Button(buttonsAppearance[0], (450,200), f"<", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        language_button = Button(buttonsAppearance[0], (590,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        apply_button = Button(buttonsAppearance[0], (590,400), lang['apply'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
         
         return [raise_volume_button, lower_volume_button, language_button, apply_button]
     
@@ -215,8 +211,8 @@ class MainMenu:
         
         buttonsAppearance = self.buttonsAppearance()
 
-        next_info_button =  Button(buttonsAppearance[0], (850,600), lang['Next'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        previous_info_button = Button(buttonsAppearance[0], (350,600), lang['Previous'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        next_info_button =  Button(buttonsAppearance[0], (760,470), lang['Next'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        previous_info_button = Button(buttonsAppearance[0], (440,470), lang['Previous'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
 
         return [next_info_button, previous_info_button]
     

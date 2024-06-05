@@ -1,12 +1,13 @@
 from response.EventResponse import EventResponse
 from response.BattleResponse import BattleResponse
 from scripts.CharacterSelect import CharacterSelect
+from objects.Inventory import Inventory
 from objects.Skill import Skill
-from scripts.EventHandler import EventHandler
-from utils.DiceRow import DiceRow
 from utils.enums.SkillType import SkillType
 from objects.character import Character
 from scripts.Arena import Arena
+from scripts.EventHandler import EventHandler
+from utils.DiceRow import DiceRow
 
 class MapAEvents:
     def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
@@ -215,20 +216,19 @@ class MapAEvents:
                 " corpos, de alimentos e itens com diversos símbolos, como o de um homem com cabeça de rato, permanecem em "\
                 " meio aos destroços. Sem saber o que isso significa, você desiste da procura pois o cheiro se torna insuportável."
                 
-            
             decision1="Prosseguir"
             decision2=None
 
             self.event_handler.run(self.allies, message, decision1, decision2)
             
             return EventResponse(
-                activity_zone_buttons = [7],
+                activity_zone_buttons = [6,7,8,10,11],
                 disable_zone_buttons = [5]
                 )
-        if decision == 2:
+        else:
             return EventResponse(
-                activity_zone_buttons = [],
-                disable_zone_buttons = []
+                activity_zone_buttons = [6,7,8,10,11],
+                disable_zone_buttons = [5]
                 )
 
     #7 - Escavação antiga
@@ -236,7 +236,6 @@ class MapAEvents:
         message="Aqui estão alguns equipamentos de escavação que foram consumidos pela poeira, detritos e ferrugem "\
             " formada com o decorrer do tempo. Dentre os equipamentos está uma engenhosa máquina, que você nunca viu. "
         
-            
         decision1="Interagir"
         decision2="Voltar"
         
@@ -255,8 +254,8 @@ class MapAEvents:
             self.event_handler.run(self.allies, message, decision1, decision2)
             
             return EventResponse(
-                activity_zone_buttons = [7],
-                disable_zone_buttons = [5]
+                activity_zone_buttons = [],
+                disable_zone_buttons = [6]
                 )
         if decision == 2:
             return EventResponse(
@@ -269,8 +268,7 @@ class MapAEvents:
         message="Esse acampamento foi utilizado recentemente por um grupo pequeno. No entanto, algo muito estranho ocorreu para"\
             " que deixassem a fogueira acesa e os utensílios de pesquisa abandonados no local, onde ouvia-se apenas o barulho"\
             " do estalar da lenha ao fogo."
-        
-            
+    
         decision1="Interagir"
         decision2="Voltar"
         
@@ -278,20 +276,28 @@ class MapAEvents:
         
         if decision == 1:
             message = "Você decide que é bom esticar as pernas e respirar fundo, aproveitando o tempo e os recursos que foram "\
-                " deixados aqui. Por um longo instante tudo está quieto, até a chegada de um homem rato que o encara com agressividade."
-
-                            
-            # Obs.: O Resultado precisa ser definido ...
-            
-            decision1="Prosseguir"
+                " deixados aqui. Por um longo instante tudo está quieto, até a chegada de um homem rato que o encara com agressividade."    
+        
+            decision1="lutar"
             decision2=None
 
             self.event_handler.run(self.allies, message, decision1, decision2)
             
+            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            common_inventory = Inventory(0)
+
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+
+            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+            battleResponse = arena.run()
+            
             return EventResponse(
-                activity_zone_buttons = [8, 10, 11],
+                activity_zone_buttons = [],
                 disable_zone_buttons = [7]
                 )
+        
         if decision == 2:
             return EventResponse(
                 activity_zone_buttons = [],
@@ -328,7 +334,7 @@ class MapAEvents:
             self.event_handler.run(self.allies, message, decision1, decision2)
 
         return EventResponse(
-            activity_zone_buttons = [11],
+            activity_zone_buttons = [],
             disable_zone_buttons = [8]
             )
 
@@ -377,10 +383,9 @@ class MapAEvents:
         
                 self.event_handler.run(self.allies, message, decision1, decision2)
             
-                 
         return EventResponse(
             activity_zone_buttons = [],
-            disable_zone_buttons = []
+            disable_zone_buttons = [9]
             )
 
     #11 - Ponte perigosa
@@ -430,7 +435,7 @@ class MapAEvents:
             self.event_handler.run(self.allies, message, decision1, decision2)
 
         return EventResponse(
-            activity_zone_buttons = [11],
+            activity_zone_buttons = [6,7,8,10,11],
             disable_zone_buttons = [10]
             )
 
@@ -440,19 +445,87 @@ class MapAEvents:
         "Alguns foram emboscados, perceptível por suas espadas estarem na bainha. No final do caminho há um grupo de homem rato, "\
         "dentre eles há um maior que ao lhe avistar, começa a caminhar em sua direção."
         
-        decision1="Entrar na água"
-        decision2=""
+        decision1="Interagir"
+        decision2=None
         
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        if decision == 1:
-
-            roll = DiceRow.dice6()
-            charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + roll
-
-            if charisma_total >= 45:
-                for allie in self.allies:
-                    allie.hp = allie.hp + 20
-                    allie.mp = allie.mp + 15
-
+        #-------------------------------------------------------------------
+        message = "Vocês profanaram este local. Meu povo se dedicou a mante-lo escondido de vocês…”"\
+        " o homem rato possue uma ferida visivel no abdomem."\
+        "“Alguns passaram, mas não vou deixar todos entrarem.” Os que restaram começam a lhe cercar"
         
+        decision1="Não estou com eles"
+        decision2="Quem são vocês?"
+        
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        #=====================================================================================#
+        if decision == 1:
+            message = "Te olhando de cima a baixo, ele te examina. “Você não se parece com eles, mas pode ter o mesmo motivo.” "\
+                "Ele se aproxima mostrando seus dentes afiados. “Esse local é sagrado e é nosso dever protegê-lo”"
+        else:
+              message = "Te olhando de cima a baixo, ele te examina - “Somos igual a vocês, mas para vocês não somos iguais”."\
+                " Ele se aproxima mostrando seus dentes afiados - “Esse local é sagrado e é nosso dever protegê-lo”"
+        
+        decision1="O que vocês querem?"
+        decision2="Por que mataram eles"
+        
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        #=====================================================================================#
+        if decision == 1:
+            message = "Nosso único desejo é que vocês vão embora e nos deixem em paz, já sofremos por causa de vocês”. "\
+            "Com dor em sua fala e tristeza em seu rosto ele se vira para a descida. “Nosso povo se chama Ratakaz, "\
+            "estamos protegendo esse local a anos”."
+        else:
+              message = "“Eles profanaram o local, impedimos alguns mas não temos mais forças para os outros”. "\
+            "Com dor em sua fala e tristeza em seu rosto ele se vira para a descida. "\
+            "“Nosso povo se chama Ratakaz, estamos protegendo esse local a anos”."
+
+        decision1="O que aconteceu com seu povo?"
+        decision2="Preciso descer"
+        
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+        #=====================================================================================#
+        if decision == 1:
+            message ="“Meu povo… meu povo”. Com um olhar pensante ele estanca o sangue"\
+            "“Meu povo era grande e vivia em um lugar lindo e longe daqui, mas graças a maldição dele, fomos diminuindo com o tempo."\
+            "Decidimos nos abrigar aqui e fortificar o local até o fim de nossas vidas”."       
+        else:
+              message = "“Não deixarei e mesmo que passe não serei o único a impedi-lo”."\
+                " Com a mão em sua lâmina ele te encara e seus aliados se preparam para luta. "\
+                "“Você tem a decisão de ir embora ou terminar nesse local”"
+
+        decision1="Persuadir"
+        decision2="Iniciar combate"
+
+        decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+        roll = DiceRow.dice6()
+        charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + roll
+
+        if charisma_total >= 45 and decision == 1:
+            message = "“Realmente, você não se demonstrou ser igual aos outros” "\
+                "ele da espaço  e se senta ao chão para recuperar suas energias. "\
+                "“Há mais coisas lá em baixo, tome cuidado”."
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = [11]
+                )
+        else:       
+            message = "“Não deixarei e mesmo que passe não serei o único a impedi-lo”."\
+                " Com a mão em sua lâmina ele te encara e seus aliados se preparam para luta. "\
+                "“Você tem a decisão de ir embora ou terminar nesse local”"
+
+            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            common_inventory = Inventory(0)
+
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Rei",'assets/portraits/Enemies/Bosses/RatakazKing(Alive).png', 'assets/portraits/Enemies/Bosses/RatakazKing(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+
+            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+            battleResponse = arena.run()
+            return EventResponse(
+                activity_zone_buttons = [],
+                disable_zone_buttons = [11]
+                )    

@@ -736,7 +736,7 @@ class MapBEvents:
             " Ele o encara por um momento, aguardando que você quebre o silêncio com alguma palavra."
         
         decision1="Não dizer nada"
-        decision2="“Quem é você?”"
+        decision2="Quem é você?"
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
         
@@ -746,8 +746,8 @@ class MapBEvents:
                 " Talvez você já tenha lidado com o restante dos Ratakaz”. Ele folheia algumas páginas. "\
                 "“É uma pena o que aconteceu com eles”."
             
-            decision1="“Por que o Ratakaz protege esse lugar?”"
-            decision2="“Estou aqui para coletar Fhajar”"
+            decision1="Por que o Ratakaz protege esse lugar?"
+            decision2="Estou aqui para coletar Fhajar"
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
@@ -763,14 +763,14 @@ class MapBEvents:
                 
                 if decision == 1:
                     try_take_Fhajar = True         
-                if decision == 2:
+                else:
                     why_Voslok_still_here = True
             
-            if decision == 2:
+            else:
                 try_take_Fhajar = True         
 
         #2
-        if decision == 2:
+        else:
             message= "“Me chamo Voslok, mão direita de Lokmar e suspeito que você seja um mercenário”, ele declara, "\
                 "encarando você com um sorriso sutil. “Acredito que acertei. Se estiver em busca de algo, chegou tarde."\
                 " Este lugar foi destruído e não há mais nada aqui para encontrar.”"
@@ -782,7 +782,7 @@ class MapBEvents:
 
             if decision == 1:
                 try_take_Fhajar = True         
-            if decision == 2:
+            else:
                 why_Voslok_still_here = True
         
             
@@ -797,7 +797,7 @@ class MapBEvents:
 
             if decision == 1:
                 get_Fhajar = True         
-            if decision == 2:
+            else:
                 offer_to_help_Lokmar = True 
 
         if try_take_Fhajar == True:    
@@ -808,9 +808,7 @@ class MapBEvents:
             decision1="“Vou retira-lo daqui”"
             decision2=None
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
-
-            if decision == 1:
-                get_Fhajar = True         
+            get_Fhajar = True         
             
         if offer_to_help_Lokmar == True:
             message= "Ele fica pensativo por um instante. “Se você está aqui, eu sei quem te contratou e estou disposto a negociar”, ele afirma,"\
@@ -822,9 +820,9 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            if decision1 == 1:
+            if decision == 1:
                 face_Voslok = True
-            if decision2 == 2:
+            else:
                 agree_to_help = True
 
         if get_Fhajar == True:
@@ -837,9 +835,9 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            if decision1 == 1:
+            if decision == 1:
                 face_Voslok = True
-            if decision2 == 2:
+            else:
                 agree_to_help = True
         
         if agree_to_help == True:
@@ -851,9 +849,6 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            #if decision1 == 1:
-                #IR PARA MAPA C
-                   
         if face_Voslok == True:
             message = "“Você fez uma péssima decisão”, Voslok diz enquanto se prepara para te atacar."
             
@@ -862,17 +857,16 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            if decision1 == 1:
-                skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            common_inventory = Inventory(0)
 
-                enemy1 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
-                enemy2 = Character("Voslok",'assets/portraits/Enemies/Bosses/Voslok(Alive).png', 'assets/portraits/Enemies/Bosses/Voslok(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
-                enemy3 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+            enemy1 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
+            enemy2 = Character("Voslok",'assets/portraits/Enemies/Bosses/Voslok(Alive).png', 'assets/portraits/Enemies/Bosses/Voslok(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
+            enemy3 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
+            arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
+            battleResponse = arena.run()
 
-                arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
-                battleResponse = arena.run()
-
-            return EventResponse(
-                activity_zone_buttons = [],
-                disable_zone_buttons = []
-            )
+        return EventResponse(
+            activity_zone_buttons = [],
+            disable_zone_buttons = []
+        )
