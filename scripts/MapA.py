@@ -1,11 +1,11 @@
 import pygame, sys
-from utils.fogbutton import FogButton
+from utils.Fogbutton import FogButton
 from scripts.MainMenu import MainMenu
-from utils.button import Button
+from utils.Button import Button
 from scripts.TeamView import TeamView
 from scripts.events.MapAEvents import MapAEvents
-import utils.language as lang
-import utils.config as config
+import utils.Language as lang
+import utils.Config as config
 
 class MapA:
     def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
@@ -31,7 +31,7 @@ class MapA:
 
         #zone button variables
         zone_buttons = self.createFogButtons()
-        activity_zone_buttons = [0, 1, 2]
+        activity_zone_buttons = [0, 1, 2, 11]
         disable_zone_buttons = []
 
         #quit button variables

@@ -1,7 +1,7 @@
 import pygame, sys
-import utils.language as lang
-import utils.config as config
-from utils.button import Button
+import utils.Language as lang
+import utils.Config as config
+from utils.Button import Button
 
 class MainMenu:
     def __init__(self, screen, screen_rect, fps, resolution):
@@ -149,11 +149,11 @@ class MainMenu:
                             if config.language == 'English':
                                 config.language = 'Português-Brasil'
                                 buttonsAppearance = self.buttonsAppearance()
-                                options_screen_buttons[2] = Button(buttonsAppearance[0], (500,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+                                options_screen_buttons[2] = Button(buttonsAppearance[0], (590,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
                             elif config.language == 'Português-Brasil':
                                 config.language = 'English'
                                 buttonsAppearance = self.buttonsAppearance()
-                                options_screen_buttons[2] = Button(buttonsAppearance[0], (500,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+                                options_screen_buttons[2] = Button(buttonsAppearance[0], (590,300), f"{config.language}", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
                            
                         if options_screen_buttons[3].checkForInput(mouse_position):
                             dict_lang = lang.Language.set_lang(self, config.language)

@@ -4,7 +4,7 @@ from scripts.CharacterSelect import CharacterSelect
 from objects.Inventory import Inventory
 from objects.Skill import Skill
 from utils.enums.SkillType import SkillType
-from objects.character import Character
+from objects.Character import Character
 from scripts.Arena import Arena
 from scripts.EventHandler import EventHandler
 from utils.DiceRow import DiceRow
@@ -286,9 +286,9 @@ class MapAEvents:
             skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -519,9 +519,9 @@ class MapAEvents:
             skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Ratakaz Rei",'assets/portraits/Enemies/Bosses/RatakazKing(Alive).png', 'assets/portraits/Enemies/Bosses/RatakazKing(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png','assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Rei",'assets/portraits/Enemies/Bosses/RatakazKing(Alive).png','assets/portraits/Enemies/Bosses/RatakazKing(Alive).png', 'assets/portraits/Enemies/Bosses/RatakazKing(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png','assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()

@@ -1,8 +1,8 @@
 import pygame, sys
 import random
-import utils.language as lang
-import utils.config as config
-from utils.button import Button
+import utils.Language as lang
+import utils.Config as config
+from utils.Button import Button
 from utils.Textbox import TextBox
 from services.DamageCalculateService import DamageCalculateService
 from response.BattleResponse import BattleResponse
@@ -29,11 +29,12 @@ class Arena:
 
         for character in self.enemies:
             character.picture = pygame.image.load(f'{character.picture}').convert()
+            character.pictureSelected = pygame.image.load(f'{character.pictureSelected}').convert()
             character.pictureDead = pygame.image.load(f'{character.pictureDead}').convert()
 
         # background variables
         background = pygame.transform.scale(
-            pygame.image.load('assets/background/MapB/Dungeon_Alchemist_background.jpg').convert(),
+            pygame.image.load('assets/background/Arena_Background.png').convert(),
             self.resolution
         )
 
@@ -195,7 +196,8 @@ class Arena:
         image_character_list = [self.allies[0].picture, self.allies[1].picture, self.allies[2].picture]
 
         if allie_choice is not None and self.allies[allie_choice].dead is not True:
-            image_character_list[allie_choice] = pygame.image.load(f'assets/portraits/Util/SelectCharacter.png').convert()
+            image_character_list[allie_choice] = pygame.image.load(self.allies[allie_choice].pictureSelected)
+
 
         team_character_button_0 = Button(image_character_list[0], (85, 100), None , None, None, None)
         team_character_button_1 = Button(image_character_list[1], (85, 260), None , None, None, None)
@@ -259,7 +261,7 @@ class Arena:
                 hp_enemy_2, mp_enemy_2, hp_enemy_3, mp_enemy_3]
 
     def createPotionButton(self):
-        potion_image = pygame.image.load('assets\status_icon\StatusIcon-HP.png')
+        potion_image = pygame.image.load('assets\status_icon\potion.png')
         potion_button = Button(potion_image, (50, 660), None , None, None, None)
 
         return potion_button

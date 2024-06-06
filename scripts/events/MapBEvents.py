@@ -4,7 +4,7 @@ from scripts.CharacterSelect import CharacterSelect
 from objects.Inventory import Inventory
 from objects.Skill import Skill
 from utils.enums.SkillType import SkillType
-from objects.character import Character
+from objects.Character import Character
 from scripts.Arena import Arena
 from scripts.EventHandler import EventHandler
 from utils.DiceRow import DiceRow

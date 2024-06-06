@@ -1,7 +1,7 @@
 import pygame, sys
-import utils.language as lang
-import utils.config as config
-from utils.button import Button
+import utils.Language as lang
+import utils.Config as config
+from utils.Button import Button
 from utils.Textbox import TextBox
 
 class TeamView:

@@ -1,15 +1,11 @@
 import pygame
-import utils.config as config
+import utils.Config as config
 from data.Seed import Seed
-from objects.character import Character
-from scripts.Arena import Arena
 from scripts.MapA import MapA
 from scripts.MapB import MapB
 from scripts.MainMenu import MainMenu
-from scripts.TeamView import TeamView
 from scripts.CharacterSelect import CharacterSelect
-from objects.Skill import Skill
-from utils.enums.SkillType import SkillType
+
 
 while True:
     pygame.init()
