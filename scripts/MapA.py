@@ -1,5 +1,5 @@
 import pygame, sys
-from utils.Fogbutton import FogButton
+from utils.FogButton import FogButton
 from scripts.MainMenu import MainMenu
 from utils.Button import Button
 from scripts.TeamView import TeamView

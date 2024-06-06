@@ -37,11 +37,11 @@ class MapAEvents:
         roll = DiceRow.dice6()
         dexterity_total = self.allies[0].dexterity + self.allies[1].dexterity + self.allies[2].dexterity + roll
 
-        if dexterity_total >= 45:
+        if dexterity_total >= 15:
                 for allie in self.allies:
                     allie.mp = allie.mp + 10
                 
-                message= f"D6({roll}) - Resultado({dexterity_total}) - Teste(DEFINIR)                  "\
+                message= f"Resultado({dexterity_total}) - Teste(15): "\
                         "Com sua boa pontaria você arremessa o gancho e com cuidado começa a puxar,"\
                         " fazendo com que o item caia na água, mas esteja bem preso ao seu gancho. Ao se aproximar,"\
                         "você identifica que se trata de um cristal de mana, sendo útil para aventureiros como você."
@@ -52,7 +52,7 @@ class MapAEvents:
                 self.event_handler.run(self.allies, message, decision1, decision2)
     
         else:
-            message= f"D6({roll}) - Resultado({dexterity_total}) - Teste(DEFINIR)                              "\
+            message= f"Resultado({dexterity_total}) - Teste(15): "\
                 "Você arremessa o gancho e se certifica que está preso, mas ao puxar, o item acaba se soltando"\
                 "do gancho e indo para as profundezas da água."
 
@@ -169,8 +169,8 @@ class MapAEvents:
         roll = DiceRow.dice6()
         faith_total = self.allies[0].faith + self.allies[1].faith + self.allies[2].faith + roll
 
-        if faith_total >= 45:
-                message= f"D6({roll}) - Resultado({faith_total}) - Teste(DEFINIR)                  "\
+        if faith_total >= 15:
+                message= f"Resultado({faith_total}) - Teste(15): "\
                         "Esse é o deus das dimensões, cultuado por uma civilização muito antiga chamada Ratakaz. "\
                         "Eles acreditavam que todos os mortos enterrados desapareciam de seus túmulos e eram levados para "\
                         " um novo mundo. Sabendo disso, você recorda que é um sacrilégio abrir esses sarcófagos."
@@ -184,7 +184,7 @@ class MapAEvents:
             for allie in self.allies:
                     allie.hp = allie.hp - 10
                     
-            message= f"D6({roll}) - Resultado({faith_total}) - Teste(DEFINIR)                              "\
+            message= f"Resultado({faith_total}) - Teste(15): "\
                 "Você não conhece esse deus, então decide abrir os sarcófagos para encontrar algo útil. No momento "\
                 " que abre uma fresta o sarcófago é destruido, arremessando seus pedaços em todas direções. Você "\
                 " descobre da pior forma que aquele deus era fortemente ligado a esse sarcófago."
@@ -283,12 +283,14 @@ class MapAEvents:
 
             self.event_handler.run(self.allies, message, decision1, decision2)
             
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str')]
+            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str')]
+            
             common_inventory = Inventory(0)
-
-            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png',None, 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png','assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 15,25,2,0,0,0,0,0, skills_Ratakaz_Dex, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png','assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 15,25,2,10,10,10,10,1, skills_Ratakaz_Dex, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png','assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 20,15,3,10,10,10,10,1, skills_Ratakaz_Str, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -353,12 +355,12 @@ class MapAEvents:
             roll = DiceRow.dice6()
             charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + roll
 
-            if charisma_total >= 45:
+            if charisma_total >= 10:
                 for allie in self.allies:
                     allie.hp = allie.hp + 20
                     allie.mp = allie.mp + 15
                 
-                message= f"D6({roll}) - Resultado({charisma_total}) - Teste(DEFINIR)                  "\
+                message= f"Resultado({charisma_total}) - Teste(10): "\
                 "Após um salto repentino, você afunda e a única luz acima de você some, deixando apenas a escuridão. " \
                 "Sem se desesperar você nota que a sensação de olhar surge, mas dessa vez trazendo paz para sua mente. "\
                 "A luz ressurge e ao sair você nota que todas as estátuas estão sorrindo"
@@ -373,7 +375,7 @@ class MapAEvents:
                     allie.hp = allie.hp - 20
                     allie.mp = allie.mp - 15
    
-                message= f"D6({roll}) - Resultado({charisma_total}) - Teste(DEFINIR)                  "\
+                message= f"Resultado({charisma_total}) - Teste(10): "\
                 "Após um salto repentino você afunda e a única luz acima de você some deixando apenas a escuridão. "\
                 "Com desespero, você teme por sua vida e a sensação de presença, algo o expulsa da água. "\
                 "Após ser arremessado você percebe a feição das estátuas, estão tristes."
@@ -408,9 +410,9 @@ class MapAEvents:
         roll = DiceRow.dice6()
         dexterity_total = self.allies[0].dexterity + self.allies[1].dexterity + self.allies[2].dexterity + roll
 
-        if dexterity_total >= 45:
+        if dexterity_total >= 18:
                                 
-                message= f"D6({roll}) - Resultado({dexterity_total}) - Teste(DEFINIR)                  "\
+                message= f"Resultado({dexterity_total}) - Teste(18): "\
                         "Com passos leves e muito cuidado e percebendo que cair na água poderia trazer graves "\
                         " consequências ou até a morte, você atravessa a ponte sem que nenhum evento trágico"\
                         " aconteça."
@@ -424,7 +426,7 @@ class MapAEvents:
             for allie in self.allies:
                     allie.hp = allie.hp - 10
             
-            message= f"D6({roll}) - Resultado({dexterity_total}) - Teste(DEFINIR)                              "\
+            message= f"Resultado({dexterity_total}) - Teste(18): "\
                 "A madeira quebra fazendo-o cair. Com rapidez você se apoia, com força, na corda garantindo sua"\
                 " sobrevivência. Entretanto o dano nas mãos gerou um leve sangramento. Mas, graças a sua agilidade, você"\
                 " volta a ficar firme e segue com seus passos cuidadosos."
@@ -503,25 +505,42 @@ class MapAEvents:
         roll = DiceRow.dice6()
         charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + roll
 
-        if charisma_total >= 45 and decision == 1:
-            message = "“Realmente, você não se demonstrou ser igual aos outros” "\
+        if charisma_total >= 18 and decision == 1:
+            message = f"Resultado({charisma_total}) - Teste(18): "\
+                "“Realmente, você não se demonstrou ser igual aos outros” "\
                 "ele da espaço  e se senta ao chão para recuperar suas energias. "\
                 "“Há mais coisas lá em baixo, tome cuidado”."
+                
+            decision1="Seguir"
+            decision2=None
+
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
             return EventResponse(
                 activity_zone_buttons = [],
                 disable_zone_buttons = [11]
                 )
         else:       
-            message = "“Não deixarei e mesmo que passe não serei o único a impedi-lo”."\
+            message = f"Resultado({charisma_total}) - Teste(18): "\
+                "“Não deixarei e mesmo que passe não serei o único a impedi-lo”."\
                 " Com a mão em sua lâmina ele te encara e seus aliados se preparam para luta. "\
                 "“Você tem a decisão de ir embora ou terminar nesse local”"
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
-            common_inventory = Inventory(0)
+            decision1="Lutar"
+            decision2=None
 
-            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png','assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Ratakaz Rei",'assets/portraits/Enemies/Bosses/RatakazKing(Alive).png','assets/portraits/Enemies/Bosses/RatakazKing(Alive).png', 'assets/portraits/Enemies/Bosses/RatakazKing(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png','assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            decision = self.event_handler.run(self.allies, message, decision1, decision2)
+
+            
+            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str')]
+            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str')]
+            skills_Ratakaz_King = [Skill("Corte Profundo", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Mostrar as Presas", SkillType.MANASTEALD20, 0, 10, 'str'), Skill("Fúria Ratakaz", SkillType.DIRECTD20, 0, 15, 'str')]
+            
+            common_inventory = Inventory(0)
+            
+            enemy1 = Character("Ratakaz Esguio",'assets/portraits/Enemies/Ratman/RatakazDex(Alive).png','assets/portraits/Enemies/Ratman/RatakazDex(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazDex(Dead).png', 15,25,2,0,0,0,0,0, skills_Ratakaz_Dex, 10, False, common_inventory)
+            enemy2 = Character("Ratakaz Rei",'assets/portraits/Enemies/Bosses/RatakazKing(Alive).png','assets/portraits/Enemies/Bosses/RatakazKing(Alive).png', 'assets/portraits/Enemies/Bosses/RatakazKing(Dead).png', 50,50,4,10,10,10,10,1, skills_Ratakaz_King, 10, False, common_inventory)
+            enemy3 = Character("Ratakaz Forte",'assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png','assets/portraits/Enemies/Ratman/RatakazSTR(Alive).png', 'assets/portraits/Enemies/Ratman/RatakazSTR(Dead).png', 20,15,3,10,10,10,10,1, skills_Ratakaz_Str, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()

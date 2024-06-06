@@ -3,7 +3,7 @@ import random
 import utils.Language as lang
 import utils.Config as config
 from utils.Button import Button
-from utils.Textbox import TextBox
+from utils.TextBox import TextBox
 from services.DamageCalculateService import DamageCalculateService
 from response.BattleResponse import BattleResponse
 from utils.enums.SkillType import SkillType
@@ -34,7 +34,7 @@ class Arena:
 
         # background variables
         background = pygame.transform.scale(
-            pygame.image.load('assets/background/Arena_Background.png').convert(),
+            pygame.image.load('assets/background/Arena_Background.jpg').convert(),
             self.resolution
         )
 
@@ -52,7 +52,7 @@ class Arena:
         black_image = 'assets/background/black_image.jpg'
         prompt_surface = pygame.transform.scale(
             pygame.image.load(black_image).convert(),
-            (650, 220)
+            (0, 0)
         )
 
         # attack buttons
@@ -182,9 +182,9 @@ class Arena:
     def createAttackButtons(self, allie_choice):
         hit_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
 
-        hit_button1 = Button(None, (90, 500 + 30), allie_choice.skills[0].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button2 = Button(None, (90, 550 + 30), allie_choice.skills[1].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button3 = Button(None, (90, 600 + 30), allie_choice.skills[2].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button1 = Button(None, (500, 150), allie_choice.skills[0].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button2 = Button(None, (500, 200), allie_choice.skills[1].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button3 = Button(None, (500, 250), allie_choice.skills[2].name, hit_text_font, (255,0,0), (255,255,0))
 
         return [hit_button1, hit_button2, hit_button3]
 
@@ -223,7 +223,7 @@ class Arena:
     def createTextPrompt(self):
         prompt_text_font = pygame.font.Font("assets/fonts/MorrisRomanBlackAlt.ttf", 20)
         prompt_text_color = (255,255,255)
-        prompt_text_pos = (300, 500)
+        prompt_text_pos = (285, 520)
         prompt_text_size_rect = (600,600)
         prompt_text_font_size = 10
 
@@ -234,35 +234,35 @@ class Arena:
         font = pygame.font.SysFont("arial", 15)
         size_rect = (1000,700)
         hp_text_color = (255, 0, 0)
-        mp_text_color = (0, 255, 0)
+        mp_text_color = (0, 0, 255)
 
         # allies
-        hp_allies_1 = TextBox(font_size, font, size_rect, f"Hp: {self.allies[0].hp}", hp_text_color, (180, 50))
-        mp_allies_1 = TextBox(font_size, font, size_rect, f"Mp: {self.allies[0].mp}", mp_text_color, (180, 100))
+        hp_allies_1 = TextBox(font_size, font, size_rect, f"Hp: {self.allies[0].hp}", hp_text_color, (192, 90))
+        mp_allies_1 = TextBox(font_size, font, size_rect, f"Mp: {self.allies[0].mp}", mp_text_color, (192, 110))
 
-        hp_allies_2 = TextBox(font_size, font, size_rect, f"Hp {self.allies[1].hp}", hp_text_color, (180, 200))
-        mp_allies_2 = TextBox(font_size, font, size_rect, f"Mp {self.allies[1].mp}", mp_text_color, (180, 250))
+        hp_allies_2 = TextBox(font_size, font, size_rect, f"Hp {self.allies[1].hp}", hp_text_color, (192, 240))
+        mp_allies_2 = TextBox(font_size, font, size_rect, f"Mp {self.allies[1].mp}", mp_text_color, (192, 260))
 
-        hp_allies_3 = TextBox(font_size, font, size_rect, f"Hp {self.allies[2].hp}", hp_text_color, (180, 350))
-        mp_allies_3 = TextBox(font_size, font, size_rect, f"Mp {self.allies[2].mp}", mp_text_color, (180, 400))
+        hp_allies_3 = TextBox(font_size, font, size_rect, f"Hp {self.allies[2].hp}", hp_text_color, (192, 400))
+        mp_allies_3 = TextBox(font_size, font, size_rect, f"Mp {self.allies[2].mp}", mp_text_color, (192, 420))
 
         # enemies
-        hp_enemy_1 = TextBox(font_size, font, size_rect, f"Hp: {self.enemies[0].hp}", hp_text_color, (780, 50))
-        mp_enemy_1 = TextBox(font_size, font, size_rect, f"Mp: {self.enemies[0].mp}", mp_text_color, (780, 100))
+        hp_enemy_1 = TextBox(font_size, font, size_rect, f"Hp: {self.enemies[0].hp}", hp_text_color, (774, 90))
+        mp_enemy_1 = TextBox(font_size, font, size_rect, f"Mp: {self.enemies[0].mp}", mp_text_color, (774, 110))
 
-        hp_enemy_2 = TextBox(font_size, font, size_rect, f"Hp {self.enemies[1].hp}", hp_text_color, (780, 200))
-        mp_enemy_2 = TextBox(font_size, font, size_rect, f"Mp {self.enemies[1].mp}", mp_text_color, (780, 250))
+        hp_enemy_2 = TextBox(font_size, font, size_rect, f"Hp {self.enemies[1].hp}", hp_text_color, (773, 240))
+        mp_enemy_2 = TextBox(font_size, font, size_rect, f"Mp {self.enemies[1].mp}", mp_text_color, (773, 260))
 
-        hp_enemy_3 = TextBox(font_size, font, size_rect, f"Hp {self.enemies[2].hp}", hp_text_color, (780, 350))
-        mp_enemy_3 = TextBox(font_size, font, size_rect, f"Mp {self.enemies[2].mp}", mp_text_color, (780, 400))
+        hp_enemy_3 = TextBox(font_size, font, size_rect, f"Hp {self.enemies[2].hp}", hp_text_color, (772, 400))
+        mp_enemy_3 = TextBox(font_size, font, size_rect, f"Mp {self.enemies[2].mp}", mp_text_color, (772, 420))
 
         return [hp_allies_1, mp_allies_1, hp_allies_2, mp_allies_2, 
                 hp_allies_3, mp_allies_3, hp_enemy_1, mp_enemy_1,
                 hp_enemy_2, mp_enemy_2, hp_enemy_3, mp_enemy_3]
 
     def createPotionButton(self):
-        potion_image = pygame.image.load('assets\status_icon\potion.png')
-        potion_button = Button(potion_image, (50, 660), None , None, None, None)
+        potion_image = pygame.image.load('assets/status_icon/potion.png')
+        potion_button = Button(potion_image, (500, 300), None , None, None, None)
 
         return potion_button
 
