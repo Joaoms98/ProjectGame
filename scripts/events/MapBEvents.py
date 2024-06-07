@@ -42,12 +42,12 @@ class MapBEvents:
             faith_total = self.allies[0].faith + self.allies[1].faith + self.allies[2].faith + roll
             self.equipment.faith = self.equipment.faith + 1
 
-            if faith_total >= 45:
+            if faith_total >= 12:
 
                 for allie in self.allies:
                     allie.hp = allie.hp - 2
 
-                message= f"D6({roll}) - Resultado({faith_total}) - Teste(15)                  "\
+                message= f"Resultado({faith_total}) - Teste(12): "\
                         "Graças aos anos de estudos em teologia,"\
                         "você identifica que símbolo é dedicado ao deus"\
                         "da dor e da colheita de uma religião que a muito"\
@@ -55,12 +55,13 @@ class MapBEvents:
                         "humanos para crescimento de suas plantações. Com seu"\
                         "conhecimento você faz uma oferenda de sangue e cita"\
                         "uma reza para terra em troca do amuleto."
+                        
                 decision1="Sair"
                 decision2=None
                 self.event_handler.run(self.allies, message, decision1, decision2)
             
             else:
-                message= f"D6({roll}) - Resultado({faith_total}) - Teste(15)                              "\
+                message= f"Resultado({faith_total}) - Teste(12): "\
                         "Você não consegue identificar aquele símbolo, mas mesmo assim decide "\
                         "pegar o amuleto. No momento em que você o toca, o corpo esquelético agarra "\
                         "sua mão e você salta para trás conseguindo se afastar e manter o amuleto em "\
@@ -70,13 +71,16 @@ class MapBEvents:
                 decision1="Enfrenta-los"
                 decision2=None
                 decision = self.event_handler.run(self.allies, message, decision1, decision2)
-
-                skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+   
+                skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str')]
+                skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str')]
+                skills_Skeleton_Str = [Skill("Esmagar Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Esmagar Pesado", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Provocar", SkillType.MANASTEALD6, 0, 10, 'str')]
+                
                 common_inventory = Inventory(0)
-
-                enemy1 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-                enemy2 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-                enemy3 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonSTR(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            
+                enemy1 = Character("Esqueleto Arqueiro",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png',24,30,1,0,0,0,0,0,skills_Skeleton_Dex,10,False,common_inventory)
+                enemy2 = Character("Esqueleto Mago",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 20,60,0,0,0,0,0,0, skills_Skeleton_Int, 10, False, common_inventory)
+                enemy3 = Character("Esqueleto Guerreiro",'assets/portraits/Enemies/Skeleton/SkeletonSTR(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonSTR(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonSTR(Dead).png', 40,10,0,0,0,0,0,0, skills_Skeleton_Str, 10, False, common_inventory)
 
                 arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
                 battleResponse = arena.run()
@@ -108,19 +112,22 @@ class MapBEvents:
                     disable_zone_buttons = [1]
                 )
 
-            message="Você decide jogar a oferenda na água, após alguns instantes um afogado aparece "\
+            message="Você decide jogar a oferenda na água, após alguns instantes um grupo de afogados aparecem "\
                     "mostrando toda sua fúria. Você percebe que não foi a melhor decisão."
             decision1="Enfrenta-los"
             decision2=None
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            skills_drowned_Dex = [Skill("Arranhar", SkillType.DIRECTD6, 4, 0, 'str'), Skill("Garras Afiadas", SkillType.DIRECTD12, 2, 10, 'str'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 1, 15, 'str')]
+            skills_drowned_Int = [Skill("Cuspir Vômito", SkillType.DIRECTD6, 3, 0, 'str'), Skill("Regeneração", SkillType.HEALD12, 3, 10, 'str'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 2, 15, 'str')]
+            
             common_inventory = Inventory(0)
             
-            enemy1 = Character("Afogado",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Afogado",'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Afogado",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy1 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
+            enemy2 = Character("Afogado Ancião",'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Dead).png', 25,50,2,0,0,0,0,0, skills_drowned_Int, 10, False, common_inventory)
+            enemy3 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
+
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -135,6 +142,7 @@ class MapBEvents:
         message="Você encontra um local com diversos cogumelos e percebe que alguém se dedicou "\
                 "a cuidar desse lugar. Talvez há algo que você possa pegar, mas tem dificuldade em "\
                 "identificar qual cogumelo levar."
+                
         decision1="Vasculhar"
         decision2="Sair"
 
@@ -145,20 +153,21 @@ class MapBEvents:
                 activity_zone_buttons = [],
                 disable_zone_buttons = []
             )
+        
+        roll = DiceRow.dice6()
+        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + roll
 
-        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + self.equipment.intelligence
-
-        if intelligence_total > 1:
-            message="Ao vasculhar, você encontra alguns cogumelos da realeza, conhecidos por "\
+        if intelligence_total >= 15:
+            message= f"Resultado({intelligence_total}) - Teste(12/15): "\
+                "Ao vasculhar, você encontra alguns cogumelos da realeza, conhecidos por "\
                 "fortalecer e recarregar a energia daqueles que o ingerem. "\
-                "(Todos os aliados reabastece + 4 vida, 8 de mana e 10 de vigor)"
+                "(Todos ganham + 25 vida e + 30 de mana)"
             decision1="Sair"
             decision2=None
 
             for allie in self.allies:
-                allie.hp  = allie.hp + 4
-                allie.mp = allie.mp + 8
-                allie.st = allie.st + 10
+                allie.hp  = allie.hp + 25
+                allie.mp = allie.mp + 30
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
@@ -167,9 +176,15 @@ class MapBEvents:
                 disable_zone_buttons = [2]
             )
 
-        elif intelligence_total ==  1:
-            message="Mesmo após vasculhar diversas vezes, você não reconhece nenhum deles e decide  "\
-                    "que é melhor deixá-los de lado."
+        elif intelligence_total >=  12:
+            message=f"Resultado({intelligence_total}) - Teste(12/15): "\
+                    "Após vasculhar diversas vezes, você reconhece apenas um cogumelo e decide evitar os outros "\
+                    "que você não reconhece."\
+                    "(Todos ganham + 15 vida)"
+            
+            for allie in self.allies:
+                allie.hp  = allie.hp + 15        
+            
             decision1="Sair"
             decision2=None
 
@@ -180,15 +195,11 @@ class MapBEvents:
                 disable_zone_buttons = [2]
             )
         else:
-            message="Ao vasculhar, você se atrai por um cogumelo brilhante e decide ingeri-lo, mas "\
-                    "percebe que não foi a coisa certa."
+            message=    f"Resultado({intelligence_total}) - Teste(12/15): "\
+            "Você não consegue reconhecer nenhum e decide evitar ingerir algo que não conhece."
+            
             decision1="Sair"
             decision2=None
-
-            for allie in self.allies:
-                allie.hp  = allie.hp - 1
-                allie.mp = allie.mp - 1
-                allie.st = allie.st - 1
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
@@ -204,6 +215,7 @@ class MapBEvents:
                 "por teias. Você acaba notando que os cadáveres morreram recentemente e seus "\
                 "equipamentos estão em um bom estado, mas sabe que não será fácil removê-los "\
                 "das teias."
+                
         decision1="Remover"
         decision2="Sair"
 
@@ -215,10 +227,12 @@ class MapBEvents:
                 disable_zone_buttons = []
             )
 
-        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + self.equipment.strength
+        roll = DiceRow.dice6()
+        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + roll
 
-        if strength_total > 1:
-            message="Você consegue usar sua força para cortar os fios grossos de teias sem dificuldade, "\
+        if strength_total >= 15:
+            message=    f"Resultado({strength_total}) - Teste(15): "\
+                    "Você consegue usar sua força para cortar os fios grossos de teias sem dificuldade, "\
                     "deixando os cadáveres acessíveis. Ao coletar os equipamentos, você nota que na "\
                     "armadura de um explorador está o símbolo do reino de Karadur e se pergunta por "\
                     "que um soldado do rei estaria nesse local. "
@@ -227,11 +241,12 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            for allie in self.allies:
-                allie.defense  = allie.defense + 1
+ #           for allie in self.allies:
+#                allie.defense  = allie.defense + 1
 
         else: 
-            message="Mesmo usando sua força e técnica você não consegue romper os fios de teias, após "\
+            message=f"Resultado({strength_total}) - Teste(15): "\
+                    "Mesmo usando sua força e técnica você não consegue romper os fios de teias, após "\
                     "desistir e olhar por alguns segundos para o cadáver você nota que em sua "\
                     "armadura está o símbolo do reino de Karadur e se pergunta por que um soldado do    "\
                     "rei estaria nesse local. "
@@ -265,16 +280,20 @@ class MapBEvents:
         "iminente das aranhas. O acampamento está todo destruído e nada pode ser "\
         "reaproveitado. Após alguns olhares em volta você percebe que não está sozinho e "\
         "terá que se defender."
+        
         decision1="Lutar"
         decision2=None
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.AREAD20, 1, 1, 'str')]
+        skills_spider_Dex= [Skill("Soltar Teias", SkillType.DIRECTD6, 3, 0, 'str'), Skill("Emboscar", SkillType.DIRECTD6, 5, 5, 'str'), Skill("Presas Venenosas", SkillType.DIRECTD12, 3, 10, 'str')]
+        skills_spider_Int = [Skill("Soltar Teias", SkillType.DIRECTD6, 2, 1, 'str'), Skill("Guiar Filhotes", SkillType.AREAD6, 6, 5, 'str'), Skill("Cuspir Veneno", SkillType.AREAD12, 4, 10, 'str')]
+        
         common_inventory = Inventory(0)
-        enemy1 = Character("Aranha",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-        enemy2 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderINT(Alive).png', 'assets/portraits/Enemies/Spider/SpiderINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-        enemy3 = Character("aranha",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+        
+        enemy1 = Character("Aranha Armadilheira",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png','assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 38,15,2,0,0,0,0,0, skills_spider_Dex, 10, False, common_inventory)
+        enemy2 = Character("Aranha Cuspideira",'assets/portraits/Enemies/Spider/SpiderINT(Alive).png', 'assets/portraits/Enemies/Spider/SpiderINT(Alive).png', 'assets/portraits/Enemies/Spider/SpiderINT(Dead).png', 30,40,1,0,0,0,0,0, skills_spider_Int, 10, False, common_inventory)
+        enemy3 = Character("Aranha Armadilheira",'assets/portraits/Enemies/Spider/SpiderDEX(Alive).png','assets/portraits/Enemies/Spider/SpiderDEX(Alive).png', 'assets/portraits/Enemies/Spider/SpiderDEX(Dead).png', 38,15,2,0,0,0,0,0, skills_spider_Dex, 10, False, common_inventory)
 
         arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
         battleResponse = arena.run()
@@ -290,6 +309,7 @@ class MapBEvents:
                 "de grande ajuda, após encarar a escuridão por um tempo você consegue ouvir "\
                 "passos pesados ecoando pela passagem. Você decide que não é bom seguir esse "\
                 "caminho."
+                
         decision1="Prosseguir"
         decision2="Sair"
 
@@ -311,6 +331,7 @@ class MapBEvents:
         message="Ao olhar de longe, você percebe que há um amontoado de gosmas verdes entre seu "\
                 "caminho e nunca viu algo desse tipo antes, se perguntando de onde essas coisas "\
                 "surgiram."
+                
         decision1="Interagir"
         decision2="Sair"
 
@@ -325,17 +346,19 @@ class MapBEvents:
         message="Ao se aproximar das gosmas é possível sentir um cheiro de podridão e morte, "\
                 "elas se separam em grupos e segue  em sua direção consumindo todos os restos "\
                 "mortais que estão no local. "
+        
         decision1="Lutar"
         decision2=None
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD6, 1, 1, 'str'), Skill("attackheal", SkillType.AREAD20, 1, 1, 'str')]
+        skills_Slime = [Skill("Engolir", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Regeneração", SkillType.HEALD20, 10, 10, 'str'), Skill("Regeneração Maior", SkillType.HEALD20, 15, 20, 'str')]
         common_inventory = Inventory(0)
         
-        enemy1 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-        enemy2 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-        enemy3 = Character("slime",'assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+        enemy1 = Character("Slime",'assets/portraits/Enemies/Slime/Slime(Alive).png','assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 60,20,0,0,0,0,0,0, skills_Slime, 10, False, common_inventory)
+        enemy2 = Character("Slime",'assets/portraits/Enemies/Slime/Slime(Alive).png','assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 60,20,0,0,0,0,0,0, skills_Slime, 10, False, common_inventory)
+        enemy3 = Character("Slime",'assets/portraits/Enemies/Slime/Slime(Alive).png','assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 60,20,0,0,0,0,0,0, skills_Slime, 10, False, common_inventory)
+        
 
         arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
         battleResponse = arena.run()
@@ -350,6 +373,7 @@ class MapBEvents:
         message="Uma grande barreira de madeira improvisada foi montada aqui impedindo que algo "\
                 "ou alguém passe, após analisar a estrutura você percebe que com uma boa "\
                 "pancada é possível abrir uma passagem."
+        
         decision1="Interagir"
         decision2="Sair"
 
@@ -361,13 +385,18 @@ class MapBEvents:
                 disable_zone_buttons = []
             )
 
-        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + self.equipment.strength
+        roll = DiceRow.dice6()
+        strength_total = self.allies[0].strength + self.allies[1].strength + self.allies[2].strength + roll
+        
+        
 
-        if strength_total > 1:
+        if strength_total >= 18:
 
-            message="Com uma boa pancada na estrutura você consegue derrubar a pilha de móveis "\
+            message= f"Resultado({strength_total}) - Teste(15):  "\
+                    "Com uma boa pancada na estrutura você consegue derrubar a pilha de móveis "\
                     "improvisados para impedir o caminho, percebendo que qualquer monstro desse "\
                     "local poderia fazer o mesmo."
+                    
             decision1="Prosseguir"
             decision2=None
 
@@ -378,8 +407,10 @@ class MapBEvents:
                 disable_zone_buttons = [7]
             )
 
-        message="Mesmo com sua força os móveis e tábuas improvisadas ainda permanecem em pé, "\
+        message=f"Resultado({strength_total}) - Teste(15): "\
+                "Mesmo com sua força os móveis e tábuas improvisadas ainda permanecem em pé, "\
                 "você acaba se cansando e decide que é melhor encontrar outro caminho."
+        
         decision1="Sair"
         decision2=None
 
@@ -406,20 +437,25 @@ class MapBEvents:
                 activity_zone_buttons = [],
                 disable_zone_buttons = []
             )
+        
+        roll = DiceRow.dice6()
+        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + roll
 
-        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + self.equipment.intelligence
-
-        if intelligence_total > 1:
-            message="As inscrições citam um conto antigo que pertence às terras do Céu Vermelho, "\
+        if intelligence_total >= 12:
+            
+            message=f"Resultado({intelligence_total}) - Teste(12): "\
+                    "As inscrições citam um conto antigo que pertence às terras do Céu Vermelho, "\
                     "citando o amor de um casal que se entregaram ao deus do fogo para "\
                     "permanecerem unidos e combater o mal no pós vida. Você se sente inspirado, mas "\
                     "logo percebe que os exploradores são um casal e infelizmente perderam a vida "\
                     "nesse local."
+            
             decision1="Prosseguir"
             decision2=None
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
         else:
-            message="Você não consegue identificar o que as inscrições passam, mas sabe que antes de "\
+            message=f"Resultado({intelligence_total}) - Teste(12): "\
+                    "Você não consegue identificar o que as inscrições passam, mas sabe que antes de "\
                     "morrerem aqueles exploradores tentaram transmitir algo para o mundo."
             decision1="Sair"
             decision2=None
@@ -448,10 +484,10 @@ class MapBEvents:
             )
         
         roll = DiceRow.dice6()
-        charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + self.equipment.charisma + roll
+        charisma_total = self.allies[0].charisma + self.allies[1].charisma + self.allies[2].charisma + roll
 
-        if charisma_total > 1:
-            message=f"Resuldado({charisma_total} \ Esperado 20 )  -  "\
+        if charisma_total >= 18:
+            message=f"Resultado({charisma_total}) - Teste(18): "\
                     "“Você não está com Voslok?” com uma expressão de esperança ele se aproxima da "\
                     "grade, “Você deve acabar com ele, aquele desgraçado me prendeu aqui."\
                     "Ele está no final do corredor com aquele cadaver”. Ele aponta para o final do corredor"\
@@ -461,7 +497,8 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
         else: 
-            message="“Você… Você não devia estar aqui, todos irão morrer, aquele… aquele maldito "\
+            message=f"Resultado({charisma_total}) - Teste(18): "\
+                    "“Você… Você não devia estar aqui, todos irão morrer, aquele… aquele maldito "\
                     "cadaver”, o homem com tamanha destreza alcança a faca em sua cintura e "\
                     "rapidamente corta a garganta. Você apenas assiste aquele pobre "\
                     "homem morrer."
@@ -503,16 +540,19 @@ class MapBEvents:
 
         
         roll = DiceRow.dice6()
-        dexterity_total = self.allies[0].dexterity + self.allies[1].dexterity + self.allies[2].dexterity + roll
+        intelligence_total = self.allies[0].intelligence + self.allies[1].intelligence + self.allies[2].intelligence + roll
         
-        if dexterity_total >= 15:
+        if intelligence_total >= 12:
 
-            message="Você encontra algumas poções em bom estado, as comindo e se sentindo revigorado e preparado para o que vier"
+            message=f"Resultado({intelligence_total}) - Teste(12): "\
+                    "Você encontra algumas poções em bom estado e aproveita para bebe-las, "\
+                    "sentindo revigorado você se prepara para o que vier."\
+                    "(Todos os aliados ganham +30 vida e +30 mana.)"
 
             for allie in self.allies:
-                allie.hp = allie.hp + 25
-                allie.mp = allie.mp + 25
-
+                allie.hp = allie.hp + 30
+                allie.mp = allie.mp + 30
+                
             decision1="Prosseguir"
             decision2=None
 
@@ -523,7 +563,10 @@ class MapBEvents:
                 disable_zone_buttons = [10]
             )
         
-        message="Você decide arriscar e consome uma poção que lhe chamou atenção, porém essa posse lhe faz sentir mal"
+        message=f"Resultado({intelligence_total}) - Teste(12): "\
+                "Você não recohece as poções, mas decide se arriscar consumindo uma poção que lhe "\
+                "chamou atenção, porém essa poção lhe faz sentir mal "\
+                "(Todos os aliados perdem -25 vida e -25 mana.)"
 
         for allie in self.allies:
             allie.hp = allie.hp - 25
@@ -551,18 +594,20 @@ class MapBEvents:
         
         if decision == 1:
             message="A sala está repleta de esqueletos e recentes cadáveres que estão no processo de decomposição,"\
-        "com tanta morte e desespero você sente o peso das almas daqueles que tiveram um fim trágico"
+            "com tanta morte e desespero você sente o peso das almas daqueles que tiveram um fim trágico"
             
             decision1="Lutar"
             decision2=None
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
-
-            enemy1 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Esqueleto",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Demonho",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False)
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
+            skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str')]
+            skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str')]
+                
+            enemy1 = Character("Esqueleto Arqueiro",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png',24,30,1,0,0,0,0,0,skills_Skeleton_Dex,10,False,common_inventory)
+            enemy2 = Character("Esqueleto Mago",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 20,60,0,0,0,0,0,0, skills_Skeleton_Int, 10, False, common_inventory)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -577,12 +622,13 @@ class MapBEvents:
             
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str')]
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Demonio",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Demonio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Demonio",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -626,12 +672,13 @@ class MapBEvents:
             
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREA, 1, 1, 'str'), Skill("attackheal", SkillType.HEAL, 1, 1, 'str')]
+            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str')]
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
             common_inventory = Inventory(0)
-            
-            enemy1 = Character("Demonio",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy2 = Character("Demonio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
-            enemy3 = Character("Demonio",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False, common_inventory)
+
+            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -677,7 +724,7 @@ class MapBEvents:
             self.equipment.inteligence = self.equipment.inteligence + 1
 
             for allie in self.allies:
-                allie.hp = allie.hp - 20
+                allie.hp = allie.hp - 10
 
             decision1="Sair"
             decision2=None
@@ -857,12 +904,16 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_test = [Skill("attackdirect", SkillType.DIRECTD6, 1, 1, 'str'), Skill("attackarea", SkillType.AREAD12, 1, 1, 'str'), Skill("attackheal", SkillType.HEALD12, 1, 1, 'str')]
+            skills_Voslok_Cha = [Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Voltar as Sombras Menor", SkillType.MANAREGEND20, 1, 5, 'str'), Skill("Cura Sombria Menor", SkillType.HEALD20, 0, 5, 'str')]
+            skills_Voslok = [Skill("Orbe Negro", SkillType.DIRECTD6, 8, 0, 'str'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 10, 'str'), Skill("Fogo Negro", SkillType.AREAD12, 6, 15, 'str')]
+            skills_Voslok_Str = [Skill("Ataque Sombrio Menor", SkillType.DIRECTD6, 0, 0, 'str'), Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 8, 'str'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 15, 'str')]
+            
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokCHA(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
-            enemy2 = Character("Voslok",'assets/portraits/Enemies/Bosses/Voslok(Alive).png', 'assets/portraits/Enemies/Bosses/Voslok(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
-            enemy3 = Character("Voslok",'assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokSTR(Dead).png', 10,10,1,10,10,10,10,1, skills_test, 10, False,common_inventory)
+            enemy1 = Character("Voslok Clone Frágil",'assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png','assets/portraits/Enemies/Bosses/VoslokCHA(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokCHA(Dead).png', 25,40,3,0,0,0,0,0, skills_Voslok_Cha, 10, False,common_inventory)
+            enemy2 = Character("Voslok",'assets/portraits/Enemies/Bosses/Voslok(Alive).png','assets/portraits/Enemies/Bosses/Voslok(Alive).png', 'assets/portraits/Enemies/Bosses/Voslok(Dead).png', 100,40,4,0,0,0,0,0, skills_Voslok, 10, False,common_inventory)
+            enemy3 = Character("Voslok Clone Forte",'assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png','assets/portraits/Enemies/Bosses/VoslokSTR(Alive).png', 'assets/portraits/Enemies/Bosses/VoslokSTR(Dead).png', 50,5,7,0,0,0,0,0, skills_Voslok_Str, 10, False,common_inventory)
+            
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
 

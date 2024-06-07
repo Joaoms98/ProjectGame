@@ -182,9 +182,9 @@ class Arena:
     def createAttackButtons(self, allie_choice):
         hit_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
 
-        hit_button1 = Button(None, (500, 150), allie_choice.skills[0].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button2 = Button(None, (500, 200), allie_choice.skills[1].name, hit_text_font, (255,0,0), (255,255,0))
-        hit_button3 = Button(None, (500, 250), allie_choice.skills[2].name, hit_text_font, (255,0,0), (255,255,0))
+        hit_button1 = Button(None, (500, 150), allie_choice.skills[0].name, hit_text_font, (255,255,255), (255,255,0))
+        hit_button2 = Button(None, (500, 200), allie_choice.skills[1].name, hit_text_font, (255,255,255), (255,255,0))
+        hit_button3 = Button(None, (500, 250), allie_choice.skills[2].name, hit_text_font, (255,255,255), (255,255,0))
 
         return [hit_button1, hit_button2, hit_button3]
 
