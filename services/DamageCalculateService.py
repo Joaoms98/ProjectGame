@@ -47,7 +47,7 @@ class DamageCalculateService():
                 damage = 0
 
             chosen_defender.hp = chosen_defender.hp - damage
-            prompt_text = f"{chosen_striker.name} atacou com o ataque {skill.name}, causando {damage} de dano no {chosen_defender.name}"
+            prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name}, causando {damage} de dano em {chosen_defender.name}"
 
         ## calculate damage for area skill type ##
         if skill.skillType == SkillType.AREAD6 or skill.skillType == SkillType.AREAD12 or skill.skillType == SkillType.AREAD20:
@@ -64,7 +64,7 @@ class DamageCalculateService():
                     damage = 0
                 defender.hp = defender.hp - damage
 
-            prompt_text = f"(Rolagem do dado: {dice_row}) {chosen_striker.name} lançou {skill.name} causando dano em area"
+            prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name}, causando {damage} de dano em área"
 
         ## calculate damage for heal skill type ##
         if skill.skillType == SkillType.HEALD6 or skill.skillType == SkillType.HEALD12 or skill.skillType == SkillType.HEALD20:
@@ -81,7 +81,7 @@ class DamageCalculateService():
                 if striker.dead == False:
                     striker.hp = striker.hp + heal_points
 
-                prompt_text = f"{chosen_striker.name} lançou {skill.name} curando {heal_points} de hp de sua equipe "
+                prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name} restaurando {heal_points} de hp de sua equipe"
 
         ## calculate damage for mana steal type ##
         if skill.skillType == SkillType.MANASTEALD6 or skill.skillType == SkillType.MANASTEALD12 or skill.skillType == SkillType.MANASTEALD20:
@@ -100,7 +100,7 @@ class DamageCalculateService():
             for defender in team_defender:
                 defender.mp = defender.mp - mana_points
 
-                prompt_text = f"{chosen_striker.name} lançou {skill.name} retirando {mana_points} de mana"
+                prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name} removendo {mana_points} de mp"
 
         ## calculate damage for mana regen type ##
         if skill.skillType == SkillType.MANAREGEND6 or skill.skillType == SkillType.MANAREGEND12 or skill.skillType == SkillType.MANAREGEND20:
@@ -120,7 +120,7 @@ class DamageCalculateService():
                 if striker.dead == False:
                     striker.mp = striker.mp + mana_points
 
-                prompt_text = f"{chosen_striker.name} lançou {skill.name} restaurando {mana_points} de mana de sua equipe "
+                prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name} restaurando {mana_points} de mana de sua equipe "
 
         # set all hp to 0
         for defender, striker in zip(team_defender, team_striker):
@@ -140,10 +140,9 @@ class DamageCalculateService():
         if chosen_striker.inventory.potion > 0:
             chosen_striker.hp = chosen_striker.hp + 35
             chosen_striker.inventory.potion -= 1
-            prompt_text = f"{chosen_striker.name} usou uma poção para se curar"
-            print (f"cura para {chosen_striker.name}")
+            prompt_text = f"{chosen_striker.name} usou uma poção de cura restaurando 45 de hp"
         else:
-            prompt_text = f"{chosen_striker.name} não possui nenhuma poção"
+            prompt_text = f"{chosen_striker.name} não possui nenhuma poção, você perdeu a vez"
 
 
         return prompt_text

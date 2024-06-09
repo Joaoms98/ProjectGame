@@ -39,7 +39,7 @@ class MapB:
         team_button_font = pygame.font.Font("assets/fonts/alagard.ttf", 30)
         team_button_base_color = "#a9b0c7"
         team_button_hover_color = "#ffffff"
-        team_button = Button(None, (900,560), "Team", team_button_font, team_button_base_color, team_button_hover_color)
+        team_button = Button(None, (900,50), "Equipe", team_button_font, team_button_base_color, team_button_hover_color)
 
         while True:
             # set frames

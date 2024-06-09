@@ -183,6 +183,8 @@ class MapAEvents:
         else:
             for allie in self.allies:
                     allie.hp = allie.hp - 10
+                    if allie.hp <= 0:
+                        allie.hp = 1
                     
             message= f"Resultado({faith_total}) - Teste(15): "\
                 "Você não conhece esse deus, então decide abrir os sarcófagos para encontrar algo útil. No momento "\
@@ -374,6 +376,10 @@ class MapAEvents:
                 for allie in self.allies:
                     allie.hp = allie.hp - 20
                     allie.mp = allie.mp - 15
+                    if allie.hp <= 0:
+                        allie.hp = 1
+                    if allie.mp <= 0:
+                        allie.mp = 1 
    
                 message= f"Resultado({charisma_total}) - Teste(10): "\
                 "Após um salto repentino você afunda e a única luz acima de você some deixando apenas a escuridão. "\
@@ -425,6 +431,8 @@ class MapAEvents:
         else:
             for allie in self.allies:
                     allie.hp = allie.hp - 10
+                    if allie.hp <= 0:
+                        allie.hp = 1
             
             message= f"Resultado({dexterity_total}) - Teste(18): "\
                 "A madeira quebra fazendo-o cair. Com rapidez você se apoia, com força, na corda garantindo sua"\

@@ -46,6 +46,8 @@ class MapBEvents:
 
                 for allie in self.allies:
                     allie.hp = allie.hp - 2
+                    if allie.hp <= 0:
+                        allie.hp = 1
 
                 message= f"Resultado({faith_total}) - Teste(12): "\
                         "Graças aos anos de estudos em teologia,"\
@@ -124,9 +126,9 @@ class MapBEvents:
             
             common_inventory = Inventory(0)
             
-            enemy1 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
-            enemy2 = Character("Afogado Ancião",'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterINT(Dead).png', 25,50,2,0,0,0,0,0, skills_drowned_Int, 10, False, common_inventory)
-            enemy3 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedMonsterDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
+            enemy1 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
+            enemy2 = Character("Afogado Ancião",'assets/portraits/Enemies/Drowned/DrownedINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedINT(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedINT(Dead).png', 25,50,2,0,0,0,0,0, skills_drowned_Int, 10, False, common_inventory)
+            enemy3 = Character("Afogado Caçador",'assets/portraits/Enemies/Drowned/DrownedDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedDEX(Alive).png', 'assets/portraits/Enemies/Drowned/DrownedDEX(Dead).png', 40,30,3,0,0,0,0,0, skills_drowned_Dex, 10, False, common_inventory)
 
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
@@ -571,6 +573,11 @@ class MapBEvents:
         for allie in self.allies:
             allie.hp = allie.hp - 25
             allie.mp = allie.mp - 25
+            if allie.hp <= 0:
+                allie.hp = 1
+            if allie.mp <= 0:
+                allie.mp = 1
+                        
 
         decision1="Prosseguir"
         decision2=None
@@ -607,7 +614,7 @@ class MapBEvents:
                 
             enemy1 = Character("Esqueleto Arqueiro",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png',24,30,1,0,0,0,0,0,skills_Skeleton_Dex,10,False,common_inventory)
             enemy2 = Character("Esqueleto Mago",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 20,60,0,0,0,0,0,0, skills_Skeleton_Int, 10, False, common_inventory)
-            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -626,9 +633,9 @@ class MapBEvents:
             skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
             enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
-            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -676,9 +683,9 @@ class MapBEvents:
             skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
             common_inventory = Inventory(0)
 
-            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
             enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
-            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demon/DemonCHA(Alive).png','assets/portraits/Enemies/Demon/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demon/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False)
+            enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
@@ -721,10 +728,12 @@ class MapBEvents:
                 " você sente uma estranha sensação de impulso, e involuntariamente, as palavras do ritual escapam de seus lábios."\
                 " Você percebe a presença de uma energia maligna, que parece envolver seu corpo, te enfraquecendo mas ao mesmo tempo trazendo conhecimento."
 
-            self.equipment.inteligence = self.equipment.inteligence + 1
+#            self.equipment.intelligence = self.equipment.intelligence + 1
 
             for allie in self.allies:
                 allie.hp = allie.hp - 10
+                if allie.hp <= 0:
+                    allie.hp = 1
 
             decision1="Sair"
             decision2=None
