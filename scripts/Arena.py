@@ -73,6 +73,11 @@ class Arena:
             mouse_position = pygame.mouse.get_pos()
             self.verifyCharacterHp()
 
+            if all(allie.hp <= 0 for allie in self.allies):
+                text_response = "         Gamer Over!!!  Melhore da próxima vez "
+                confirm_button = Button(None, (500, 600), "Fechar o jogo", confirm_button_text_font, (255,0,0), (255,255,0))
+                player_turn = False
+
             # update team_picture_buttons
             # team_picture_buttons = self.createTeamPictureButtons()
             enemy_picture_buttons = self.createEnemyPictureButtons()
@@ -119,12 +124,13 @@ class Arena:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if player_turn == False:
                         # check for input confirm button
+                        if all(allie.hp <= 0 for allie in self.allies):
+                            pygame.quit()
                         if confirm_button.checkForInput(mouse_position):
-                            response = self.verifyBattleEnd()
                             text_box = self.createTextPrompt()
                             team_picture_buttons = self.createTeamPictureButtons()
                             enemy_picture_buttons = self.createEnemyPictureButtons()
-
+            
                             enemy_alive = [enemy for enemy in self.enemies if enemy.dead == False]
                             allie_alive = [allie for allie in self.allies if allie.dead == False]
 
@@ -141,7 +147,6 @@ class Arena:
                         # check for input allies button
                         for i, team_character_button in enumerate([team_picture_buttons[0], team_picture_buttons[1], team_picture_buttons[2]]):
                             if team_character_button.checkForInput(mouse_position):
-                                response.back_to_event = self.verifyBattleEnd()
                                 team_picture_buttons = self.createTeamPictureButtons(i)
                                 enemy_picture_buttons = self.createEnemyPictureButtons()
                                 allie_choice = self.allies[i]
@@ -274,20 +279,3 @@ class Arena:
         for enemy in self.enemies:
             if enemy.hp <=0:
                 enemy.dead = True
-
-    def verifyBattleEnd(self):
-        if all(allie.hp <= 0 for allie in self.allies):
-            return BattleResponse(
-                    back_to_event = True,
-                    message= "Game Over mané"
-                )
-        
-        if all(enemy.hp <= 0 for enemy in self.enemies):
-            return BattleResponse(
-                    back_to_event = True,
-                    message= "Parabéns você conseguiu"
-                )
-
-        return BattleResponse(
-                    back_to_event = False,
-                )
