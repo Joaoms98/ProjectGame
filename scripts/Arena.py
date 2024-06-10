@@ -128,6 +128,7 @@ class Arena:
                             pygame.quit()
                         if confirm_button.checkForInput(mouse_position):
                             text_box = self.createTextPrompt()
+                            self.verifyBattleEnd()
                             team_picture_buttons = self.createTeamPictureButtons()
                             enemy_picture_buttons = self.createEnemyPictureButtons()
             
@@ -279,3 +280,13 @@ class Arena:
         for enemy in self.enemies:
             if enemy.hp <=0:
                 enemy.dead = True
+
+    def verifyBattleEnd(self):
+        if all(enemy.hp <= 0 for enemy in self.enemies):
+            return BattleResponse(
+                    back_to_event = True,
+                )
+
+        return BattleResponse(
+                    back_to_event = False,
+                )
