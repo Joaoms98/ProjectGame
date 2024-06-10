@@ -60,7 +60,7 @@ class Arena:
 
         # confirm button variables
         confirm_button_text_font = pygame.font.Font("assets/fonts/font.ttf", 15)
-        confirm_button = Button(None, (500, 600), "Confirm", confirm_button_text_font, (255,0,0), (255,255,0))
+        confirm_button = Button(None, (500, 600), "Confirmar", confirm_button_text_font, (255,255,255), (255,255,0))
 
         player_turn = True
         allie_choice = None
