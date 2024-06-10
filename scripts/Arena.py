@@ -71,7 +71,7 @@ class Arena:
             self.clock.tick(self.fps)
 
             mouse_position = pygame.mouse.get_pos()
-            self.verifyBattleEnd()
+            response = self.verifyBattleEnd()
             self.verifyCharacterHp()
 
             if all(allie.hp <= 0 for allie in self.allies):
@@ -129,7 +129,7 @@ class Arena:
                             pygame.quit()
                         if confirm_button.checkForInput(mouse_position):
                             text_box = self.createTextPrompt()
-                            self.verifyBattleEnd()
+                            response = self.verifyBattleEnd()
                             team_picture_buttons = self.createTeamPictureButtons()
                             enemy_picture_buttons = self.createEnemyPictureButtons()
             

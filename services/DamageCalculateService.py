@@ -141,9 +141,10 @@ class DamageCalculateService():
     def PotionHeal(self, chosen_striker):
 
         if chosen_striker.inventory.potion > 0:
-            chosen_striker.hp = chosen_striker.hp + 35
+            chosen_striker.hp = chosen_striker.hp + 45
+            chosen_striker.mp = chosen_striker.mp + 30
             chosen_striker.inventory.potion -= 1
-            prompt_text = f"{chosen_striker.name} usou uma poção de cura restaurando 45 de hp"
+            prompt_text = f"{chosen_striker.name} usou uma poção de cura restaurando 45 de hp e 30 mp"
         else:
             prompt_text = f"{chosen_striker.name} não possui nenhuma poção, você perdeu a vez"
 
