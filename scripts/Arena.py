@@ -71,6 +71,7 @@ class Arena:
             self.clock.tick(self.fps)
 
             mouse_position = pygame.mouse.get_pos()
+            self.verifyBattleEnd()
             self.verifyCharacterHp()
 
             if all(allie.hp <= 0 for allie in self.allies):
@@ -282,6 +283,11 @@ class Arena:
                 enemy.dead = True
 
     def verifyBattleEnd(self):
+        if all(enemy.hp <= 0 for enemy in self.enemies):
+            return BattleResponse(
+                    back_to_event = True,
+                )
+
         if all(enemy.hp <= 0 for enemy in self.enemies):
             return BattleResponse(
                     back_to_event = True,

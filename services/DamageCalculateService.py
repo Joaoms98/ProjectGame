@@ -4,6 +4,8 @@ from utils.DiceRow import DiceRow
 class DamageCalculateService():
     def AttackDamage(self, attack_index, chosen_striker, chosen_defender, team_striker, team_defender, equipment = None):
         # verify striker and attack selected
+        out_of_mana_text = ""
+
         if chosen_striker is None:
             return "Você precisa selecionar o aliado, você perdeu a vez"
 
@@ -18,7 +20,8 @@ class DamageCalculateService():
 
         # verify mp
         if chosen_striker.mp < skill.mp and attack_index != 0:
-            return "O personagem escolhido está sem mana suficiente para o ataque, você perdeu a vez"
+            attack_index = 0
+            out_of_mana_text = "MP insuficiente para a habilidade, foi selecionado o ataque básico. "
         
         skill = chosen_striker.skills[attack_index]
         chosen_striker.mp = chosen_striker.mp - skill.mp
@@ -47,7 +50,7 @@ class DamageCalculateService():
                 damage = 0
 
             chosen_defender.hp = chosen_defender.hp - damage
-            prompt_text = f"{chosen_striker.name} usou a habilidade {skill.name}, causando {damage} de dano em {chosen_defender.name}"
+            prompt_text = f"{out_of_mana_text}{chosen_striker.name} usou a habilidade {skill.name}, causando {damage} de dano em {chosen_defender.name}"
 
         ## calculate damage for area skill type ##
         if skill.skillType == SkillType.AREAD6 or skill.skillType == SkillType.AREAD12 or skill.skillType == SkillType.AREAD20:
