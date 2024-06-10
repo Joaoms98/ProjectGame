@@ -19,6 +19,11 @@ class MapA:
 
     def run(self):
         # Objects instances
+        theme_music_sfx= pygame.mixer.Sound('assets/music/mapA_sound.mp3')
+        theme_music_sfx_volume = (config.volume - 25) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play(loops=10)
+
         dict_lang = lang.Language.set_lang(self, config.language)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
         events = MapAEvents(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, self.equipment)

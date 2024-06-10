@@ -1,3 +1,4 @@
+import pygame
 from response.EventResponse import EventResponse
 from response.BattleResponse import BattleResponse
 from scripts.CharacterSelect import CharacterSelect
@@ -8,6 +9,7 @@ from objects.Character import Character
 from scripts.Arena import Arena
 from scripts.EventHandler import EventHandler
 from utils.DiceRow import DiceRow
+import utils.Config as config
 
 class MapAEvents:
     def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
@@ -285,8 +287,8 @@ class MapAEvents:
 
             self.event_handler.run(self.allies, message, decision1, decision2)
             
-            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str')]
-            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str')]
+            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str', 'assets/music/corte.mp3'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str', 'assets/music/corte.mp3'), Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str','assets/music/corte.mp3')]
+            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str', 'assets/music/corte.mp3'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str', 'assets/music/corte.mp3'), Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str','assets/music/corte.mp3')]
             
             common_inventory = Inventory(0)
             
@@ -296,7 +298,12 @@ class MapAEvents:
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
-            
+
+            theme_music_sfx= pygame.mixer.Sound('assets/music/mapA_sound.mp3')
+            theme_music_sfx_volume = (config.volume - 25) / 100
+            theme_music_sfx.set_volume(theme_music_sfx_volume)
+            theme_music_sfx.play()
+
             return EventResponse(
                 activity_zone_buttons = [],
                 disable_zone_buttons = [7]
@@ -540,9 +547,16 @@ class MapAEvents:
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
             
-            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str')]
-            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str')]
-            skills_Ratakaz_King = [Skill("Corte Profundo", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Mostrar as Presas", SkillType.MANASTEALD20, 0, 10, 'str'), Skill("Fúria Ratakaz", SkillType.DIRECTD20, 0, 15, 'str')]
+            skills_Ratakaz_Dex = [Skill("Corte Leve", SkillType.DIRECTD6, 1, 0, 'str', 'assets/music/corte.mp3'), 
+                                  Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str', 'assets/music/corte.mp3'), 
+                                  Skill("Punhalada", SkillType.DIRECTD6, 5, 15, 'str', 'assets/music/corte.mp3')]
+            
+            skills_Ratakaz_Str = [Skill("Corte Leve", SkillType.DIRECTD6, 2, 0, 'str', 'assets/music/corte.mp3'), 
+                                  Skill("Corte Profundo", SkillType.DIRECTD6, 2, 5, 'str', 'assets/music/corte.mp3'), 
+                                  Skill("Mordida", SkillType.DIRECTD12, 1, 15, 'str', 'assets/music/corte.mp3')]
+            skills_Ratakaz_King = [Skill("Corte Profundo", SkillType.DIRECTD6, 5, 0, 'str', 'assets/music/corte.mp3'), 
+                                   Skill("Mostrar as Presas", SkillType.MANASTEALD20, 0, 10, 'str', 'assets/music/corte.mp3'), 
+                                   Skill("Fúria Ratakaz", SkillType.DIRECTD20, 0, 15, 'str', 'assets/music/corte.mp3')]
             
             common_inventory = Inventory(0)
             
@@ -552,6 +566,12 @@ class MapAEvents:
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
+
+            theme_music_sfx= pygame.mixer.Sound('assets/music/mapA_sound.mp3')
+            theme_music_sfx_volume = (config.volume - 25) / 100
+            theme_music_sfx.set_volume(theme_music_sfx_volume)
+            theme_music_sfx.play()
+
             return EventResponse(
                 activity_zone_buttons = [],
                 disable_zone_buttons = [11]

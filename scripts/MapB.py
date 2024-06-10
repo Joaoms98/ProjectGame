@@ -20,6 +20,11 @@ class MapB:
 
     def run(self):
         # Objects instances
+        theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+        theme_music_sfx_volume = (config.volume - 25) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play()
+    
         dict_lang = lang.Language.set_lang(self, config.language)
         team_view = TeamView(self.screen, self.screen_rect, self.fps, self.resolution, self.allies)
         events = MapBEvents(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, self.equipment)
@@ -42,6 +47,7 @@ class MapB:
         team_button = Button(None, (900,50), "Equipe", team_button_font, team_button_base_color, team_button_hover_color)
 
         while True:
+
             # set frames
             self.clock.tick(self.fps)
 

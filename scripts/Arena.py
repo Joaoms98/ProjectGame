@@ -21,6 +21,12 @@ class Arena:
         self.damage_calculate_service = DamageCalculateService()
 
     def run(self):
+        pygame.mixer.stop()
+        theme_music_sfx= pygame.mixer.Sound('assets/music/battle_music.mp3')
+        theme_music_sfx_volume = (config.volume - 15) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play()
+
         # objects instances 
         dict_lang = lang.Language.set_lang(self, config.language)
         response = BattleResponse(
@@ -178,6 +184,7 @@ class Arena:
                             attack = None
 
             if response.back_to_event == True:
+                theme_music_sfx.stop()
                 break
 
             # update

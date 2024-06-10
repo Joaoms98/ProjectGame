@@ -1,3 +1,4 @@
+import pygame
 from response.EventResponse import EventResponse
 from response.BattleResponse import BattleResponse
 from scripts.CharacterSelect import CharacterSelect
@@ -8,6 +9,7 @@ from objects.Character import Character
 from scripts.Arena import Arena
 from scripts.EventHandler import EventHandler
 from utils.DiceRow import DiceRow
+import utils.Config as config
 
 class MapBEvents:
     def __init__(self, screen, screen_rect, fps, resolution, allies, equipment):
@@ -74,9 +76,9 @@ class MapBEvents:
                 decision2=None
                 decision = self.event_handler.run(self.allies, message, decision1, decision2)
    
-                skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str')]
-                skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str')]
-                skills_Skeleton_Str = [Skill("Esmagar Leve", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Esmagar Pesado", SkillType.DIRECTD6, 2, 5, 'str'), Skill("Provocar", SkillType.MANASTEALD6, 0, 10, 'str')]
+                skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str','assets/music/corte.mp3'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str','assets/music/corte.mp3'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str','assets/music/corte.mp3')]
+                skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str','assets/music/corte.mp3'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str','assets/music/corte.mp3'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str','assets/music/corte.mp3')]
+                skills_Skeleton_Str = [Skill("Esmagar Leve", SkillType.DIRECTD6, 1, 0, 'str','assets/music/corte.mp3'), Skill("Esmagar Pesado", SkillType.DIRECTD6, 2, 5, 'str','assets/music/corte.mp3'), Skill("Provocar", SkillType.MANASTEALD6, 0, 10, 'str','assets/music/corte.mp3')]
                 
                 common_inventory = Inventory(0)
             
@@ -86,6 +88,11 @@ class MapBEvents:
 
                 arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
                 battleResponse = arena.run()
+
+                theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+                theme_music_sfx_volume = (config.volume - 25) / 100
+                theme_music_sfx.set_volume(theme_music_sfx_volume)
+                theme_music_sfx.play(loops=10)
 
             return EventResponse(
                 activity_zone_buttons = [2, 3],
@@ -121,8 +128,8 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_drowned_Dex = [Skill("Arranhar", SkillType.DIRECTD6, 4, 0, 'str'), Skill("Garras Afiadas", SkillType.DIRECTD12, 2, 10, 'str'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 1, 15, 'str')]
-            skills_drowned_Int = [Skill("Cuspir Vômito", SkillType.DIRECTD6, 3, 0, 'str'), Skill("Regeneração", SkillType.HEALD12, 3, 10, 'str'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 2, 15, 'str')]
+            skills_drowned_Dex = [Skill("Arranhar", SkillType.DIRECTD6, 4, 0, 'str', 'assets/music/corte.mp3'), Skill("Garras Afiadas", SkillType.DIRECTD12, 2, 10, 'str','assets/music/corte.mp3'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 1, 15, 'str','assets/music/corte.mp3')]
+            skills_drowned_Int = [Skill("Cuspir Vômito", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/corte.mp3'), Skill("Regeneração", SkillType.HEALD12, 3, 10, 'str','assets/music/corte.mp3'), Skill("Grito Atordoante", SkillType.MANASTEALD6, 2, 15, 'str','assets/music/corte.mp3')]
             
             common_inventory = Inventory(0)
             
@@ -134,6 +141,11 @@ class MapBEvents:
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
 
+            theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+            theme_music_sfx_volume = (config.volume - 25) / 100
+            theme_music_sfx.set_volume(theme_music_sfx_volume)
+            theme_music_sfx.play()
+        
             return EventResponse(
                 activity_zone_buttons = [2],
                 disable_zone_buttons = [1]
@@ -288,8 +300,8 @@ class MapBEvents:
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_spider_Dex= [Skill("Soltar Teias", SkillType.DIRECTD6, 3, 0, 'str'), Skill("Emboscar", SkillType.DIRECTD6, 5, 5, 'str'), Skill("Presas Venenosas", SkillType.DIRECTD12, 3, 10, 'str')]
-        skills_spider_Int = [Skill("Soltar Teias", SkillType.DIRECTD6, 2, 1, 'str'), Skill("Guiar Filhotes", SkillType.AREAD6, 6, 5, 'str'), Skill("Cuspir Veneno", SkillType.AREAD12, 4, 10, 'str')]
+        skills_spider_Dex= [Skill("Soltar Teias", SkillType.DIRECTD6, 3, 0, 'str','assets/music/corte.mp3'), Skill("Emboscar", SkillType.DIRECTD6, 5, 5, 'str','assets/music/corte.mp3'), Skill("Presas Venenosas", SkillType.DIRECTD12, 3, 10, 'str','assets/music/corte.mp3')]
+        skills_spider_Int = [Skill("Soltar Teias", SkillType.DIRECTD6, 2, 1, 'str','assets/music/corte.mp3'), Skill("Guiar Filhotes", SkillType.AREAD6, 6, 5, 'str','assets/music/corte.mp3'), Skill("Cuspir Veneno", SkillType.AREAD12, 4, 10, 'str','assets/music/corte.mp3')]
         
         common_inventory = Inventory(0)
         
@@ -300,6 +312,11 @@ class MapBEvents:
         arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
         battleResponse = arena.run()
 
+        theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+        theme_music_sfx_volume = (config.volume - 25) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play()
+        
         return EventResponse(
             activity_zone_buttons = [7],
             disable_zone_buttons = [4]
@@ -354,7 +371,7 @@ class MapBEvents:
 
         decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-        skills_Slime = [Skill("Engolir", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Regeneração", SkillType.HEALD20, 10, 10, 'str'), Skill("Regeneração Maior", SkillType.HEALD20, 15, 20, 'str')]
+        skills_Slime = [Skill("Engolir", SkillType.DIRECTD6, 5, 0, 'str', 'assets/music/corte.mp3'), Skill("Regeneração", SkillType.HEALD20, 10, 10, 'str','assets/music/corte.mp3'), Skill("Regeneração Maior", SkillType.HEALD20, 15, 20, 'str','assets/music/corte.mp3')]
         common_inventory = Inventory(0)
         
         enemy1 = Character("Slime",'assets/portraits/Enemies/Slime/Slime(Alive).png','assets/portraits/Enemies/Slime/Slime(Alive).png', 'assets/portraits/Enemies/Slime/Slime(Dead).png', 60,20,0,0,0,0,0,0, skills_Slime, 10, False, common_inventory)
@@ -365,6 +382,11 @@ class MapBEvents:
         arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
         battleResponse = arena.run()
 
+        theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+        theme_music_sfx_volume = (config.volume - 25) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play()
+        
         return EventResponse(
             activity_zone_buttons = [11],
             disable_zone_buttons = [6]
@@ -608,10 +630,11 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
-            skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str')]
-            skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str')]
-                
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str','assets/music/corte.mp3'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str','assets/music/corte.mp3'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str','assets/music/corte.mp3')]
+            skills_Skeleton_Dex = [Skill("Disparo Rápido", SkillType.DIRECTD6, 2, 0, 'str','assets/music/corte.mp3'), Skill("Chuva de Flechas", SkillType.DIRECTD6, 2, 10, 'str','assets/music/corte.mp3'), Skill("Flecha no Joelho", SkillType.DIRECTD12, 2, 20, 'str','assets/music/corte.mp3')]
+            skills_Skeleton_Int = [Skill("Lança Sombria", SkillType.DIRECTD6, 1, 0, 'str','assets/music/corte.mp3'), Skill("Mísseis Mágico", SkillType.AREAD6, 3, 6, 'str','assets/music/corte.mp3'), Skill("Reconstrução", SkillType.HEALD6, 3, 10, 'str','assets/music/corte.mp3')]
+            
+            common_inventory = Inventory(0)
             enemy1 = Character("Esqueleto Arqueiro",'assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Alive).png','assets/portraits/Enemies/Skeleton/SkeletonDEX(Dead).png',24,30,1,0,0,0,0,0,skills_Skeleton_Dex,10,False,common_inventory)
             enemy2 = Character("Esqueleto Mago",'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Alive).png', 'assets/portraits/Enemies/Skeleton/SkeletonINT(Dead).png', 20,60,0,0,0,0,0,0, skills_Skeleton_Int, 10, False, common_inventory)
             enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
@@ -629,8 +652,8 @@ class MapBEvents:
             
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str')]
-            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
+            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str', 'assets/music/corte.mp3'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str','assets/music/corte.mp3'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str','assets/music/corte.mp3')]
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str', 'assets/music/corte.mp3'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str','assets/music/corte.mp3'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str','assets/music/corte.mp3')]
             common_inventory = Inventory(0)
 
             enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
@@ -640,6 +663,11 @@ class MapBEvents:
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
 
+            theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+            theme_music_sfx_volume = (config.volume - 25) / 100
+            theme_music_sfx.set_volume(theme_music_sfx_volume)
+            theme_music_sfx.play()
+        
         return EventResponse(
             activity_zone_buttons = [12],
             disable_zone_buttons = [11]
@@ -679,8 +707,8 @@ class MapBEvents:
             
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str')]
-            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str')]
+            skills_demon_Fai = [Skill("Machucar", SkillType.DIRECTD6, 5, 0, 'str','assets/music/corte.mp3'), Skill("Sede por Sangue", SkillType.DIRECTD12, 4, 10, 'str','assets/music/corte.mp3'), Skill("Fogo do Inferno", SkillType.AREAD12, 4, 20, 'str','assets/music/corte.mp3')]
+            skills_demon_Cha = [Skill("Enganação", SkillType.MANASTEALD6, 0, 0, 'str','assets/music/corte.mp3'), Skill("Controle Mental", SkillType.DIRECTD6, 6, 8, 'str','assets/music/corte.mp3'), Skill("Causar Terror", SkillType.MANASTEALD20, 4, 14, 'str','assets/music/corte.mp3')]
             common_inventory = Inventory(0)
 
             enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
@@ -690,7 +718,11 @@ class MapBEvents:
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
 
-
+            theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+            theme_music_sfx_volume = (config.volume - 25) / 100
+            theme_music_sfx.set_volume(theme_music_sfx_volume)
+            theme_music_sfx.play()
+            
             return EventResponse(
                 activity_zone_buttons = [13],
                 disable_zone_buttons = [12]
@@ -913,9 +945,9 @@ class MapBEvents:
 
             decision = self.event_handler.run(self.allies, message, decision1, decision2)
 
-            skills_Voslok_Cha = [Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 0, 'str'), Skill("Voltar as Sombras Menor", SkillType.MANAREGEND20, 1, 5, 'str'), Skill("Cura Sombria Menor", SkillType.HEALD20, 0, 5, 'str')]
-            skills_Voslok = [Skill("Orbe Negro", SkillType.DIRECTD6, 8, 0, 'str'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 10, 'str'), Skill("Fogo Negro", SkillType.AREAD12, 6, 15, 'str')]
-            skills_Voslok_Str = [Skill("Ataque Sombrio Menor", SkillType.DIRECTD6, 0, 0, 'str'), Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 8, 'str'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 15, 'str')]
+            skills_Voslok_Cha = [Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 0, 'str','assets/music/corte.mp3'), Skill("Voltar as Sombras Menor", SkillType.MANAREGEND20, 1, 5, 'str','assets/music/corte.mp3'), Skill("Cura Sombria Menor", SkillType.HEALD20, 0, 5, 'str','assets/music/corte.mp3')]
+            skills_Voslok = [Skill("Orbe Negro", SkillType.DIRECTD6, 8, 0, 'str','assets/music/corte.mp3'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 10, 'str','assets/music/corte.mp3'), Skill("Fogo Negro", SkillType.AREAD12, 6, 15, 'str','assets/music/corte.mp3')]
+            skills_Voslok_Str = [Skill("Ataque Sombrio Menor", SkillType.DIRECTD6, 0, 0, 'str','assets/music/corte.mp3'), Skill("Ataque Sombrio", SkillType.DIRECTD6, 2, 8, 'str','assets/music/corte.mp3'), Skill("Ataque Sombrio Maior", SkillType.DIRECTD20, 7, 15, 'str','assets/music/corte.mp3')]
             
             common_inventory = Inventory(0)
 
@@ -925,6 +957,11 @@ class MapBEvents:
             
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
             battleResponse = arena.run()
+
+        theme_music_sfx= pygame.mixer.Sound('assets/music/map_B_sound.mp3')
+        theme_music_sfx_volume = (config.volume - 25) / 100
+        theme_music_sfx.set_volume(theme_music_sfx_volume)
+        theme_music_sfx.play(loops=10)
 
         return EventResponse(
             activity_zone_buttons = [],

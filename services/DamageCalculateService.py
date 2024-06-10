@@ -1,5 +1,8 @@
 from utils.enums.SkillType import SkillType
+import utils.Config as config
 from utils.DiceRow import DiceRow
+import pygame
+
 
 class DamageCalculateService():
     def AttackDamage(self, attack_index, chosen_striker, chosen_defender, team_striker, team_defender, equipment = None):
@@ -135,6 +138,13 @@ class DamageCalculateService():
                 striker.hp = 0
             if striker.mp < 0:
                 striker.mp = 0
+
+        song= pygame.mixer.Sound(skill.sfx)
+        song_volume = (config.volume - 15) / 100
+        if song_volume <= 0:
+            song_volume = 0.10
+        song.set_volume(song_volume)
+        song.play()
 
         return prompt_text
 

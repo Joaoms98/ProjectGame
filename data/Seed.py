@@ -9,38 +9,38 @@ class Seed:
 
         #Skills
         skills_warrior = [
-            Skill("Cortar", SkillType.DIRECTD6, 2, 0, 'str'),
-            Skill("Estocada Profunda", SkillType.DIRECTD12, 3, 5, 'str'), 
-            Skill("Grito de Guerra", SkillType.MANASTEALD20, 3, 10, 'str')
+            Skill("Cortar", SkillType.DIRECTD6, 2, 0, 'str', 'assets/music/sword.mp3'),
+            Skill("Estocada Profunda", SkillType.DIRECTD12, 3, 5, 'str', 'assets/music/estocada_profunda.mp3'), 
+            Skill("Grito de Guerra", SkillType.MANASTEALD20, 3, 10, 'str', 'assets/music/grito_de_guerra.mp3')
         ]
         skills_archer = [
-            Skill("Disparo Rápido", SkillType.DIRECTD6, 3, 0, 'str'),
-            Skill("Chuva de Flechas", SkillType.AREAD6, 3, 5, 'str'), 
-            Skill("Flecha no Joelho", SkillType.DIRECTD20, 5, 15, 'str')
+            Skill("Disparo Rápido", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/arrow_impact.mp3'),
+            Skill("Chuva de Flechas", SkillType.AREAD6, 3, 5, 'str', 'assets/music/arrow_rain.mp3'), 
+            Skill("Flecha no Joelho", SkillType.DIRECTD20, 5, 15, 'str', 'assets/music/arrow_body_impact.mp3')
         ]
 
         skills_wizard = [
-            Skill("Chicote de Fogo", SkillType.DIRECTD12, 1, 0, 'str'), 
-            Skill("Bola de Fogo", SkillType.AREAD6, 6, 5, 'str'), 
-            Skill("Meteóro", SkillType.AREAD20, 10, 20, 'str')
+            Skill("Chicote de Fogo", SkillType.DIRECTD12, 1, 0, 'str', 'assets/music/fireball.mp3'), 
+            Skill("Bola de Fogo", SkillType.AREAD6, 6, 5, 'str', 'assets/music/fireball.mp3'), 
+            Skill("Meteóro", SkillType.AREAD20, 10, 20, 'str', 'assets/music/meteoro.mp3')
         ]
 
         skills_priest = [
-            Skill("Toque de Luz", SkillType.DIRECTD12, 1, 0, 'str'), 
-            Skill("Regeneração", SkillType.HEALD6, 1, 5, 'str'), 
-            Skill("Surto de Vida", SkillType.HEALD12, 8, 15, 'str')
+            Skill("Toque de Luz", SkillType.DIRECTD12, 1, 0, 'str', 'assets/music/julgamento_toque_de_luz.mp3'), 
+            Skill("Regeneração", SkillType.HEALD6, 1, 5, 'str', 'assets/music/healing.mp3'), 
+            Skill("Surto de Vida", SkillType.HEALD12, 8, 15, 'str', 'assets/music/healing.mp3')
         ]
 
         skills_paladin = [
-            Skill("Golpe Sagrado", SkillType.DIRECTD6, 2, 0, 'str'), 
-            Skill("Julgamento", SkillType.DIRECTD12, 3, 5, 'str'), 
-            Skill("Inspiração", SkillType.MANAREGEND12, 0, 15, 'str'),
+            Skill("Golpe Sagrado", SkillType.DIRECTD6, 2, 0, 'str', 'assets/music/corte.mp3'), 
+            Skill("Julgamento", SkillType.DIRECTD12, 3, 5, 'str', 'assets/music/julgamento_toque_de_luz.mp3'), 
+            Skill("Inspiração", SkillType.MANAREGEND12, 0, 15, 'str', 'assets/music/healing.mp3'),
         ]
 
         skills_mercenary = [
-            Skill("Corte Curto", SkillType.DIRECTD6, 3, 0, 'str'), 
-            Skill("Golpe Baixo", SkillType.DIRECTD6, 5, 5, 'str'),            
-            Skill("Bomba de Veneno", SkillType.AREAD6, 2, 8, 'str')
+            Skill("Corte Curto", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/sword.mp3'), 
+            Skill("Golpe Baixo", SkillType.DIRECTD6, 5, 5, 'str', 'assets/music/corte.mp3'),            
+            Skill("Bomba de Veneno", SkillType.AREAD6, 2, 8, 'str', 'assets/music/corte.mp3')
         ]
 
         warrior_inventory = Inventory(1)
