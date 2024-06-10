@@ -46,7 +46,8 @@ class MapAEvents:
                 message= f"Resultado({dexterity_total}) - Teste(15): "\
                         "Com sua boa pontaria você arremessa o gancho e com cuidado começa a puxar,"\
                         " fazendo com que o item caia na água, mas esteja bem preso ao seu gancho. Ao se aproximar,"\
-                        "você identifica que se trata de um cristal de mana, sendo útil para aventureiros como você."
+                        "você identifica que se trata de um cristal de mana, sendo útil para aventureiros como você."\
+                        "(Todos ganham +10 de mana)"
 
                 decision1="Sair"
                 decision2=None
@@ -81,7 +82,8 @@ class MapAEvents:
             for allie in self.allies:
                     allie.mp = allie.mp - 10
 
-            message = "Decidindo vasculhar você percebe que seu tempo foi em vão e que às vezes a ganância por algo pode ser uma perca de tempo."
+            message = "Decidindo vasculhar você percebe que seu tempo foi em vão e que às vezes a ganância por algo pode ser uma perca de tempo."\
+            "(Todos perdem -10 de mana)"
             
             decision1="Sair"
             decision2=None
@@ -93,7 +95,8 @@ class MapAEvents:
                     allie.mp = allie.mp + 5
 
             message = "Sabendo que não há nada útil ali você decide seguir seu caminho e"\
-                " sabe que a ganância por algo pode ser uma perca de tempo."
+                " sabe que a ganância por algo pode ser uma perca de tempo."\
+                "(Todos ganham +5 de mana)"
 
             decision1="Sair"
             decision2=None
@@ -191,7 +194,8 @@ class MapAEvents:
             message= f"Resultado({faith_total}) - Teste(15): "\
                 "Você não conhece esse deus, então decide abrir os sarcófagos para encontrar algo útil. No momento "\
                 " que abre uma fresta o sarcófago é destruido, arremessando seus pedaços em todas direções. Você "\
-                " descobre da pior forma que aquele deus era fortemente ligado a esse sarcófago."
+                " descobre da pior forma que aquele deus era fortemente ligado a esse sarcófago."\
+                "(Todos perdem -10 de vida)"
 
 
             decision1="Sair"
@@ -372,7 +376,8 @@ class MapAEvents:
                 message= f"Resultado({charisma_total}) - Teste(10): "\
                 "Após um salto repentino, você afunda e a única luz acima de você some, deixando apenas a escuridão. " \
                 "Sem se desesperar você nota que a sensação de olhar surge, mas dessa vez trazendo paz para sua mente. "\
-                "A luz ressurge e ao sair você nota que todas as estátuas estão sorrindo"
+                "A luz ressurge e ao sair você nota que todas as estátuas estão sorrindo"\
+                "(Todos ganham +20 vida e +15 de mana)"
             
                 decision1="Sair"
                 decision2=None
@@ -391,7 +396,8 @@ class MapAEvents:
                 message= f"Resultado({charisma_total}) - Teste(10): "\
                 "Após um salto repentino você afunda e a única luz acima de você some deixando apenas a escuridão. "\
                 "Com desespero, você teme por sua vida e a sensação de presença, algo o expulsa da água. "\
-                "Após ser arremessado você percebe a feição das estátuas, estão tristes."
+                "Após ser arremessado você percebe a feição das estátuas, estão tristes."\
+                "(Todos ganham -20 vida e -15 de mana)"
 
                 decision1="Sair"
                 decision2=None
@@ -444,7 +450,8 @@ class MapAEvents:
             message= f"Resultado({dexterity_total}) - Teste(18): "\
                 "A madeira quebra fazendo-o cair. Com rapidez você se apoia, com força, na corda garantindo sua"\
                 " sobrevivência. Entretanto o dano nas mãos gerou um leve sangramento. Mas, graças a sua agilidade, você"\
-                " volta a ficar firme e segue com seus passos cuidadosos."
+                " volta a ficar firme e segue com seus passos cuidadosos."\
+                "(Todos perdem -10 de vida)"
 
             decision1="Sair"
             decision2=None

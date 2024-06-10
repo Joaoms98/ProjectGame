@@ -416,7 +416,7 @@ class MapBEvents:
 
         if strength_total >= 18:
 
-            message= f"Resultado({strength_total}) - Teste(15):  "\
+            message= f"Resultado({strength_total}) - Teste(18):  "\
                     "Com uma boa pancada na estrutura você consegue derrubar a pilha de móveis "\
                     "improvisados para impedir o caminho, percebendo que qualquer monstro desse "\
                     "local poderia fazer o mesmo."
@@ -431,7 +431,7 @@ class MapBEvents:
                 disable_zone_buttons = [7]
             )
 
-        message=f"Resultado({strength_total}) - Teste(15): "\
+        message=f"Resultado({strength_total}) - Teste(18): "\
                 "Mesmo com sua força os móveis e tábuas improvisadas ainda permanecem em pé, "\
                 "você acaba se cansando e decide que é melhor encontrar outro caminho."
         
@@ -442,7 +442,7 @@ class MapBEvents:
 
         return EventResponse(
                 activity_zone_buttons = [],
-                disable_zone_buttons = []
+                disable_zone_buttons = [7]
             )
 
     # 9 - Inscrições na parede
