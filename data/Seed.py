@@ -14,13 +14,13 @@ class Seed:
             Skill("Grito de Guerra", SkillType.MANASTEALD20, 3, 10, 'str', 'assets/music/grito_de_guerra.mp3')
         ]
         skills_archer = [
-            Skill("Disparo Rápido", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/arrow_impact.mp3'),
+            Skill("Disparo Rápido", SkillType.DIRECTD6, 4, 0, 'str', 'assets/music/arrow_impact.mp3'),
             Skill("Chuva de Flechas", SkillType.AREAD6, 3, 5, 'str', 'assets/music/arrow_rain.mp3'), 
-            Skill("Flecha no Joelho", SkillType.DIRECTD20, 5, 15, 'str', 'assets/music/arrow_body_impact.mp3')
+            Skill("Flecha no Joelho", SkillType.DIRECTD20, 6, 15, 'str', 'assets/music/arrow_body_impact.mp3')
         ]
 
         skills_wizard = [
-            Skill("Chicote de Fogo", SkillType.DIRECTD12, 1, 0, 'str', 'assets/music/fireball.mp3'), 
+            Skill("Chicote de Fogo", SkillType.DIRECTD12, 3, 0, 'str', 'assets/music/fireball.mp3'), 
             Skill("Bola de Fogo", SkillType.AREAD6, 6, 5, 'str', 'assets/music/fireball.mp3'), 
             Skill("Meteóro", SkillType.AREAD20, 10, 20, 'str', 'assets/music/meteoro.mp3')
         ]
@@ -32,8 +32,8 @@ class Seed:
         ]
 
         skills_paladin = [
-            Skill("Golpe Sagrado", SkillType.DIRECTD6, 2, 0, 'str', 'assets/music/corte.mp3'), 
-            Skill("Julgamento", SkillType.DIRECTD12, 3, 5, 'str', 'assets/music/julgamento_toque_de_luz.mp3'), 
+            Skill("Golpe Sagrado", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/corte.mp3'), 
+            Skill("Julgamento", SkillType.DIRECTD12, 4, 5, 'str', 'assets/music/julgamento_toque_de_luz.mp3'), 
             Skill("Inspiração", SkillType.MANAREGEND12, 0, 15, 'str', 'assets/music/healing.mp3'),
         ]
 

@@ -295,11 +295,6 @@ class Arena:
                     back_to_event = True,
                 )
 
-        if all(enemy.hp <= 0 for enemy in self.enemies):
-            return BattleResponse(
-                    back_to_event = True,
-                )
-
         return BattleResponse(
                     back_to_event = False,
                 )
