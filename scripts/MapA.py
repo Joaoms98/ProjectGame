@@ -36,7 +36,7 @@ class MapA:
 
         #zone button variables
         zone_buttons = self.createFogButtons()
-        activity_zone_buttons = [0, 1, 2, 11]
+        activity_zone_buttons = [0, 1, 2]
         disable_zone_buttons = []
 
         #quit button variables
