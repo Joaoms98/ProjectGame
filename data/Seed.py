@@ -14,13 +14,13 @@ class Seed:
             Skill("Grito de Guerra", SkillType.MANASTEALD20, 3, 10, 'str')
         ]
         skills_archer = [
-            Skill("Disparo Rápido", SkillType.DIRECTD6, 3, 0, 'str'),
+            Skill("Disparo Rápido", SkillType.DIRECTD6, 4, 0, 'str'),
             Skill("Chuva de Flechas", SkillType.AREAD6, 3, 5, 'str'), 
-            Skill("Flecha no Joelho", SkillType.DIRECTD20, 5, 15, 'str')
+            Skill("Flecha no Joelho", SkillType.DIRECTD20, 6, 15, 'str')
         ]
 
         skills_wizard = [
-            Skill("Chicote de Fogo", SkillType.DIRECTD12, 1, 0, 'str'), 
+            Skill("Chicote de Fogo", SkillType.DIRECTD12, 3, 0, 'str'), 
             Skill("Bola de Fogo", SkillType.AREAD6, 6, 5, 'str'), 
             Skill("Meteóro", SkillType.AREAD20, 10, 20, 'str')
         ]
@@ -32,8 +32,8 @@ class Seed:
         ]
 
         skills_paladin = [
-            Skill("Golpe Sagrado", SkillType.DIRECTD6, 2, 0, 'str'), 
-            Skill("Julgamento", SkillType.DIRECTD12, 3, 5, 'str'), 
+            Skill("Golpe Sagrado", SkillType.DIRECTD6, 3, 0, 'str'), 
+            Skill("Julgamento", SkillType.DIRECTD12, 4, 5, 'str'), 
             Skill("Inspiração", SkillType.MANAREGEND12, 0, 15, 'str'),
         ]
 

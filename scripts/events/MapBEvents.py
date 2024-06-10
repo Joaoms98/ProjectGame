@@ -634,7 +634,7 @@ class MapBEvents:
             common_inventory = Inventory(0)
 
             enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
-            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
+            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,3,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
             enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
@@ -684,7 +684,7 @@ class MapBEvents:
             common_inventory = Inventory(0)
 
             enemy1 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
-            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,5,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
+            enemy2 = Character("Demônio Maior",'assets/portraits/Enemies/Demons/DemonFAI(Alive).png','assets/portraits/Enemies/Demons/DemonFAI(Alive).png', 'assets/portraits/Enemies/Demons/DemonFAI(Dead).png', 55,60,3,0,0,0,0,0, skills_demon_Fai, 10, False, common_inventory)
             enemy3 = Character("Demônio Menor ",'assets/portraits/Enemies/Demons/DemonCHA(Alive).png','assets/portraits/Enemies/Demons/DemonCHA(Alive).png', 'assets/portraits/Enemies/Demons/DemonCHA(Dead).png', 45,30,2,0,0,0,0,0, skills_demon_Cha, 10, False, common_inventory)
 
             arena = Arena(self.screen, self.screen_rect, self.fps, self.resolution, self.allies, (enemy1, enemy2, enemy3), self.equipment)
