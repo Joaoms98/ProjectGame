@@ -139,7 +139,8 @@ class MapA:
                     if zone_buttons[11].checkForInput(mouse_position) and 11 not in disable_zone_buttons and 11 in activity_zone_buttons:
                         event_response = events.zone12()
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
-                        disable_zone_buttons.extend(event_response.disable_zone_buttons)    
+                        disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                        pygame.mixer.stop()    
                         next_map = False
 
 

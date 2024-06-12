@@ -157,7 +157,9 @@ class MapB:
                         event_response = events.zone16()
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                        pygame.mixer.stop()
                         next_map = False
+
                     
 
             # update
