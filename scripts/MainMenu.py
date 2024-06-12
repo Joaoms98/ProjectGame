@@ -24,7 +24,7 @@ class MainMenu:
 
         #load background
         main_menu_background = pygame.transform.scale(
-            pygame.image.load('assets/background/background_nuvens.jpg').convert(),
+            pygame.image.load('assets/background/background_main_menu1.jpg').convert(),
             self.resolution
         )
         play_screen_background = pygame.transform.scale(
@@ -36,7 +36,7 @@ class MainMenu:
             (500,400)
         )
         how_to_play_screen_background = pygame.transform.scale(
-            pygame.image.load('assets/background/black_image.jpg').convert(),
+            pygame.image.load('assets/background/how_to_play_image.jpg').convert(),
             (500,400)
         )
         
@@ -211,8 +211,8 @@ class MainMenu:
         
         buttonsAppearance = self.buttonsAppearance()
 
-        next_info_button =  Button(buttonsAppearance[0], (760,470), lang['Next'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
-        previous_info_button = Button(buttonsAppearance[0], (440,470), lang['Previous'], buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        next_info_button =  Button(None, (0,0), "", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
+        previous_info_button = Button(None, (0,0), "", buttonsAppearance[1], buttonsAppearance[2], buttonsAppearance[3])
 
         return [next_info_button, previous_info_button]
     

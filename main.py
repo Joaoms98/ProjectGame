@@ -3,6 +3,7 @@ import utils.Config as config
 from data.Seed import Seed
 from scripts.MapA import MapA
 from scripts.MapB import MapB
+from scripts.MapC import MapC
 from scripts.MainMenu import MainMenu
 from scripts.CharacterSelect import CharacterSelect
 
@@ -15,7 +16,7 @@ while True:
     screen_rect = screen.get_rect()
 
     # set screen name
-    pygame.display.set_caption('game')
+    pygame.display.set_caption('The Return of Fhajar')
 
     #seeds
     seed = Seed()
@@ -32,3 +33,6 @@ while True:
 
     mapB = MapB(screen, screen_rect, config.fps, config.resolution, team_selected, data_seed['equipments'])
     mapB.run()
+
+    mapC = MapC(screen, screen_rect, config.fps, config.resolution, team_selected, data_seed['equipments'])
+    mapC.run()

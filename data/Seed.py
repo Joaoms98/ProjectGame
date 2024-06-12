@@ -39,8 +39,8 @@ class Seed:
 
         skills_mercenary = [
             Skill("Corte Curto", SkillType.DIRECTD6, 3, 0, 'str', 'assets/music/sword.mp3'), 
-            Skill("Golpe Baixo", SkillType.DIRECTD6, 5, 5, 'str', 'assets/music/corte.mp3'),            
-            Skill("Bomba de Veneno", SkillType.AREAD6, 2, 8, 'str', 'assets/music/meteoro.mp3')
+            Skill("Golpe Baixo", SkillType.DIRECTD6, 5, 5, 'str', 'assets/music/estocada_profunda.mp3'),            
+            Skill("Bomba de Veneno", SkillType.AREAD6, 2, 8, 'str', 'assets/music/fireball.mp3')
         ]
 
         warrior_inventory = Inventory(1)

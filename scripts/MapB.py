@@ -37,7 +37,7 @@ class MapB:
 
         #zone button variables
         zone_buttons = self.createFogButtons()
-        activity_zone_buttons = [0, 1, 15]
+        activity_zone_buttons = [0, 1]
         disable_zone_buttons = []
 
         #quit button variables
@@ -46,7 +46,8 @@ class MapB:
         team_button_hover_color = "#ffffff"
         team_button = Button(None, (900,50), "Equipe", team_button_font, team_button_base_color, team_button_hover_color)
 
-        while True:
+        next_map = True
+        while next_map == True:
 
             # set frames
             self.clock.tick(self.fps)
@@ -156,6 +157,7 @@ class MapB:
                         event_response = events.zone16()
                         activity_zone_buttons.extend(event_response.activity_zone_buttons)
                         disable_zone_buttons.extend(event_response.disable_zone_buttons)
+                        next_map = False
                     
 
             # update
